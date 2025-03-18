@@ -6,6 +6,20 @@ session:
         duration: 10080
 
 spring:
+    mail:
+        host: smtp.gmail.com
+        port: 587
+        username: peretyatkodevelop@gmail.com
+        password: ptxvqkkfpnxboszk
+        properties:
+            mail:
+                debug: false
+                transport:
+                    protocol: smtp
+                smtp:
+                    auth: true
+                    starttls:
+                        enable: true
     datasource:
         url: jdbc:postgresql://localhost:5430/bank
         username: bank

@@ -1,0 +1,58 @@
+package ru.nsu.peretyatko.service;
+
+import freemarker.template.Configuration;
+import jakarta.mail.internet.MimeMessage;
+import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.stereotype.Service;
+import ru.nsu.peretyatko.config.type.MailType;
+import ru.nsu.peretyatko.model.User;
+
+import java.io.StringWriter;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Properties;
+
+@Service
+@RequiredArgsConstructor
+public class MailService {
+
+    private final Configuration configuration;
+
+    private final JavaMailSender mailSender;
+
+    public void sendEmail(User user, MailType mailType, Properties properties) {
+        switch (mailType) {
+            case REGISTER -> sendRegistrationEmail(user, properties);
+            case RESET_PASSWORD -> sendResetPasswordEmail(user, properties);
+            default -> {}
+        }
+    }
+
+    @SneakyThrows
+    private void sendRegistrationEmail(User user, Properties properties) {
+        MimeMessage mimeMessage = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, false, "UTF-8");
+        helper.setSubject("Thank you for your registration, " + user.getName());
+        helper.setTo(user.getEmail());
+        String emailContent = getRegistrationEmailContent(user);
+        helper.setText(emailContent, true);
+        mailSender.send(mimeMessage);
+    }
+
+    @SneakyThrows
+    private String getRegistrationEmailContent(User user) {
+        StringWriter stringWriter = new StringWriter();
+        Map<String, Object> model = new HashMap<>();
+        model.put("name", user.getName());
+        configuration.getTemplate("register.ftlh").process(model, stringWriter);
+        return stringWriter.getBuffer().toString();
+    }
+
+    @SneakyThrows
+    private void sendResetPasswordEmail(User user, Properties properties) {
+
+    }
+}
