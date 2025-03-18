@@ -42,7 +42,7 @@ public class SessionService {
     @Transactional
     public SessionResponse createSession(SessionRequest sessionRequest) {
         User user = userService.findById(sessionRequest.getUserId());
-        if (passwordEncoder.matches(sessionRequest.getPassword(), user.getPassword())) {
+        if (!passwordEncoder.matches(sessionRequest.getPassword(), user.getPassword())) {
             throw new ServiceException(401, "Password is wrong.");
         }
         LocalDateTime now = LocalDateTime.now();
@@ -68,7 +68,10 @@ public class SessionService {
     protected Session findSessionById(UUID sessionId) {
         Session session = sessionRepository.findById(sessionId).orElseThrow(() -> new ServiceException(404, "Session wasn't found."));
         if (!session.isActive()) throw new ServiceException(408, "Session is not active.");
-        if (session.getExpirationTime().isBefore(LocalDateTime.now())) throw new ServiceException(408, "Session timeout has expired.");
+        if (session.getExpirationTime().isBefore(LocalDateTime.now())) {
+            closeSession(sessionId);
+            throw new ServiceException(408, "Session timeout has expired.");
+        }
         return session;
     }
 }

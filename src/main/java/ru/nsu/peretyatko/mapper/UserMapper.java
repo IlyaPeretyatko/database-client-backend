@@ -31,7 +31,9 @@ public class UserMapper {
 
     public UserGetResponse toUserGetResponse(User user) {
         UserGetResponse userGetResponse = new UserGetResponse();
+        userGetResponse.setId(user.getId());
         userGetResponse.setName(user.getName());
+        userGetResponse.setEmail(user.getEmail());
         return userGetResponse;
     }
 

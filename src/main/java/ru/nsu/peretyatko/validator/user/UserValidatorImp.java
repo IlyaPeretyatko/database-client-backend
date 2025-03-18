@@ -27,6 +27,8 @@ public class UserValidatorImp extends DefaultValidator implements UserValidator 
         if (target instanceof UserPostRequest userPostRequest) {
             if (userService.existsByEmail(userPostRequest.getEmail())) {
                 throw new ValidationException("User with this email already exists", List.of("email"));
+            } else if (userService.existsByName(userPostRequest.getName())) {
+                throw new ValidationException("User with this name already exists", List.of("name"));
             }
         }
     }

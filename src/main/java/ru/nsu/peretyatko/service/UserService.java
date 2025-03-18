@@ -53,5 +53,10 @@ public class UserService {
         return userRepository.existsByEmail(email);
     }
 
+    @Transactional(readOnly = true)
+    public boolean existsByName(String email) {
+        return userRepository.existsByName(email);
+    }
+
 
 }
