@@ -20,6 +20,7 @@ public class UserMapper {
         user.setPassword(passwordEncoder.encode(userPostRequest.getPassword()));
         user.setName(userPostRequest.getName());
         user.setEmail(userPostRequest.getEmail());
+        user.setEmailConfirmed(false);
         return user;
     }
 

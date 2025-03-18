@@ -24,6 +24,9 @@ public class User {
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
+    @Column(name = "email_confirmed", nullable = false)
+    private boolean emailConfirmed;
+
     @Column(name = "password", nullable = false)
     private String password;
 

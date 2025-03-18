@@ -7,10 +7,10 @@ session:
 
 spring:
     mail:
-        host: smtp.gmail.com
-        port: 587
-        username: peretyatkodevelop@gmail.com
-        password: ptxvqkkfpnxboszk
+        host: ${SPRING_MAIL_HOST}
+        port: ${SPRING_MAIL_PORT}
+        username: ${SPRING_MAIL_USERNAME}
+        password: ${SPRING_MAIL_PASSWORD}
         properties:
             mail:
                 debug: false
