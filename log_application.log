@@ -1,0 +1,10 @@
+мар. 18, 2025 7:01:34 PM org.apache.coyote.AbstractProtocol init
+INFO: Initializing ProtocolHandler ["http-nio-8080"]
+мар. 18, 2025 7:01:34 PM org.apache.catalina.core.StandardService startInternal
+INFO: Starting service [Tomcat]
+мар. 18, 2025 7:01:34 PM org.apache.catalina.core.StandardEngine startInternal
+INFO: Starting Servlet engine: [Apache Tomcat/10.1.36]
+мар. 18, 2025 7:01:34 PM org.apache.catalina.core.ApplicationContext log
+INFO: Initializing Spring embedded WebApplicationContext
+мар. 18, 2025 7:01:36 PM org.apache.coyote.AbstractProtocol start
+INFO: Starting ProtocolHandler ["http-nio-8080"]
