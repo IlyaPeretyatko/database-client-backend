@@ -8,7 +8,6 @@ import ru.nsu.peretyatko.service.UserService;
 import ru.nsu.peretyatko.validator.user.UserValidator;
 
 import jakarta.validation.Valid;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/users")
@@ -18,12 +17,6 @@ public class UserController {
     private final UserService userService;
 
     private final UserValidator userValidator;
-
-    @GetMapping("/{id}")
-    public UserGetResponse getUserById(@PathVariable long id,
-                               @RequestHeader("Authorization") UUID sessionId) {
-        return userService.getUserById(id, sessionId);
-    }
 
     @GetMapping("/verify")
     public String verifyEmail(@RequestParam String token) {

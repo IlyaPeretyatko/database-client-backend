@@ -6,11 +6,3 @@ CREATE TABLE IF NOT EXISTS users (
     verification_code VARCHAR,
     password VARCHAR NOT NULL
 );
-
-CREATE TABLE IF NOT EXISTS sessions (
-    id UUID PRIMARY KEY,
-    user_id BIGINT REFERENCES users ON DELETE CASCADE,
-    created_at TIMESTAMP WITH TIME ZONE NOT NULL,
-    expiration_time TIMESTAMP WITH TIME ZONE NOT NULL,
-    active BOOLEAN NOT NULL
-);
