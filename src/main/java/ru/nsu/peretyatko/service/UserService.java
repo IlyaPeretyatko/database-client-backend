@@ -38,7 +38,7 @@ public class UserService {
     public UserPostResponse createUser(UserPostRequest userPostRequest) {
         User user = userMapper.toUser(userPostRequest);
         User createdUser = userRepository.save(user);
-        mailService.sendEmail(user, MailType.REGISTER, new Properties());
+        mailService.sendEmail(user, MailType.REGISTER);
         return userMapper.toUserPostResponse(createdUser);
     }
 
@@ -64,5 +64,16 @@ public class UserService {
         return userRepository.existsByName(email);
     }
 
+    @Transactional
+    public boolean verifyEmail(String token) {
+        User user = userRepository.findByVerificationCode(token);
+        if (user != null) {
+            user.setEmailConfirmed(true);
+            user.setVerificationCode(null);
+            userRepository.save(user);
+            return true;
+        }
+        return false;
+    }
 
 }

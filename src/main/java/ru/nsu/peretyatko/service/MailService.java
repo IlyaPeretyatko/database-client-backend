@@ -23,16 +23,16 @@ public class MailService {
 
     private final JavaMailSender mailSender;
 
-    public void sendEmail(User user, MailType mailType, Properties properties) {
+    public void sendEmail(User user, MailType mailType) {
         switch (mailType) {
-            case REGISTER -> sendRegistrationEmail(user, properties);
-            case RESET_PASSWORD -> sendResetPasswordEmail(user, properties);
+            case REGISTER -> sendRegistrationEmail(user);
+            case RESET_PASSWORD -> sendResetPasswordEmail(user);
             default -> {}
         }
     }
 
     @SneakyThrows
-    private void sendRegistrationEmail(User user, Properties properties) {
+    private void sendRegistrationEmail(User user) {
         MimeMessage mimeMessage = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, false, "UTF-8");
         helper.setSubject("Thank you for your registration, " + user.getName());
@@ -47,12 +47,14 @@ public class MailService {
         StringWriter stringWriter = new StringWriter();
         Map<String, Object> model = new HashMap<>();
         model.put("name", user.getName());
+        model.put("domain", "localhost:8080");
+        model.put("token", user.getVerificationCode().toString());
         configuration.getTemplate("register.ftlh").process(model, stringWriter);
         return stringWriter.getBuffer().toString();
     }
 
     @SneakyThrows
-    private void sendResetPasswordEmail(User user, Properties properties) {
+    private void sendResetPasswordEmail(User user) {
 
     }
 }

@@ -25,6 +25,15 @@ public class UserController {
         return userService.getUserById(id, sessionId);
     }
 
+    @GetMapping("/verify")
+    public String verifyEmail(@RequestParam String token) {
+        boolean isVerified = userService.verifyEmail(token);
+        if (isVerified) {
+            return "Email verification successful!";
+        }
+        return "Invalid verification token.";
+    }
+
     @PostMapping
     public UserPostResponse createUser(@Valid @RequestBody UserPostRequest userPostRequest,
                               BindingResult bindingResult) {
@@ -32,6 +41,6 @@ public class UserController {
         return userService.createUser(userPostRequest);
     }
 
-
+    
 
 }

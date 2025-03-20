@@ -24,6 +24,7 @@ public class SessionController {
         return sessionService.getSessionById(sessionId);
     }
 
+
     @PostMapping
     public SessionResponse createSession(@Valid @RequestBody SessionRequest sessionRequest,
                                          BindingResult bindingResult) {

@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.util.List;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -26,6 +27,9 @@ public class User {
 
     @Column(name = "email_confirmed", nullable = false)
     private boolean emailConfirmed;
+
+    @Column(name = "verification_code", nullable = false)
+    private String verificationCode;
 
     @Column(name = "password", nullable = false)
     private String password;

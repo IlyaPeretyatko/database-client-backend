@@ -8,6 +8,8 @@ import ru.nsu.peretyatko.dto.user.UserPostRequest;
 import ru.nsu.peretyatko.dto.user.UserPostResponse;
 import ru.nsu.peretyatko.model.User;
 
+import java.util.UUID;
+
 
 @Component
 @RequiredArgsConstructor
@@ -21,6 +23,7 @@ public class UserMapper {
         user.setName(userPostRequest.getName());
         user.setEmail(userPostRequest.getEmail());
         user.setEmailConfirmed(false);
+        user.setVerificationCode(UUID.randomUUID().toString());
         return user;
     }
 
