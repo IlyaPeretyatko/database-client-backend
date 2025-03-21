@@ -1,11 +1,13 @@
 package ru.nsu.peretyatko.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.nsu.peretyatko.config.type.MailType;
+import ru.nsu.peretyatko.error.exception.ServiceException;
 import ru.nsu.peretyatko.mapper.UserMapper;
-import ru.nsu.peretyatko.model.User;
+import ru.nsu.peretyatko.model.user.User;
 import ru.nsu.peretyatko.repository.UserRepository;
 import ru.nsu.peretyatko.dto.user.*;
 
@@ -48,6 +50,16 @@ public class UserService {
     @Transactional(readOnly = true)
     public boolean existsByName(String email) {
         return userRepository.existsByName(email);
+    }
+
+    @Transactional(readOnly = true)
+    public User getUserByName(String name) {
+        return userRepository.findByName(name);
+    }
+
+    @Transactional(readOnly = true)
+    public User getUserById(long id) {
+        return userRepository.findById(id).orElseThrow(() -> new ServiceException(404, "User wasn't found."));
     }
 
 }

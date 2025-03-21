@@ -1,9 +1,11 @@
-package ru.nsu.peretyatko.model;
+package ru.nsu.peretyatko.model.user;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.Set;
 
 @Getter
 @Setter
@@ -31,6 +33,11 @@ public class User {
 
     @Column(name = "password", nullable = false)
     private String password;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "users_roles")
+    @Enumerated(value = EnumType.STRING)
+    private Set<Role> roles;
 
 
 }
