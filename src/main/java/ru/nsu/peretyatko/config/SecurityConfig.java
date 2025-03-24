@@ -73,13 +73,14 @@ public class SecurityConfig {
                                                     .write("Unauthorized.");
                                         }))
                 .authorizeHttpRequests(configurer ->
-                        configurer.requestMatchers("/api/auth/**")
+                        configurer.requestMatchers("/api/users/**")
+                                .permitAll()
+                                .requestMatchers("/api/auth/**")
                                 .permitAll()
                                 .anyRequest().authenticated())
                 .anonymous(AbstractHttpConfigurer::disable)
                 .addFilterBefore(new JwtTokenFilter(jwtTokenProvider),
                         UsernamePasswordAuthenticationFilter.class);
-
         return httpSecurity.build();
     }
 

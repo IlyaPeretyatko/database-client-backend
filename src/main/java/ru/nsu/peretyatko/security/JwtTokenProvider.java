@@ -80,7 +80,7 @@ public class JwtTokenProvider {
         if (!isValid(refreshToken)) {
             throw new ServiceException(HttpStatus.FORBIDDEN.value(), "Access denied.");
         }
-        long id = Long.valueOf(getId(refreshToken));
+        long id = getId(refreshToken);
         User user = userService.getUserById(id);
         jwtResponse.setId(id);
         jwtResponse.setUsername(user.getName());
@@ -104,14 +104,14 @@ public class JwtTokenProvider {
                 .after(new Date());
     }
 
-    private String getId(String token) {
+    private Long getId(String token) {
         return Jwts
                 .parser()
                 .verifyWith(key)
                 .build()
                 .parseSignedClaims(token)
                 .getPayload()
-                .get("id", String.class);
+                .get("id", Long.class);
     }
 
     public Authentication getAuthentication(String token) {
