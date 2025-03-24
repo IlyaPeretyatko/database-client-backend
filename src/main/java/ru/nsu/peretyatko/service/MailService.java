@@ -54,6 +54,23 @@ public class MailService {
 
     @SneakyThrows
     private void sendResetPasswordEmail(User user) {
+        MimeMessage mimeMessage = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, false, "UTF-8");
+        helper.setSubject("Request to Reset Your Password");
+        helper.setTo(user.getEmail());
+        String emailContent = getResetPasswordEmailContent(user);
+        helper.setText(emailContent, true);
+        mailSender.send(mimeMessage);
+    }
 
+    @SneakyThrows
+    private String getResetPasswordEmailContent(User user) {
+        StringWriter stringWriter = new StringWriter();
+        Map<String, Object> model = new HashMap<>();
+        model.put("name", user.getName());
+        model.put("domain", "localhost:8080");
+        model.put("token", user.getVerificationCode().toString());
+        configuration.getTemplate("reset.ftlh").process(model, stringWriter);
+        return stringWriter.getBuffer().toString();
     }
 }

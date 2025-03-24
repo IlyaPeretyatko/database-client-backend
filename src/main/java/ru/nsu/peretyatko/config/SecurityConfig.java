@@ -2,7 +2,6 @@ package ru.nsu.peretyatko.config;
 
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
@@ -27,8 +26,6 @@ import ru.nsu.peretyatko.security.JwtTokenFilter;
 public class SecurityConfig {
 
     private final JwtTokenProvider jwtTokenProvider;
-
-    private ApplicationContext applicationContext;
 
     @Bean
     public PasswordEncoder passwordEncoder() {

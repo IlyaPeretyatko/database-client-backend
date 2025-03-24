@@ -34,6 +34,19 @@ public class UserController {
         return userService.createUser(userPostRequest);
     }
 
+    @GetMapping("/request-reset-password")
+    public void requestResetPassword(@RequestParam String email) {
+        userService.requestResetPassword(email);
+    }
+
+    @PatchMapping("/reset-password")
+    public void resetPasswordForm(@RequestParam String token,
+                                  @RequestBody UserPatchRequest userPatchRequest,
+                                  BindingResult bindingResult) {
+        userValidator.validate(userPatchRequest, bindingResult);
+        userService.resetPassword(token, userPatchRequest);
+    }
+
     
 
 }

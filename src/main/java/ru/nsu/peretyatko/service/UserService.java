@@ -1,6 +1,9 @@
 package ru.nsu.peretyatko.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.nsu.peretyatko.config.type.MailType;
@@ -12,10 +15,10 @@ import ru.nsu.peretyatko.repository.UserRepository;
 import ru.nsu.peretyatko.dto.user.*;
 
 import java.util.Set;
+import java.util.UUID;
 
 
 @Service
-@RequiredArgsConstructor
 public class UserService {
 
     private final UserRepository userRepository;
@@ -23,6 +26,17 @@ public class UserService {
     private final MailService mailService;
 
     private final UserMapper userMapper;
+
+    private final PasswordEncoder passwordEncoder;
+
+    @Autowired
+    public UserService(UserRepository userRepository, @Lazy PasswordEncoder passwordEncoder, MailService mailService,
+                       UserMapper userMapper) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.mailService = mailService;
+        this.userMapper = userMapper;
+    }
 
     @Transactional
     public UserPostResponse createUser(UserPostRequest userPostRequest) {
@@ -44,6 +58,25 @@ public class UserService {
             return true;
         }
         return false;
+    }
+
+    @Transactional
+    public void requestResetPassword(String email) {
+        User user = userRepository.findByEmail(email).orElseThrow(() -> new ServiceException(404, "User wasn't found."));
+        if (!user.isEmailConfirmed()) throw new ServiceException(403, "Email not confirmed.");
+        user.setVerificationCode(UUID.randomUUID().toString());
+        userRepository.save(user);
+        mailService.sendEmail(user, MailType.RESET_PASSWORD);
+    }
+
+    @Transactional
+    public void resetPassword(String token, UserPatchRequest userPatchRequest) {
+        User user = userRepository.findByVerificationCode(token);
+        if (user != null) {
+            user.setVerificationCode(null);
+            user.setPassword(passwordEncoder.encode(userPatchRequest.getPassword()));
+            userRepository.save(user);
+        }
     }
 
     @Transactional(readOnly = true)
