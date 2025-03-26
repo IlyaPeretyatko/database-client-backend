@@ -1,4 +1,4 @@
-package ru.nsu.peretyatko.dto.user;
+package ru.nsu.peretyatko.dto.auth.user;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;

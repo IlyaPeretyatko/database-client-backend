@@ -1,13 +1,12 @@
-package ru.nsu.peretyatko.mapper;
+package ru.nsu.peretyatko.mapper.auth;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-import ru.nsu.peretyatko.dto.user.UserGetResponse;
-import ru.nsu.peretyatko.dto.user.UserPostRequest;
-import ru.nsu.peretyatko.dto.user.UserPostResponse;
-import ru.nsu.peretyatko.model.user.User;
+import ru.nsu.peretyatko.dto.auth.user.UserGetResponse;
+import ru.nsu.peretyatko.dto.auth.user.UserPostRequest;
+import ru.nsu.peretyatko.dto.auth.user.UserPostResponse;
+import ru.nsu.peretyatko.model.auth.User;
 
 import java.util.UUID;
 

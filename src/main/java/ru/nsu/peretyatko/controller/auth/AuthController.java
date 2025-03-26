@@ -1,4 +1,4 @@
-package ru.nsu.peretyatko.controller;
+package ru.nsu.peretyatko.controller.auth;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.nsu.peretyatko.dto.auth.JwtRequest;
 import ru.nsu.peretyatko.dto.auth.JwtResponse;
 import ru.nsu.peretyatko.dto.auth.RefreshRequest;
-import ru.nsu.peretyatko.service.UserService;
 import ru.nsu.peretyatko.service.AuthService;
 import ru.nsu.peretyatko.validator.auth.*;
 

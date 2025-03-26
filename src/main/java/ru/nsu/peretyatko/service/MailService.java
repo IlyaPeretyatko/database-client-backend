@@ -8,7 +8,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import ru.nsu.peretyatko.config.type.MailType;
-import ru.nsu.peretyatko.model.user.User;
+import ru.nsu.peretyatko.model.auth.User;
 
 import java.io.StringWriter;
 import java.util.HashMap;

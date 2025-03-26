@@ -2,8 +2,8 @@ package ru.nsu.peretyatko.security;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import ru.nsu.peretyatko.model.user.Role;
-import ru.nsu.peretyatko.model.user.User;
+import ru.nsu.peretyatko.model.auth.Role;
+import ru.nsu.peretyatko.model.auth.User;
 
 import java.util.ArrayList;
 import java.util.List;

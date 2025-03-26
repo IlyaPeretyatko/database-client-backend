@@ -9,12 +9,9 @@ import ru.nsu.peretyatko.dto.auth.JwtRequest;
 import ru.nsu.peretyatko.dto.auth.JwtResponse;
 import ru.nsu.peretyatko.dto.auth.RefreshRequest;
 import ru.nsu.peretyatko.error.exception.ServiceException;
-import ru.nsu.peretyatko.error.exception.ValidationException;
-import ru.nsu.peretyatko.model.user.User;
-import ru.nsu.peretyatko.repository.UserRepository;
+import ru.nsu.peretyatko.model.auth.User;
 import ru.nsu.peretyatko.security.JwtTokenProvider;
 
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -44,5 +41,9 @@ public class AuthService {
 
     public JwtResponse refresh(RefreshRequest refreshRequest) {
         return jwtTokenProvider.refreshUserTokens(refreshRequest.getRefreshToken());
+    }
+
+    public boolean isTokenValid(String token) {
+        return jwtTokenProvider.isValid(token);
     }
 }

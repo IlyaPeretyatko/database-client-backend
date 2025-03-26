@@ -1,7 +1,7 @@
 package ru.nsu.peretyatko.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import ru.nsu.peretyatko.model.user.User;
+import ru.nsu.peretyatko.model.auth.User;
 
 import java.util.Optional;
 

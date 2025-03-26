@@ -1,4 +1,4 @@
-package ru.nsu.peretyatko.model.user;
+package ru.nsu.peretyatko.model.auth;
 
 public enum Role {
     ROLE_USER,

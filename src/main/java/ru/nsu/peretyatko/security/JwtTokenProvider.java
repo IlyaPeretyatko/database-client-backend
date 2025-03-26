@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 import ru.nsu.peretyatko.config.properties.JwtProperties;
 import ru.nsu.peretyatko.dto.auth.JwtResponse;
 import ru.nsu.peretyatko.error.exception.ServiceException;
-import ru.nsu.peretyatko.model.user.*;
+import ru.nsu.peretyatko.model.auth.*;
 import ru.nsu.peretyatko.service.UserService;
 
 import javax.crypto.SecretKey;

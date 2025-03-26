@@ -1,9 +1,9 @@
-package ru.nsu.peretyatko.validator.user;
+package ru.nsu.peretyatko.validator.auth;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
-import ru.nsu.peretyatko.dto.user.UserPostRequest;
+import ru.nsu.peretyatko.dto.auth.user.UserPostRequest;
 import ru.nsu.peretyatko.error.exception.ValidationException;
 import ru.nsu.peretyatko.service.UserService;
 import ru.nsu.peretyatko.validator.DefaultValidator;

@@ -1,4 +1,4 @@
-package ru.nsu.peretyatko.dto.user;
+package ru.nsu.peretyatko.dto.auth.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

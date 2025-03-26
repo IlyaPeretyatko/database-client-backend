@@ -1,4 +1,4 @@
-package ru.nsu.peretyatko.model.user;
+package ru.nsu.peretyatko.model.auth;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

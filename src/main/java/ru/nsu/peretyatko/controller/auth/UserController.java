@@ -1,11 +1,14 @@
-package ru.nsu.peretyatko.controller;
+package ru.nsu.peretyatko.controller.auth;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import ru.nsu.peretyatko.dto.auth.user.UserPatchRequest;
+import ru.nsu.peretyatko.dto.auth.user.UserPostRequest;
+import ru.nsu.peretyatko.dto.auth.user.UserPostResponse;
 import ru.nsu.peretyatko.dto.user.*;
 import ru.nsu.peretyatko.service.UserService;
-import ru.nsu.peretyatko.validator.user.UserValidator;
+import ru.nsu.peretyatko.validator.auth.UserValidator;
 
 import jakarta.validation.Valid;
 
@@ -29,7 +32,7 @@ public class UserController {
 
     @PostMapping
     public UserPostResponse createUser(@Valid @RequestBody UserPostRequest userPostRequest,
-                              BindingResult bindingResult) {
+                                       BindingResult bindingResult) {
         userValidator.validate(userPostRequest, bindingResult);
         return userService.createUser(userPostRequest);
     }

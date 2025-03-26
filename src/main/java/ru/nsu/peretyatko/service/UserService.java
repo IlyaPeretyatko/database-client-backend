@@ -1,16 +1,18 @@
 package ru.nsu.peretyatko.service;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.nsu.peretyatko.config.type.MailType;
+import ru.nsu.peretyatko.dto.auth.user.UserPatchRequest;
+import ru.nsu.peretyatko.dto.auth.user.UserPostRequest;
+import ru.nsu.peretyatko.dto.auth.user.UserPostResponse;
 import ru.nsu.peretyatko.error.exception.ServiceException;
-import ru.nsu.peretyatko.mapper.UserMapper;
-import ru.nsu.peretyatko.model.user.Role;
-import ru.nsu.peretyatko.model.user.User;
+import ru.nsu.peretyatko.mapper.auth.UserMapper;
+import ru.nsu.peretyatko.model.auth.Role;
+import ru.nsu.peretyatko.model.auth.User;
 import ru.nsu.peretyatko.repository.UserRepository;
 import ru.nsu.peretyatko.dto.user.*;
 
