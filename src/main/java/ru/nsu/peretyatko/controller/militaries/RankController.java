@@ -2,7 +2,6 @@ package ru.nsu.peretyatko.controller.militaries;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.nsu.peretyatko.dto.militaries.RankRequest;
@@ -12,7 +11,7 @@ import ru.nsu.peretyatko.validator.militaries.RankValidator;
 
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("/api/military/rank")
 @RequiredArgsConstructor
 public class RankController {
@@ -39,5 +38,7 @@ public class RankController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteRank(@PathVariable int id) {}
+    public void deleteRank(@PathVariable int id) {
+        rankService.deleteRank(id);
+    }
 }
