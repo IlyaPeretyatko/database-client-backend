@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS militaries_properties
     military_id INTEGER NOT NULL REFERENCES militaries ON DELETE CASCADE,
     title       VARCHAR NOT NULL,
     rank_id     INTEGER NOT NULL REFERENCES ranks,
-    value       VARCHAR,
+    value       VARCHAR NOT NULL,
     UNIQUE (military_id, title, rank_id)
 );
 

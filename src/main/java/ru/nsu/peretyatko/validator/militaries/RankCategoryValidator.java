@@ -1,19 +1,18 @@
-package ru.nsu.peretyatko.validator.auth;
+package ru.nsu.peretyatko.validator.militaries;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
-import ru.nsu.peretyatko.dto.auth.JwtRequest;
+import org.springframework.validation.Validator;
+import ru.nsu.peretyatko.dto.militaries.RankCategoryRequest;
 import ru.nsu.peretyatko.validator.DefaultValidator;
-
 
 @Component
 @RequiredArgsConstructor
-public class AuthValidatorImp extends DefaultValidator implements AuthValidator {
-
+public class RankCategoryValidator extends DefaultValidator implements Validator {
     @Override
     public boolean supports(Class<?> clazz) {
-        return clazz.equals(JwtRequest.class);
+        return clazz.equals(RankCategoryRequest.class);
     }
 
     @Override

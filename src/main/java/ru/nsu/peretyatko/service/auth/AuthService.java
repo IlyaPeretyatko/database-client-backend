@@ -1,13 +1,13 @@
-package ru.nsu.peretyatko.service;
+package ru.nsu.peretyatko.service.auth;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import ru.nsu.peretyatko.dto.auth.JwtRequest;
-import ru.nsu.peretyatko.dto.auth.JwtResponse;
-import ru.nsu.peretyatko.dto.auth.RefreshRequest;
+import ru.nsu.peretyatko.dto.auth.jwt.JwtRequest;
+import ru.nsu.peretyatko.dto.auth.jwt.JwtResponse;
+import ru.nsu.peretyatko.dto.auth.jwt.RefreshRequest;
 import ru.nsu.peretyatko.error.exception.ServiceException;
 import ru.nsu.peretyatko.model.auth.User;
 import ru.nsu.peretyatko.security.JwtTokenProvider;

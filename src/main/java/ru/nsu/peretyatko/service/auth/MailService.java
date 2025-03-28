@@ -1,4 +1,4 @@
-package ru.nsu.peretyatko.service;
+package ru.nsu.peretyatko.service.auth;
 
 import freemarker.template.Configuration;
 import jakarta.mail.internet.MimeMessage;

@@ -1,4 +1,4 @@
-package ru.nsu.peretyatko.service;
+package ru.nsu.peretyatko.service.auth;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -13,8 +13,7 @@ import ru.nsu.peretyatko.error.exception.ServiceException;
 import ru.nsu.peretyatko.mapper.auth.UserMapper;
 import ru.nsu.peretyatko.model.auth.Role;
 import ru.nsu.peretyatko.model.auth.User;
-import ru.nsu.peretyatko.repository.UserRepository;
-import ru.nsu.peretyatko.dto.user.*;
+import ru.nsu.peretyatko.repository.auth.UserRepository;
 
 import java.util.Set;
 import java.util.UUID;

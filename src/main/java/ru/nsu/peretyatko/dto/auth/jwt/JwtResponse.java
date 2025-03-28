@@ -1,4 +1,4 @@
-package ru.nsu.peretyatko.dto.auth;
+package ru.nsu.peretyatko.dto.auth.jwt;
 
 import lombok.*;
 

@@ -6,7 +6,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import ru.nsu.peretyatko.model.auth.User;
-import ru.nsu.peretyatko.service.UserService;
+import ru.nsu.peretyatko.service.auth.UserService;
 
 @Service
 @RequiredArgsConstructor
