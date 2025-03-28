@@ -39,7 +39,7 @@ public class Military {
     @OneToMany(mappedBy = "military", cascade = ALL)
     private Set<MilitaryProperty> properties;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "militaries_specialties",
             joinColumns = @JoinColumn(name = "military_id"),

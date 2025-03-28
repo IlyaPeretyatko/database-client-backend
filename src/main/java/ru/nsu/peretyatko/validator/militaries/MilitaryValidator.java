@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
+import ru.nsu.peretyatko.dto.militaries.MilitaryPatchRequest;
 import ru.nsu.peretyatko.dto.militaries.MilitaryRequest;
 import ru.nsu.peretyatko.validator.DefaultValidator;
 
@@ -12,7 +13,7 @@ import ru.nsu.peretyatko.validator.DefaultValidator;
 public class MilitaryValidator extends DefaultValidator implements Validator {
     @Override
     public boolean supports(Class<?> clazz) {
-        return clazz.equals(MilitaryRequest.class);
+        return clazz.equals(MilitaryRequest.class) || clazz.equals(MilitaryPatchRequest.class);
     }
 
     @Override

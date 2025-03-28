@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import ru.nsu.peretyatko.dto.militaries.MilitaryPatchRequest;
 import ru.nsu.peretyatko.dto.militaries.MilitaryRequest;
 import ru.nsu.peretyatko.dto.militaries.MilitaryResponse;
 import ru.nsu.peretyatko.service.militaries.MilitaryService;
@@ -39,10 +40,10 @@ public class MilitaryController {
 
     @PatchMapping("/{id}")
     public void updateMilitary(@PathVariable int id,
-                               @Valid @RequestBody MilitaryRequest militaryRequest,
+                               @Valid @RequestBody MilitaryPatchRequest militaryPatchRequest,
                                BindingResult bindingResult) {
-        militaryValidator.validate(militaryRequest, bindingResult);
-        militaryService.updateMilitary(id, militaryRequest);
+        militaryValidator.validate(militaryPatchRequest, bindingResult);
+        militaryService.updateMilitary(id, militaryPatchRequest);
     }
 
     @DeleteMapping("/{id}")

@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS militaries_properties
 CREATE TABLE IF NOT EXISTS specialties
 (
     id    SERIAL PRIMARY KEY,
-    title VARCHAR NOT NULL
+    title VARCHAR NOT NULL UNIQUE
 );
 
 CREATE TABLE IF NOT EXISTS militaries_specialties
