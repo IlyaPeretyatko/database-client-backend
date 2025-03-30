@@ -4,6 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import ru.nsu.peretyatko.dto.equipments.EquipmentResponse;
+import ru.nsu.peretyatko.dto.weapons.WeaponResponse;
+
+import java.util.Set;
 
 @Getter
 @Setter
@@ -19,5 +23,9 @@ public class UnitResponse {
     private Double longitude;
 
     private Integer commanderId;
+
+    private Set<WeaponResponse> weapons;
+
+    private Set<EquipmentResponse> equipments;
 
 }

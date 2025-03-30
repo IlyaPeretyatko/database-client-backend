@@ -1,28 +1,23 @@
-package ru.nsu.peretyatko.dto.infrastructure;
+package ru.nsu.peretyatko.dto.weapons;
 
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Set;
-
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UnitPatchRequest {
+public class WeaponPropertyPatchRequest {
     @Size(min = 2, max = 64, message = "Title must be between 2 and 64 characters long.")
     private String title;
 
-    private Double latitude;
+    @NotEmpty(message = "Value cannot be empty.")
+    private String value;
 
-    private Double longitude;
-
-    private Integer commanderId;
-
-    private Set<Integer> weapons;
-
-    private Set<Integer> equipments;
+    private Integer typeId;
 }

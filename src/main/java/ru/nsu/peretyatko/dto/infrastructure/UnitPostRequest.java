@@ -6,6 +6,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import ru.nsu.peretyatko.dto.equipments.EquipmentResponse;
+import ru.nsu.peretyatko.dto.weapons.WeaponResponse;
+
+import java.util.Set;
 
 @Getter
 @Setter
@@ -25,4 +29,7 @@ public class UnitPostRequest {
     @NotNull(message = "Commander id cannot be null.")
     private Integer commanderId;
 
+    private Set<Integer> weapons;
+
+    private Set<Integer> equipments;
 }
