@@ -68,7 +68,7 @@ public class ArmyMapper {
         return armyResponse;
     }
 
-    public void updateArmmy(Army army, ArmyPatchRequest armyPatchRequest) {
+    public void updateArmy(Army army, ArmyPatchRequest armyPatchRequest) {
         if (armyPatchRequest.getTitle() != null) {
             army.setTitle(armyPatchRequest.getTitle());
         }
