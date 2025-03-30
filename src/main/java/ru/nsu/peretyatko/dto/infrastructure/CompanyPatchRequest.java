@@ -3,6 +3,8 @@ package ru.nsu.peretyatko.dto.infrastructure;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
+import java.util.Set;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -15,4 +17,7 @@ public class CompanyPatchRequest {
     private Integer commanderId;
 
     private Integer unitId;
+
+    private Set<Integer> buildingsId;
+
 }

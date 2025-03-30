@@ -4,6 +4,8 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
+import java.util.Set;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -18,4 +20,6 @@ public class SquadPostRequest {
 
     @NotNull(message = "Platoon id cannot be null.")
     private Integer platoonId;
+
+    private Set<Integer> buildingsId;
 }

@@ -3,6 +3,8 @@ package ru.nsu.peretyatko.dto.infrastructure;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
+import java.util.Set;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -14,4 +16,6 @@ public class PlatoonPatchRequest {
     private Integer commanderId;
 
     private Integer companyId;
+
+    private Set<Integer> buildingsId;
 }
