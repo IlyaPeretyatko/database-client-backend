@@ -29,7 +29,7 @@ public class UnitPostRequest {
     @NotNull(message = "Commander id cannot be null.")
     private Integer commanderId;
 
-    private Set<Integer> weapons;
+    private Set<Integer> weaponsId;
 
-    private Set<Integer> equipments;
+    private Set<Integer> equipmentsId;
 }
