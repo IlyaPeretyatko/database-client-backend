@@ -22,8 +22,8 @@ public class CorpsController {
     private final CorpsValidator corpsValidator;
 
     @GetMapping
-    public List<CorpsResponse> getMilitaries() {
-        return corpsService.getMilitaries();
+    public List<CorpsResponse> getCorps() {
+        return corpsService.getCorps();
     }
 
     @GetMapping("/{id}")

@@ -21,7 +21,7 @@ public class PlatoonService {
     private final PlatoonMapper platoonMapper;
 
     @Transactional(readOnly = true)
-    public List<PlatoonResponse> getMilitaries() {
+    public List<PlatoonResponse> getPlatoons() {
         return platoonRepository.findAll().stream().map(platoonMapper::toPlatoonResponse).toList();
     }
 

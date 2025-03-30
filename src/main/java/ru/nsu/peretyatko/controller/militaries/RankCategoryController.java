@@ -26,7 +26,7 @@ public class RankCategoryController {
     }
 
     @GetMapping("/{id}")
-    public RankCategoryResponse getRankCategory(@PathVariable int id) {
+    public RankCategoryResponse getRankCategoryById(@PathVariable int id) {
         return rankCategoryService.getRankCategory(id);
     }
 

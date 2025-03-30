@@ -22,8 +22,8 @@ public class DivisionController {
     private final DivisionValidator divisionValidator;
 
     @GetMapping
-    public List<DivisionResponse> getMilitaries() {
-        return divisionService.getMilitaries();
+    public List<DivisionResponse> getDivisions() {
+        return divisionService.getDivisions();
     }
 
     @GetMapping("/{id}")

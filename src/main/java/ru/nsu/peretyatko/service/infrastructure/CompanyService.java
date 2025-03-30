@@ -21,7 +21,7 @@ public class CompanyService {
     private final CompanyMapper companyMapper;
 
     @Transactional(readOnly = true)
-    public List<CompanyResponse> getMilitaries() {
+    public List<CompanyResponse> getCompanies() {
         return companyRepository.findAll().stream().map(companyMapper::toCompanyResponse).toList();
     }
 

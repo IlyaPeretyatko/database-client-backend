@@ -21,7 +21,7 @@ public class ArmyService {
     private final ArmyMapper armyMapper;
 
     @Transactional(readOnly = true)
-    public List<ArmyResponse> getMilitaries() {
+    public List<ArmyResponse> getArmies() {
         return armyRepository.findAll().stream().map(armyMapper::toArmyResponse).toList();
     }
 

@@ -21,7 +21,7 @@ public class SquadService {
     private final SquadMapper squadMapper;
 
     @Transactional(readOnly = true)
-    public List<SquadResponse> getMilitaries() {
+    public List<SquadResponse> getSquads() {
         return squadRepository.findAll().stream().map(squadMapper::toSquadResponse).toList();
     }
 

@@ -21,7 +21,7 @@ public class CorpsService {
     private final CorpsMapper corpsMapper;
 
     @Transactional(readOnly = true)
-    public List<CorpsResponse> getMilitaries() {
+    public List<CorpsResponse> getCorps() {
         return corpsRepository.findAll().stream().map(corpsMapper::toCorpsResponse).toList();
     }
 

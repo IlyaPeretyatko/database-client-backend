@@ -22,8 +22,8 @@ public class BrigadeController {
     private final BrigadeValidator brigadeValidator;
 
     @GetMapping
-    public List<BrigadeResponse> getMilitaries() {
-        return brigadeService.getMilitaries();
+    public List<BrigadeResponse> getBrigades() {
+        return brigadeService.getBrigades();
     }
 
     @GetMapping("/{id}")

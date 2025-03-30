@@ -8,7 +8,7 @@ import ru.nsu.peretyatko.dto.buildings.BuildingPropertyResponse;
 import ru.nsu.peretyatko.error.exception.ServiceException;
 import ru.nsu.peretyatko.model.buildings.Building;
 import ru.nsu.peretyatko.model.buildings.BuildingProperty;
-import ru.nsu.peretyatko.repository.buildngs.BuildingRepository;
+import ru.nsu.peretyatko.repository.buildings.BuildingRepository;
 import ru.nsu.peretyatko.repository.infrastructure.UnitRepository;
 
 @Component

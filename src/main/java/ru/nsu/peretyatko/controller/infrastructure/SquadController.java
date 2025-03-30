@@ -22,8 +22,8 @@ public class SquadController {
     private final SquadValidator squadValidator;
 
     @GetMapping
-    public List<SquadResponse> getMilitaries() {
-        return squadService.getMilitaries();
+    public List<SquadResponse> getSquads() {
+        return squadService.getSquads();
     }
 
     @GetMapping("/{id}")

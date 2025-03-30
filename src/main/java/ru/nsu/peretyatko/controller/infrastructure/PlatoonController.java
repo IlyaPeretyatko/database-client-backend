@@ -22,8 +22,8 @@ public class PlatoonController {
     private final PlatoonValidator platoonValidator;
 
     @GetMapping
-    public List<PlatoonResponse> getMilitaries() {
-        return platoonService.getMilitaries();
+    public List<PlatoonResponse> getPlatoons() {
+        return platoonService.getPlatoons();
     }
 
     @GetMapping("/{id}")

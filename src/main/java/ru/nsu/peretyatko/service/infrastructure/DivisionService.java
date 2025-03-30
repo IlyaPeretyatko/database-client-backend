@@ -21,7 +21,7 @@ public class DivisionService {
     private final DivisionMapper divisionMapper;
 
     @Transactional(readOnly = true)
-    public List<DivisionResponse> getMilitaries() {
+    public List<DivisionResponse> getDivisions() {
         return divisionRepository.findAll().stream().map(divisionMapper::toDivisionResponse).toList();
     }
 

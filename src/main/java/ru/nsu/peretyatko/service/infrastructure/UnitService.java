@@ -21,7 +21,7 @@ public class UnitService {
     private final UnitMapper unitMapper;
 
     @Transactional(readOnly = true)
-    public List<UnitResponse> getMilitaries() {
+    public List<UnitResponse> getUnits() {
         return unitRepository.findAll().stream().map(unitMapper::toUnitResponse).toList();
     }
 

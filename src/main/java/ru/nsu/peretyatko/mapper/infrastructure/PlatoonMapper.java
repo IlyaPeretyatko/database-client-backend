@@ -11,7 +11,7 @@ import ru.nsu.peretyatko.model.buildings.Building;
 import ru.nsu.peretyatko.model.infrastructure.Platoon;
 import ru.nsu.peretyatko.model.infrastructure.Company;
 import ru.nsu.peretyatko.model.militaries.Military;
-import ru.nsu.peretyatko.repository.buildngs.BuildingRepository;
+import ru.nsu.peretyatko.repository.buildings.BuildingRepository;
 import ru.nsu.peretyatko.repository.infrastructure.CompanyRepository;
 import ru.nsu.peretyatko.repository.militaries.MilitaryRepository;
 

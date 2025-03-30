@@ -26,7 +26,7 @@ public class MilitaryPropertyController {
     }
 
     @GetMapping("/{id}")
-    public MilitaryPropertyResponse getMilitaryProperty(@PathVariable int id) {
+    public MilitaryPropertyResponse getMilitaryPropertyById(@PathVariable int id) {
         return militaryPropertyService.getMilitaryProperty(id);
     }
 

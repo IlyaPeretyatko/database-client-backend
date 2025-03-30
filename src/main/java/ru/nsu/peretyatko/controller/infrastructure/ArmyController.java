@@ -22,8 +22,8 @@ public class ArmyController {
     private final ArmyValidator armyValidator;
 
     @GetMapping
-    public List<ArmyResponse> getMilitaries() {
-        return armyService.getMilitaries();
+    public List<ArmyResponse> getArmies() {
+        return armyService.getArmies();
     }
 
     @GetMapping("/{id}")

@@ -22,8 +22,8 @@ public class CompanyController {
     private final CompanyValidator companyValidator;
 
     @GetMapping
-    public List<CompanyResponse> getMilitaries() {
-        return companyService.getMilitaries();
+    public List<CompanyResponse> getCompanies() {
+        return companyService.getCompanies();
     }
 
     @GetMapping("/{id}")

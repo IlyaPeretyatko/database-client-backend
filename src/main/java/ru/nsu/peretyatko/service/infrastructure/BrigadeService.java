@@ -21,7 +21,7 @@ public class BrigadeService {
     private final BrigadeMapper brigadeMapper;
 
     @Transactional(readOnly = true)
-    public List<BrigadeResponse> getMilitaries() {
+    public List<BrigadeResponse> getBrigades() {
         return brigadeRepository.findAll().stream().map(brigadeMapper::toBrigadeResponse).toList();
     }
 

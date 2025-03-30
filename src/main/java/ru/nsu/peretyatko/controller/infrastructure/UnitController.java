@@ -22,8 +22,8 @@ public class UnitController {
     private final UnitValidator unitValidator;
 
     @GetMapping
-    public List<UnitResponse> getMilitaries() {
-        return unitService.getMilitaries();
+    public List<UnitResponse> getUnits() {
+        return unitService.getUnits();
     }
 
     @GetMapping("/{id}")
