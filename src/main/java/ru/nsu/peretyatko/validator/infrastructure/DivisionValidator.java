@@ -1,11 +1,15 @@
 package ru.nsu.peretyatko.validator.infrastructure;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 import ru.nsu.peretyatko.dto.infrastructure.DivisionPatchRequest;
 import ru.nsu.peretyatko.dto.infrastructure.DivisionPostRequest;
 import ru.nsu.peretyatko.validator.DefaultValidator;
 
+@Component
+@RequiredArgsConstructor
 public class DivisionValidator extends DefaultValidator implements Validator {
     @Override
     public boolean supports(Class<?> clazz) {
