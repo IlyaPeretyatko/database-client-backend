@@ -1,6 +1,5 @@
 package ru.nsu.peretyatko.validator.weapons;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
@@ -9,7 +8,6 @@ import ru.nsu.peretyatko.dto.weapons.WeaponPostRequest;
 import ru.nsu.peretyatko.validator.DefaultValidator;
 
 @Component
-@RequiredArgsConstructor
 public class WeaponValidator extends DefaultValidator implements Validator {
     @Override
     public boolean supports(Class<?> clazz) {

@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.nsu.peretyatko.dto.militaries.MilitaryPatchRequest;
-import ru.nsu.peretyatko.dto.militaries.MilitaryRequest;
+import ru.nsu.peretyatko.dto.militaries.MilitaryPostRequest;
 import ru.nsu.peretyatko.dto.militaries.MilitaryResponse;
 import ru.nsu.peretyatko.error.exception.ServiceException;
 import ru.nsu.peretyatko.mapper.militaries.MilitaryMapper;
@@ -32,8 +32,8 @@ public class MilitaryService {
     }
 
     @Transactional
-    public void createMilitary(MilitaryRequest militaryRequest) {
-        militaryRepository.save(militaryMapper.toMilitary(militaryRequest));
+    public void createMilitary(MilitaryPostRequest militaryPostRequest) {
+        militaryRepository.save(militaryMapper.toMilitary(militaryPostRequest));
     }
 
     @Transactional

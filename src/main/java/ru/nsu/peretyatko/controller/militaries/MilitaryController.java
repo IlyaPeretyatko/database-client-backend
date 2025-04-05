@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.nsu.peretyatko.dto.militaries.MilitaryPatchRequest;
-import ru.nsu.peretyatko.dto.militaries.MilitaryRequest;
+import ru.nsu.peretyatko.dto.militaries.MilitaryPostRequest;
 import ru.nsu.peretyatko.dto.militaries.MilitaryResponse;
 import ru.nsu.peretyatko.service.militaries.MilitaryService;
 import ru.nsu.peretyatko.validator.militaries.MilitaryValidator;
@@ -32,10 +32,10 @@ public class MilitaryController {
     }
 
     @PostMapping
-    public void createMilitary(@Valid @RequestBody MilitaryRequest militaryRequest,
+    public void createMilitary(@Valid @RequestBody MilitaryPostRequest militaryPostRequest,
                                BindingResult bindingResult) {
-        militaryValidator.validate(militaryRequest, bindingResult);
-        militaryService.createMilitary(militaryRequest);
+        militaryValidator.validate(militaryPostRequest, bindingResult);
+        militaryService.createMilitary(militaryPostRequest);
     }
 
     @PatchMapping("/{id}")

@@ -14,7 +14,7 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class MilitaryRequest {
+public class MilitaryPostRequest {
     @NotNull(message = "First name cannot be null.")
     @Size(min = 2, max = 64, message = "First name must be between 2 and 64 characters long.")
     private String firstName;

@@ -13,6 +13,7 @@ import ru.nsu.peretyatko.model.infrastructure.Unit;
 @Setter
 public class Building {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
 
