@@ -13,7 +13,7 @@ import ru.nsu.peretyatko.validator.weapons.WeaponPropertyValidator;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/weapons/properties")
+@RequestMapping("/weapons/properties")
 @RequiredArgsConstructor
 public class WeaponPropertyController {
 

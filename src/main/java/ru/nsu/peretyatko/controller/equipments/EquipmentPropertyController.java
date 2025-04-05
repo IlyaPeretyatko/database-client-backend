@@ -13,7 +13,7 @@ import ru.nsu.peretyatko.validator.equipments.EquipmentPropertyValidator;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/equipments/properties")
+@RequestMapping("/equipments/properties")
 @RequiredArgsConstructor
 public class EquipmentPropertyController {
 

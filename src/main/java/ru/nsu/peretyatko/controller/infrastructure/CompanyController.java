@@ -13,7 +13,7 @@ import ru.nsu.peretyatko.validator.infrastructure.CompanyValidator;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/companies")
+@RequestMapping("/companies")
 @RequiredArgsConstructor
 public class CompanyController {
 

@@ -13,7 +13,7 @@ import ru.nsu.peretyatko.validator.infrastructure.PlatoonValidator;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/platoons")
+@RequestMapping("/platoons")
 @RequiredArgsConstructor
 public class PlatoonController {
 

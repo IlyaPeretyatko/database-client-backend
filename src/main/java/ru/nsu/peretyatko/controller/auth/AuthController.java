@@ -14,7 +14,7 @@ import ru.nsu.peretyatko.service.auth.AuthService;
 import ru.nsu.peretyatko.validator.auth.*;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/auth")
 @RequiredArgsConstructor
 public class AuthController {
 

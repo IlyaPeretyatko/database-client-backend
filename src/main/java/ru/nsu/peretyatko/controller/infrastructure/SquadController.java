@@ -13,7 +13,7 @@ import ru.nsu.peretyatko.validator.infrastructure.SquadValidator;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/squads")
+@RequestMapping("/squads")
 @RequiredArgsConstructor
 public class SquadController {
 

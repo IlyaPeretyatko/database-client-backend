@@ -12,7 +12,7 @@ import ru.nsu.peretyatko.validator.auth.UserValidator;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/users")
 @RequiredArgsConstructor
 public class UserController {
 

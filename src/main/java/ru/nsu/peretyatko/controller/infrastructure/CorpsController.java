@@ -13,7 +13,7 @@ import ru.nsu.peretyatko.validator.infrastructure.CorpsValidator;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/corps")
+@RequestMapping("/corps")
 @RequiredArgsConstructor
 public class CorpsController {
 

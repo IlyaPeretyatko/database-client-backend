@@ -13,7 +13,7 @@ import ru.nsu.peretyatko.validator.militaries.MilitaryPropertyValidator;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/militaries/properties")
+@RequestMapping("/militaries/properties")
 @RequiredArgsConstructor
 public class MilitaryPropertyController {
 

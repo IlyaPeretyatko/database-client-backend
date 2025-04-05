@@ -12,7 +12,7 @@ import ru.nsu.peretyatko.validator.militaries.RankCategoryValidator;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/militaries/ranks/categories")
+@RequestMapping("/militaries/ranks/categories")
 @RequiredArgsConstructor
 public class RankCategoryController {
 
