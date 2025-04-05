@@ -13,7 +13,7 @@ import ru.nsu.peretyatko.validator.buildings.BuildingPropertyValidator;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/building/property")
+@RequestMapping("/api/buildings/properties")
 @RequiredArgsConstructor
 public class BuildingPropertyController {
 

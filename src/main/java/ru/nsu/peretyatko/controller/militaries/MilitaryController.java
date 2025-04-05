@@ -13,7 +13,7 @@ import ru.nsu.peretyatko.validator.militaries.MilitaryValidator;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/military")
+@RequestMapping("/api/militaries")
 @RequiredArgsConstructor
 public class MilitaryController {
 

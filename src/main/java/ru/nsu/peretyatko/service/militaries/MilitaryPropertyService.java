@@ -3,10 +3,13 @@ package ru.nsu.peretyatko.service.militaries;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.nsu.peretyatko.dto.militaries.MilitaryPropertyRequest;
+import ru.nsu.peretyatko.dto.militaries.MilitaryPatchRequest;
+import ru.nsu.peretyatko.dto.militaries.MilitaryPropertyPatchRequest;
+import ru.nsu.peretyatko.dto.militaries.MilitaryPropertyPostRequest;
 import ru.nsu.peretyatko.dto.militaries.MilitaryPropertyResponse;
 import ru.nsu.peretyatko.error.exception.ServiceException;
 import ru.nsu.peretyatko.mapper.militaries.MilitaryPropertyMapper;
+import ru.nsu.peretyatko.model.militaries.Military;
 import ru.nsu.peretyatko.model.militaries.MilitaryProperty;
 import ru.nsu.peretyatko.repository.militaries.MilitaryPropertyRepository;
 
@@ -32,8 +35,15 @@ public class MilitaryPropertyService {
     }
 
     @Transactional
-    public void createMilitaryProperty(MilitaryPropertyRequest militaryPropertyRequest) {
-        militaryPropertyRepository.save(militaryPropertyMapper.toMilitaryProperty(militaryPropertyRequest));
+    public void createMilitaryProperty(MilitaryPropertyPostRequest militaryPropertyPostRequest) {
+        militaryPropertyRepository.save(militaryPropertyMapper.toMilitaryProperty(militaryPropertyPostRequest));
+    }
+
+    @Transactional
+    public void updateMilitaryProperty(int id, MilitaryPropertyPatchRequest militaryPropertyPatchRequest) {
+        MilitaryProperty militaryProperty = militaryPropertyRepository.findById(id).orElseThrow(() -> new ServiceException(404, "Military property was not found."));
+        militaryPropertyMapper.updateMilitaryProperty(militaryProperty, militaryPropertyPatchRequest);
+        militaryPropertyRepository.save(militaryProperty);
     }
 
     @Transactional

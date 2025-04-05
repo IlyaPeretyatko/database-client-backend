@@ -13,7 +13,7 @@ import ru.nsu.peretyatko.validator.infrastructure.BrigadeValidator;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/brigade")
+@RequestMapping("/api/brigades")
 @RequiredArgsConstructor
 public class BrigadeController {
 

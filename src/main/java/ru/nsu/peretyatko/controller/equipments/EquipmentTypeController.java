@@ -12,7 +12,7 @@ import ru.nsu.peretyatko.validator.equipments.EquipmentTypeValidator;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/equipment/type")
+@RequestMapping("/api/equipments/types")
 @RequiredArgsConstructor
 public class EquipmentTypeController {
 

@@ -13,7 +13,7 @@ import ru.nsu.peretyatko.validator.infrastructure.UnitValidator;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/unit")
+@RequestMapping("/api/units")
 @RequiredArgsConstructor
 public class UnitController {
 

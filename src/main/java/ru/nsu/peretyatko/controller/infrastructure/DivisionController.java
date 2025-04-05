@@ -13,7 +13,7 @@ import ru.nsu.peretyatko.validator.infrastructure.DivisionValidator;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/division")
+@RequestMapping("/api/divisions")
 @RequiredArgsConstructor
 public class DivisionController {
 

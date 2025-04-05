@@ -12,7 +12,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class MilitaryPropertyRequest {
+public class MilitaryPropertyPostRequest {
 
     @NotNull(message = "Military id cannot be null.")
     private Integer militaryId;
