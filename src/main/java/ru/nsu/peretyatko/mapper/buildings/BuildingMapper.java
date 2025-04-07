@@ -6,7 +6,6 @@ import ru.nsu.peretyatko.dto.buildings.BuildingPatchRequest;
 import ru.nsu.peretyatko.dto.buildings.BuildingPostRequest;
 import ru.nsu.peretyatko.dto.buildings.BuildingResponse;
 import ru.nsu.peretyatko.error.exception.ServiceException;
-import ru.nsu.peretyatko.mapper.infrastructure.UnitMapper;
 import ru.nsu.peretyatko.model.buildings.Building;
 import ru.nsu.peretyatko.model.infrastructure.Unit;
 import ru.nsu.peretyatko.repository.infrastructure.UnitRepository;

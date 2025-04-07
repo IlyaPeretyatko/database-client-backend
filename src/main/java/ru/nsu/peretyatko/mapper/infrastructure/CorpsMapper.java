@@ -30,10 +30,12 @@ public class CorpsMapper {
         corps.setTitle(corpsPostRequest.getTitle());
         Military military = militaryRepository.findById(corpsPostRequest.getCommanderId()).orElseThrow(() -> new ServiceException(404, "Commander was not found."));
         corps.setCommander(military);
-        Set<Unit> units = corpsPostRequest.getUnitsId().stream()
-                .map(id -> unitRepository.findById(id).orElseThrow(() -> new ServiceException(404, "Unit with id:" + id + " was not found.")))
-                .collect(Collectors.toSet());
-        corps.setUnits(units);
+        if (corpsPostRequest.getUnitsId() != null) {
+            Set<Unit> units = corpsPostRequest.getUnitsId().stream()
+                    .map(id -> unitRepository.findById(id).orElseThrow(() -> new ServiceException(404, "Unit with id:" + id + " was not found.")))
+                    .collect(Collectors.toSet());
+            corps.setUnits(units);
+        }
         return corps;
     }
 

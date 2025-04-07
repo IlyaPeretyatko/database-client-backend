@@ -42,18 +42,24 @@ public class ArmyMapper {
         army.setTitle(armyPostRequest.getTitle());
         Military military = militaryRepository.findById(armyPostRequest.getCommanderId()).orElseThrow(() -> new ServiceException(404, "Commander was not found."));
         army.setCommander(military);
-        Set<Brigade> brigades = armyPostRequest.getBrigadesId().stream()
-                .map(id -> brigadeRepository.findById(id).orElseThrow(() -> new ServiceException(404, "Brigade with id:" + id + " was not found.")))
-                .collect(Collectors.toSet());
-        army.setBrigades(brigades);
-        Set<Division> divisions = armyPostRequest.getDivisionsId().stream()
-                .map(id -> divisionRepository.findById(id).orElseThrow(() -> new ServiceException(404, "Division with id:" + id + " was not found.")))
-                .collect(Collectors.toSet());
-        army.setDivisions(divisions);
-        Set<Corps> corps = armyPostRequest.getCorpsId().stream()
-                .map(id -> corpsRepository.findById(id).orElseThrow(() -> new ServiceException(404, "Corps with id:" + id + " was not found.")))
-                .collect(Collectors.toSet());
-        army.setCorps(corps);
+        if (armyPostRequest.getBrigadesId() != null) {
+            Set<Brigade> brigades = armyPostRequest.getBrigadesId().stream()
+                    .map(id -> brigadeRepository.findById(id).orElseThrow(() -> new ServiceException(404, "Brigade with id:" + id + " was not found.")))
+                    .collect(Collectors.toSet());
+            army.setBrigades(brigades);
+        }
+        if (armyPostRequest.getDivisionsId() != null) {
+            Set<Division> divisions = armyPostRequest.getDivisionsId().stream()
+                    .map(id -> divisionRepository.findById(id).orElseThrow(() -> new ServiceException(404, "Division with id:" + id + " was not found.")))
+                    .collect(Collectors.toSet());
+            army.setDivisions(divisions);
+        }
+        if (armyPostRequest.getCorpsId() != null) {
+            Set<Corps> corps = armyPostRequest.getCorpsId().stream()
+                    .map(id -> corpsRepository.findById(id).orElseThrow(() -> new ServiceException(404, "Corps with id:" + id + " was not found.")))
+                    .collect(Collectors.toSet());
+            army.setCorps(corps);
+        }
         return army;
     }
 

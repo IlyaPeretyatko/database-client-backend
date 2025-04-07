@@ -30,10 +30,12 @@ public class DivisionMapper {
         division.setTitle(divisionPostRequest.getTitle());
         Military military = militaryRepository.findById(divisionPostRequest.getCommanderId()).orElseThrow(() -> new ServiceException(404, "Commander was not found."));
         division.setCommander(military);
-        Set<Unit> units = divisionPostRequest.getUnitsId().stream()
-                .map(id -> unitRepository.findById(id).orElseThrow(() -> new ServiceException(404, "Unit with id:" + id + " was not found.")))
-                .collect(Collectors.toSet());
-        division.setUnits(units);
+        if (divisionPostRequest.getUnitsId() != null) {
+            Set<Unit> units = divisionPostRequest.getUnitsId().stream()
+                    .map(id -> unitRepository.findById(id).orElseThrow(() -> new ServiceException(404, "Unit with id:" + id + " was not found.")))
+                    .collect(Collectors.toSet());
+            division.setUnits(units);
+        }
         return division;
     }
 

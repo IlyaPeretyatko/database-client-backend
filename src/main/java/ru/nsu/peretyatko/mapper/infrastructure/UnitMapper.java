@@ -40,14 +40,18 @@ public class UnitMapper {
         unit.setLongitude(unitPostRequest.getLongitude());
         Military military = militaryRepository.findById(unitPostRequest.getCommanderId()).orElseThrow(() -> new ServiceException(404, "Commander was not found."));
         unit.setCommander(military);
-        Set<Weapon> weapons = unitPostRequest.getWeaponsId().stream()
-                .map(id -> weaponRepository.findById(id).orElseThrow(() -> new ServiceException(404, "Weapon with id:" + id + " was not found.")))
-                .collect(Collectors.toSet());
-        unit.setWeapons(weapons);
-        Set<Equipment> equipments = unitPostRequest.getEquipmentsId().stream()
-                .map(id -> equipmentRepository.findById(id).orElseThrow(() -> new ServiceException(404, "Equipment with id:" + id + " was not found.")))
-                .collect(Collectors.toSet());
-        unit.setEquipments(equipments);
+        if (unitPostRequest.getWeaponsId() != null) {
+            Set<Weapon> weapons = unitPostRequest.getWeaponsId().stream()
+                    .map(id -> weaponRepository.findById(id).orElseThrow(() -> new ServiceException(404, "Weapon with id:" + id + " was not found.")))
+                    .collect(Collectors.toSet());
+            unit.setWeapons(weapons);
+        }
+        if (unitPostRequest.getEquipmentsId() != null) {
+            Set<Equipment> equipments = unitPostRequest.getEquipmentsId().stream()
+                    .map(id -> equipmentRepository.findById(id).orElseThrow(() -> new ServiceException(404, "Equipment with id:" + id + " was not found.")))
+                    .collect(Collectors.toSet());
+            unit.setEquipments(equipments);
+        }
         return unit;
     }
 

@@ -37,10 +37,12 @@ public class CompanyMapper {
         company.setCommander(military);
         Unit unit = unitRepository.findById(companyPostRequest.getUnitId()).orElseThrow(() -> new ServiceException(404, "Unit eas not found."));
         company.setUnit(unit);
-        Set<Building> buildings = companyPostRequest.getBuildingsId().stream()
-                .map(id -> buildingRepository.findById(id).orElseThrow(() -> new ServiceException(404, "Building with id:" + id + " was not found.")))
-                .collect(Collectors.toSet());
-        company.setBuildings(buildings);
+        if (companyPostRequest.getBuildingsId() != null) {
+            Set<Building> buildings = companyPostRequest.getBuildingsId().stream()
+                    .map(id -> buildingRepository.findById(id).orElseThrow(() -> new ServiceException(404, "Building with id:" + id + " was not found.")))
+                    .collect(Collectors.toSet());
+            company.setBuildings(buildings);
+        }
         return company;
     }
 

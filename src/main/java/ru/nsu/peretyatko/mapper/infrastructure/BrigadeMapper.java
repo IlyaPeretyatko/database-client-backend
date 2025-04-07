@@ -30,10 +30,12 @@ public class BrigadeMapper {
         brigade.setTitle(brigadePostRequest.getTitle());
         Military military = militaryRepository.findById(brigadePostRequest.getCommanderId()).orElseThrow(() -> new ServiceException(404, "Commander was not found."));
         brigade.setCommander(military);
-        Set<Unit> units = brigadePostRequest.getUnitsId().stream()
-                .map(id -> unitRepository.findById(id).orElseThrow(() -> new ServiceException(404, "Unit with id:" + id + " was not found.")))
-                .collect(Collectors.toSet());
-        brigade.setUnits(units);
+        if (brigadePostRequest.getUnitsId() != null) {
+            Set<Unit> units = brigadePostRequest.getUnitsId().stream()
+                    .map(id -> unitRepository.findById(id).orElseThrow(() -> new ServiceException(404, "Unit with id:" + id + " was not found.")))
+                    .collect(Collectors.toSet());
+            brigade.setUnits(units);
+        }
         return brigade;
     }
 

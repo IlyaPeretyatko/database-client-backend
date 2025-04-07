@@ -36,10 +36,12 @@ public class PlatoonMapper {
         platoon.setCommander(military);
         Company company = companyRepository.findById(platoonPostRequest.getCompanyId()).orElseThrow(() -> new ServiceException(404, "Company eas not found."));
         platoon.setCompany(company);
-        Set<Building> buildings = platoonPostRequest.getBuildingsId().stream()
-                .map(id -> buildingRepository.findById(id).orElseThrow(() -> new ServiceException(404, "Building with id:" + id + " was not found.")))
-                .collect(Collectors.toSet());
-        platoon.setBuildings(buildings);
+        if (platoonPostRequest.getBuildingsId() != null) {
+            Set<Building> buildings = platoonPostRequest.getBuildingsId().stream()
+                    .map(id -> buildingRepository.findById(id).orElseThrow(() -> new ServiceException(404, "Building with id:" + id + " was not found.")))
+                    .collect(Collectors.toSet());
+            platoon.setBuildings(buildings);
+        }
         return platoon;
     }
 

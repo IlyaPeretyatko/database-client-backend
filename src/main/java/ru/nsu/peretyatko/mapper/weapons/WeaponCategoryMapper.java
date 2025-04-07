@@ -15,6 +15,7 @@ public class WeaponCategoryMapper {
 
     public WeaponCategoryResponse toWeaponCategoryResponse(WeaponCategory weaponCategory) {
         WeaponCategoryResponse weaponCategoryResponse = new WeaponCategoryResponse();
+        weaponCategoryResponse.setId(weaponCategory.getId());
         weaponCategoryResponse.setTitle(weaponCategory.getTitle());
         return weaponCategoryResponse;
     }
