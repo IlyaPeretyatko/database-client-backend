@@ -7,14 +7,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.nsu.peretyatko.dto.auth.JwtRequest;
-import ru.nsu.peretyatko.dto.auth.JwtResponse;
-import ru.nsu.peretyatko.dto.auth.RefreshRequest;
-import ru.nsu.peretyatko.service.AuthService;
+import ru.nsu.peretyatko.dto.auth.jwt.JwtRequest;
+import ru.nsu.peretyatko.dto.auth.jwt.JwtResponse;
+import ru.nsu.peretyatko.dto.auth.jwt.RefreshRequest;
+import ru.nsu.peretyatko.service.auth.AuthService;
 import ru.nsu.peretyatko.validator.auth.*;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/auth")
 @RequiredArgsConstructor
 public class AuthController {
 

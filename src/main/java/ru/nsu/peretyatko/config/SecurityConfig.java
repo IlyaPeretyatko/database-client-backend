@@ -70,9 +70,9 @@ public class SecurityConfig {
                                                     .write("Unauthorized.");
                                         }))
                 .authorizeHttpRequests(configurer ->
-                        configurer.requestMatchers("/api/users/**")
+                        configurer.requestMatchers("/users/**")
                                 .permitAll()
-                                .requestMatchers("/api/auth/**")
+                                .requestMatchers("/auth/**")
                                 .permitAll()
                                 .anyRequest().authenticated())
                 .anonymous(AbstractHttpConfigurer::disable)

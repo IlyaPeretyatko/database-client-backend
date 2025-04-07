@@ -6,14 +6,13 @@ import org.springframework.web.bind.annotation.*;
 import ru.nsu.peretyatko.dto.auth.user.UserPatchRequest;
 import ru.nsu.peretyatko.dto.auth.user.UserPostRequest;
 import ru.nsu.peretyatko.dto.auth.user.UserPostResponse;
-import ru.nsu.peretyatko.dto.user.*;
-import ru.nsu.peretyatko.service.UserService;
+import ru.nsu.peretyatko.service.auth.UserService;
 import ru.nsu.peretyatko.validator.auth.UserValidator;
 
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/users")
 @RequiredArgsConstructor
 public class UserController {
 
