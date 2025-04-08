@@ -5,6 +5,6 @@ FROM divisions d
     FROM divisions_units
     GROUP BY division_id
 ) AS du
-              ON d.id = du.division_id
+ON d.id = du.division_id
 ORDER BY du.unit_count ASC
 LIMIT 1;
