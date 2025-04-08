@@ -25,8 +25,8 @@ public class Brigade {
 
     @ManyToMany
     @JoinTable(
-            name = "corps_units",
-            joinColumns = @JoinColumn(name = "corps_id"),
+            name = "brigades_units",
+            joinColumns = @JoinColumn(name = "brigade_id"),
             inverseJoinColumns = @JoinColumn(name = "unit_id")
     )
     private Set<Unit> units;

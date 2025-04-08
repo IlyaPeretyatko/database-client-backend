@@ -26,6 +26,8 @@ public class MilitaryResponse {
 
     private int rankId;
 
+    private Integer unitId;
+
     private Set<MilitaryPropertyResponse> properties;
 
     private Set<SpecialtyResponse> specialties;

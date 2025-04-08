@@ -25,8 +25,8 @@ public class Division {
 
     @ManyToMany
     @JoinTable(
-            name = "corps_units",
-            joinColumns = @JoinColumn(name = "corps_id"),
+            name = "divisions_units",
+            joinColumns = @JoinColumn(name = "division_id"),
             inverseJoinColumns = @JoinColumn(name = "unit_id")
     )
     private Set<Unit> units;

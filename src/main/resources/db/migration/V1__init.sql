@@ -37,7 +37,8 @@ CREATE TABLE IF NOT EXISTS militaries
     last_name   VARCHAR NOT NULL,
     middle_name VARCHAR,
     birth_date  DATE    NOT NULL,
-    rank_id     INTEGER REFERENCES ranks
+    rank_id     INTEGER REFERENCES ranks,
+    unit_id INTEGER
 );
 
 CREATE TABLE IF NOT EXISTS militaries_properties
@@ -71,6 +72,9 @@ CREATE TABLE IF NOT EXISTS units
     lng          DOUBLE PRECISION NOT NULL,
     commander_id INTEGER REFERENCES militaries ON DELETE CASCADE
 );
+
+ALTER TABLE IF EXISTS militaries
+    ADD FOREIGN KEY (unit_id) REFERENCES units (id) ON DELETE SET NULL ON UPDATE CASCADE;
 
 CREATE TABLE IF NOT EXISTS companies
 (

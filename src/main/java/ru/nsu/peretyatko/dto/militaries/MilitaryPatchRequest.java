@@ -30,5 +30,7 @@ public class MilitaryPatchRequest {
 
     private Integer rankId;
 
+    private Integer unitId;
+
     private Set<SpecialtyRequest> specialties;
 }

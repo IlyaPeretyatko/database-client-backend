@@ -24,13 +24,10 @@ WITH unit_counts AS (
     ON c.id = cu.corps_id
     GROUP BY a.id
 )
-SELECT
-    a.id AS id,
-    a.title AS title,
-    (COALESCE(uc.division_units_count, 0) +
-     COALESCE(uc.brigade_units_count, 0) +
-     COALESCE(uc.corps_units_count, 0)) AS total_units
+SELECT a.*
 FROM armies AS a LEFT JOIN unit_counts AS uc
 ON a.id = uc.army_id
-ORDER BY total_units DESC
+ORDER BY (COALESCE(uc.division_units_count, 0) +
+          COALESCE(uc.brigade_units_count, 0) +
+          COALESCE(uc.corps_units_count, 0)) DESC
 LIMIT 1;
