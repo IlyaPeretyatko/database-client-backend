@@ -1,3 +1,6 @@
+SELECT *
+FROM specialties
+EXCEPT
 SELECT s.*
 FROM specialties AS s
 JOIN militaries_specialties AS ms
@@ -28,4 +31,4 @@ JOIN armies AS a
 ON a.id = ab.army_id OR a.id = ad.army_id OR a.id = ac.army_id
 WHERE a.id = :armyId
 GROUP BY s.id
-HAVING COUNT(m.id) > 5;
+HAVING COUNT(m.id) != 0;

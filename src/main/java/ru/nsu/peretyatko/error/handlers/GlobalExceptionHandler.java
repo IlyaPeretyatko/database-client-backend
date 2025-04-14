@@ -16,7 +16,6 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     private ResponseEntity<ServiceErrorResponse> handleAllExceptions(Exception e) {
         ServiceErrorResponse serviceErrorResponse = new ServiceErrorResponse(500, e.getMessage());
-        e.printStackTrace();
         return new ResponseEntity<>(serviceErrorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
@@ -27,7 +26,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(ValidationException.class)
-    public ResponseEntity<ValidationErrorResponse> handleMyExceptions(ValidationException ex) {
+    private ResponseEntity<ValidationErrorResponse> handleMyExceptions(ValidationException ex) {
         ValidationErrorResponse validationErrorResponse = new ValidationErrorResponse(ex.getMessage(), ex.getFieldsWithError());
         return new ResponseEntity<>(validationErrorResponse, HttpStatus.BAD_REQUEST);
     }
