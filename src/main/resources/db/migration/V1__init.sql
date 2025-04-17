@@ -27,8 +27,6 @@ VALUES ('Рядовой состав'),
        ('Сержантский состав'),
        ('Офицерский состав');
 
-
-
 CREATE TABLE IF NOT EXISTS ranks
 (
     id               SERIAL PRIMARY KEY,
