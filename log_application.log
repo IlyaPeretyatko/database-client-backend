@@ -1,12 +1,12 @@
-апр. 14, 2025 5:01:57 PM org.apache.coyote.AbstractProtocol init
+апр. 18, 2025 3:26:15 PM org.apache.coyote.AbstractProtocol init
 INFO: Initializing ProtocolHandler ["http-nio-8080"]
-апр. 14, 2025 5:01:57 PM org.apache.catalina.core.StandardService startInternal
+апр. 18, 2025 3:26:15 PM org.apache.catalina.core.StandardService startInternal
 INFO: Starting service [Tomcat]
-апр. 14, 2025 5:01:57 PM org.apache.catalina.core.StandardEngine startInternal
+апр. 18, 2025 3:26:15 PM org.apache.catalina.core.StandardEngine startInternal
 INFO: Starting Servlet engine: [Apache Tomcat/10.1.36]
-апр. 14, 2025 5:01:57 PM org.apache.catalina.core.ApplicationContext log
+апр. 18, 2025 3:26:15 PM org.apache.catalina.core.ApplicationContext log
 INFO: Initializing Spring embedded WebApplicationContext
-апр. 14, 2025 5:02:02 PM org.apache.coyote.AbstractProtocol start
+апр. 18, 2025 3:26:20 PM org.apache.coyote.AbstractProtocol start
 INFO: Starting ProtocolHandler ["http-nio-8080"]
-апр. 14, 2025 5:03:44 PM org.apache.catalina.core.ApplicationContext log
+апр. 18, 2025 3:26:58 PM org.apache.catalina.core.ApplicationContext log
 INFO: Initializing Spring DispatcherServlet 'dispatcherServlet'

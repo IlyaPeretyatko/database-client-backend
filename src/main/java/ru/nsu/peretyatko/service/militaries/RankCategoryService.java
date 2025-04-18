@@ -1,5 +1,6 @@
 package ru.nsu.peretyatko.service.militaries;
 
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +21,15 @@ public class RankCategoryService {
     private final RankCategoryRepository rankCategoryRepository;
 
     private final RankCategoryMapper rankCategoryMapper;
+
+    @PostConstruct
+    public void init() {
+        if (rankCategoryRepository.count() == 0) {
+            rankCategoryRepository.save(new RankCategory("Рядовой состав"));
+            rankCategoryRepository.save(new RankCategory("Сержантский состав"));
+            rankCategoryRepository.save(new RankCategory("Офицерский состав"));
+        }
+    }
 
     @Transactional(readOnly = true)
     public List<RankCategoryResponse> getRankCategories() {
