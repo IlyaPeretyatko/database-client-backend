@@ -30,4 +30,7 @@ public class Division {
             inverseJoinColumns = @JoinColumn(name = "unit_id")
     )
     private Set<Unit> units;
+
+    @OneToMany(mappedBy = "division", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<ArmyDivision> armyDivisions;
 }

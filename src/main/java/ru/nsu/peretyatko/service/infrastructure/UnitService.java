@@ -9,6 +9,7 @@ import ru.nsu.peretyatko.dto.infrastructure.UnitResponse;
 import ru.nsu.peretyatko.error.exception.ServiceException;
 import ru.nsu.peretyatko.mapper.infrastructure.UnitMapper;
 import ru.nsu.peretyatko.model.infrastructure.Unit;
+import ru.nsu.peretyatko.repository.infrastructure.UnitCustomRepository;
 import ru.nsu.peretyatko.repository.infrastructure.UnitRepository;
 
 import java.util.List;
@@ -16,6 +17,9 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class UnitService {
+
+    private final UnitCustomRepository unitCustomRepository;
+
     private final UnitRepository unitRepository;
 
     private final UnitMapper unitMapper;
@@ -49,5 +53,25 @@ public class UnitService {
             throw new ServiceException(404, "Unit was not found.");
         }
         unitRepository.deleteById(id);
+    }
+
+    @Transactional(readOnly = true)
+    public List<UnitResponse> getUnitsByDivision(int id) {
+        return unitCustomRepository.findUnitsByDivisionId(id).stream().map(unitMapper::toUnitResponse).toList();
+    }
+
+    @Transactional(readOnly = true)
+    public List<UnitResponse> getUnitsByBrigade(int id) {
+        return unitCustomRepository.findUnitsByBrigadeId(id).stream().map(unitMapper::toUnitResponse).toList();
+    }
+
+    @Transactional(readOnly = true)
+    public List<UnitResponse> getUnitsByCorps(int id) {
+        return unitCustomRepository.findUnitsByCorpsId(id).stream().map(unitMapper::toUnitResponse).toList();
+    }
+
+    @Transactional(readOnly = true)
+    public List<UnitResponse> getUnitsByArmy(int id) {
+        return unitCustomRepository.findUnitsByArmyId(id).stream().map(unitMapper::toUnitResponse).toList();
     }
 }

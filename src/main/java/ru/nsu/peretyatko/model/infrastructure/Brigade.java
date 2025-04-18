@@ -31,4 +31,7 @@ public class Brigade {
     )
     private Set<Unit> units;
 
+    @OneToMany(mappedBy = "brigade", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<ArmyBrigade> armyBrigades;
+
 }

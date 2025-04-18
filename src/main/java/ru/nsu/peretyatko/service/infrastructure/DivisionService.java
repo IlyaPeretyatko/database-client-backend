@@ -9,6 +9,8 @@ import ru.nsu.peretyatko.dto.infrastructure.DivisionResponse;
 import ru.nsu.peretyatko.error.exception.ServiceException;
 import ru.nsu.peretyatko.mapper.infrastructure.DivisionMapper;
 import ru.nsu.peretyatko.model.infrastructure.Division;
+import ru.nsu.peretyatko.model.infrastructure.Unit;
+import ru.nsu.peretyatko.repository.infrastructure.DivisionCustomRepository;
 import ru.nsu.peretyatko.repository.infrastructure.DivisionRepository;
 
 import java.util.List;
@@ -50,4 +52,6 @@ public class DivisionService {
         }
         divisionRepository.deleteById(id);
     }
+
+
 }

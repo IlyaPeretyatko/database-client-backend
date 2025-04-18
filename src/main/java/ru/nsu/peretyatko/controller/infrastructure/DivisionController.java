@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.nsu.peretyatko.dto.infrastructure.DivisionPatchRequest;
 import ru.nsu.peretyatko.dto.infrastructure.DivisionPostRequest;
 import ru.nsu.peretyatko.dto.infrastructure.DivisionResponse;
+import ru.nsu.peretyatko.dto.infrastructure.UnitResponse;
 import ru.nsu.peretyatko.service.infrastructure.DivisionService;
 import ru.nsu.peretyatko.validator.infrastructure.DivisionValidator;
 
@@ -50,4 +51,5 @@ public class DivisionController {
     public void deleteDivision(@PathVariable int id) {
         divisionService.deleteDivision(id);
     }
+
 }

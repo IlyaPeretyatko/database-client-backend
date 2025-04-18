@@ -33,15 +33,15 @@ public class UnitController {
 
     @PostMapping
     public void createUnit(@Valid @RequestBody UnitPostRequest unitPostRequest,
-                               BindingResult bindingResult) {
+                           BindingResult bindingResult) {
         unitValidator.validate(unitPostRequest, bindingResult);
         unitService.createUnit(unitPostRequest);
     }
 
     @PatchMapping("/{id}")
     public void updateUnit(@PathVariable int id,
-                               @Valid @RequestBody UnitPatchRequest unitPatchRequest,
-                               BindingResult bindingResult) {
+                           @Valid @RequestBody UnitPatchRequest unitPatchRequest,
+                           BindingResult bindingResult) {
         unitValidator.validate(unitPatchRequest, bindingResult);
         unitService.updateUnit(id, unitPatchRequest);
     }
@@ -49,5 +49,25 @@ public class UnitController {
     @DeleteMapping("/{id}")
     public void deleteUnit(@PathVariable int id) {
         unitService.deleteUnit(id);
+    }
+
+    @GetMapping("/by/division/{id}")
+    public List<UnitResponse> getUnitsByDivision(@PathVariable int id) {
+        return unitService.getUnitsByDivision(id);
+    }
+
+    @GetMapping("/by/brigade/{id}")
+    public List<UnitResponse> getUnitsByBrigade(@PathVariable int id) {
+        return unitService.getUnitsByBrigade(id);
+    }
+
+    @GetMapping("/by/corps/{id}")
+    public List<UnitResponse> getUnitsByCorps(@PathVariable int id) {
+        return unitService.getUnitsByCorps(id);
+    }
+
+    @GetMapping("/by/army/{id}")
+    public List<UnitResponse> getUnitsByArmy(@PathVariable int id) {
+        return unitService.getUnitsByArmy(id);
     }
 }

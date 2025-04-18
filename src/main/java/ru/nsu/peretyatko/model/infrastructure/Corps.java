@@ -32,4 +32,7 @@ public class Corps {
     )
     private Set<Unit> units;
 
+
+    @OneToMany(mappedBy = "corps", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<ArmyCorps> armyCorps;
 }
