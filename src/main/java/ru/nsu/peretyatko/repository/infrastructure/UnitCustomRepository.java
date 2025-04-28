@@ -4,6 +4,8 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.criteria.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import ru.nsu.peretyatko.model.equipments.Equipment;
+import ru.nsu.peretyatko.model.equipments.EquipmentType;
 import ru.nsu.peretyatko.model.infrastructure.*;
 
 import java.util.List;
@@ -79,5 +81,38 @@ public class UnitCustomRepository {
                         criteriaBuilder.in(unitRoot).value(corpsSubquery)
                 ));
         return entityManager.createQuery(criteriaQuery).getResultList();
+    }
+
+    public List<Unit> findUnitsWithEquipmentTypeCount(String titleType, int minCount) {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Unit> cq = cb.createQuery(Unit.class);
+        Root<Unit> unit = cq.from(Unit.class);
+        Join<Unit, Equipment> equipment = unit.join("equipments");
+        Join<Equipment, EquipmentType> equipmentType = equipment.join("type");
+        cq.groupBy(unit.get("id"));
+        cq.select(unit)
+                .where(cb.equal(equipmentType.get("title"), titleType))
+                .having(cb.gt(cb.count(equipment.get("id")), minCount));
+        return entityManager.createQuery(cq).getResultList();
+    }
+
+    public List<Unit> findUnitsWithoutEquipmentType(String titleType) {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Unit> cq = cb.createQuery(Unit.class);
+        Root<Unit> unit = cq.from(Unit.class);
+        Subquery<Long> subquery = cq.subquery(Long.class);
+        Root<Unit> subUnit = subquery.from(Unit.class);
+        Join<Unit, Equipment> subEquipment = subUnit.join("equipments");
+        Join<Equipment, EquipmentType> subEquipmentType = subEquipment.join("type");
+        subquery.select(subUnit.get("id"))
+                .where(cb.equal(subEquipmentType.get("title"), titleType))
+                .groupBy(subUnit.get("id"))
+                .having(cb.gt(cb.count(subEquipment.get("id")), 0));
+
+        // Основной запрос с исключением (EXCEPT)
+        cq.select(unit)
+                .where(cb.not(cb.in(unit.get("id")).value(subquery)));
+
+        return entityManager.createQuery(cq).getResultList();
     }
 }

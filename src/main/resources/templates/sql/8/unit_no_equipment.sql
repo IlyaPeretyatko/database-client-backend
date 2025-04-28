@@ -9,4 +9,4 @@ JOIN military_equipment_types AS met
 ON me.type_id = met.id
 WHERE met.title = :titleType
 GROUP BY u.id
-HAVING COUNT(me.id) != 5;
+HAVING COUNT(me.id) > 0;
