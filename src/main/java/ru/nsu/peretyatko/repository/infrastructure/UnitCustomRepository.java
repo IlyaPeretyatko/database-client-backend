@@ -7,6 +7,8 @@ import org.springframework.stereotype.Repository;
 import ru.nsu.peretyatko.model.equipments.Equipment;
 import ru.nsu.peretyatko.model.equipments.EquipmentType;
 import ru.nsu.peretyatko.model.infrastructure.*;
+import ru.nsu.peretyatko.model.weapons.Weapon;
+import ru.nsu.peretyatko.model.weapons.WeaponType;
 
 import java.util.List;
 
@@ -108,11 +110,38 @@ public class UnitCustomRepository {
                 .where(cb.equal(subEquipmentType.get("title"), titleType))
                 .groupBy(subUnit.get("id"))
                 .having(cb.gt(cb.count(subEquipment.get("id")), 0));
-
-        // Основной запрос с исключением (EXCEPT)
         cq.select(unit)
                 .where(cb.not(cb.in(unit.get("id")).value(subquery)));
+        return entityManager.createQuery(cq).getResultList();
+    }
 
+    public List<Unit> findUnitsWithWeaponsTypeCount(String titleType, int minCount) {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Unit> cq = cb.createQuery(Unit.class);
+        Root<Unit> unit = cq.from(Unit.class);
+        Join<Unit, Weapon> weapon = unit.join("weapons");
+        Join<Weapon, WeaponType> weaponType = weapon.join("type");
+        cq.groupBy(unit.get("id"));
+        cq.select(unit)
+                .where(cb.equal(weaponType.get("title"), titleType))
+                .having(cb.gt(cb.count(weapon.get("id")), minCount));
+        return entityManager.createQuery(cq).getResultList();
+    }
+
+    public List<Unit> findUnitsWithoutWeaponType(String titleType) {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Unit> cq = cb.createQuery(Unit.class);
+        Root<Unit> unit = cq.from(Unit.class);
+        Subquery<Long> subquery = cq.subquery(Long.class);
+        Root<Unit> subUnit = subquery.from(Unit.class);
+        Join<Unit, Weapon> subWeapon = subUnit.join("weapons");
+        Join<Weapon, WeaponType> subWeaponType = subWeapon.join("type");
+        subquery.select(subUnit.get("id"))
+                .where(cb.equal(subWeaponType.get("title"), titleType))
+                .groupBy(subUnit.get("id"))
+                .having(cb.gt(cb.count(subWeapon.get("id")), 0));
+        cq.select(unit)
+                .where(cb.not(cb.in(unit.get("id")).value(subquery)));
         return entityManager.createQuery(cq).getResultList();
     }
 }

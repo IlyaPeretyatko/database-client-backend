@@ -5,9 +5,7 @@ import jakarta.persistence.criteria.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import ru.nsu.peretyatko.model.infrastructure.*;
-import ru.nsu.peretyatko.model.militaries.Military;
-import ru.nsu.peretyatko.model.militaries.Rank;
-import ru.nsu.peretyatko.model.militaries.RankCategory;
+import ru.nsu.peretyatko.model.militaries.*;
 
 import java.util.List;
 
@@ -156,6 +154,124 @@ public class MilitaryCustomRepository {
                 .where(criteriaBuilder.and(
                         criteriaBuilder.equal(corpsRankCategoryJoin.get("title"), rankCategoryTitle),
                         criteriaBuilder.equal(corpsRankJoin.get("title"), rankTitle),
+                        criteriaBuilder.equal(armyCorpsJoin.get("army").get("id"), armyId)
+                ));
+        criteriaQuery.select(militaryRoot)
+                .where(criteriaBuilder.or(
+                        criteriaBuilder.in(militaryRoot).value(divisionSubquery),
+                        criteriaBuilder.in(militaryRoot).value(brigadeSubquery),
+                        criteriaBuilder.in(militaryRoot).value(corpsSubquery)
+                ));
+        return entityManager.createQuery(criteriaQuery).getResultList();
+    }
+
+    public List<Military> findMilitariesBySpecialtyUnit(String titleSpecialty, int unitId) {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Military> cq = cb.createQuery(Military.class);
+        Root<Military> military = cq.from(Military.class);
+        Join<Military, Unit> unit = military.join("unit");
+        Join<Military, MilitarySpecialty> militarySpecialty = military.join("specialties");
+        Join<MilitarySpecialty, Specialty> specialty = militarySpecialty.join("specialty");
+        Predicate unitCondition = cb.equal(unit.get("id"), unitId);
+        Predicate specialtyCondition = cb.equal(specialty.get("title"), titleSpecialty);
+        cq.orderBy(cb.asc(military.get("id")));
+        cq.select(military)
+                .where(cb.and(unitCondition, specialtyCondition));
+        return entityManager.createQuery(cq).getResultList();
+    }
+
+    public List<Military> findMilitariesBySpecialtyDivision(String titleSpecialty, int divisionId) {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Military> cq = cb.createQuery(Military.class);
+        Root<Military> military = cq.from(Military.class);
+        Join<Military, Unit> unit = military.join("unit");
+        Join<Unit, DivisionUnit> divisionUnit = unit.join("divisionUnits");
+        Join<DivisionUnit, Division> division = divisionUnit.join("division");
+        Join<Military, MilitarySpecialty> militarySpecialty = military.join("specialties");
+        Join<MilitarySpecialty, Specialty> specialty = militarySpecialty.join("specialty");
+        Predicate divisionCondition = cb.equal(division.get("id"), divisionId);
+        Predicate specialtyCondition = cb.equal(specialty.get("title"), titleSpecialty);
+        cq.orderBy(cb.asc(military.get("id")));
+        cq.select(military)
+                .where(cb.and(divisionCondition, specialtyCondition));
+        return entityManager.createQuery(cq).getResultList();
+    }
+
+    public List<Military> findMilitariesBySpecialtyBrigade(String titleSpecialty, int brigadeId) {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Military> cq = cb.createQuery(Military.class);
+        Root<Military> military = cq.from(Military.class);
+        Join<Military, Unit> unit = military.join("unit");
+        Join<Unit, BrigadeUnit> brigadeUnit = unit.join("brigadeUnits");
+        Join<BrigadeUnit, Brigade> brigade = brigadeUnit.join("brigade");
+        Join<Military, MilitarySpecialty> militarySpecialty = military.join("specialties");
+        Join<MilitarySpecialty, Specialty> specialty = militarySpecialty.join("specialty");
+        Predicate brigadeCondition = cb.equal(brigade.get("id"), brigadeId);
+        Predicate specialtyCondition = cb.equal(specialty.get("title"), titleSpecialty);
+        cq.orderBy(cb.asc(military.get("id")));
+        cq.select(military)
+                .where(cb.and(brigadeCondition, specialtyCondition));
+        return entityManager.createQuery(cq).getResultList();
+    }
+
+    public List<Military> findMilitariesBySpecialtyCorps(String titleSpecialty, int corpsId) {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Military> cq = cb.createQuery(Military.class);
+        Root<Military> military = cq.from(Military.class);
+        Join<Military, Unit> unit = military.join("unit");
+        Join<Unit, CorpsUnit> corpsUnit = unit.join("corpsUnits");
+        Join<CorpsUnit, Corps> corps = corpsUnit.join("corps");
+        Join<Military, MilitarySpecialty> militarySpecialty = military.join("specialties");
+        Join<MilitarySpecialty, Specialty> specialty = militarySpecialty.join("specialty");
+        Predicate corpsCondition = cb.equal(corps.get("id"), corpsId);
+        Predicate specialtyCondition = cb.equal(specialty.get("title"), titleSpecialty);
+        cq.orderBy(cb.asc(military.get("id")));
+        cq.select(military)
+                .where(cb.and(corpsCondition, specialtyCondition));
+        return entityManager.createQuery(cq).getResultList();
+    }
+
+    public List<Military> findMilitariesBySpecialtyArmy(String titleSpecialty, int armyId) {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Military> criteriaQuery = criteriaBuilder.createQuery(Military.class);
+        Root<Military> militaryRoot = criteriaQuery.from(Military.class);
+        Subquery<Military> divisionSubquery = criteriaQuery.subquery(Military.class);
+        Root<Military> divisionMilitaryRoot = divisionSubquery.from(Military.class);
+        Join<Military, MilitarySpecialty> divisionMilitarySpecialty = divisionMilitaryRoot.join("specialties");
+        Join<MilitarySpecialty, Specialty> divisionSpecialty = divisionMilitarySpecialty.join("specialty");
+        Join<Military, Unit> divisionUnitJoin = divisionMilitaryRoot.join("unit");
+        Join<Unit, DivisionUnit> divisionUnitJoin2 = divisionUnitJoin.join("divisionUnits");
+        Join<DivisionUnit, Division> divisionJoin = divisionUnitJoin2.join("division");
+        Join<Division, ArmyDivision> armyDivisionJoin = divisionJoin.join("armyDivisions");
+        divisionSubquery.select(divisionMilitaryRoot)
+                .where(criteriaBuilder.and(
+                        criteriaBuilder.equal(divisionSpecialty.get("title"), titleSpecialty),
+                        criteriaBuilder.equal(armyDivisionJoin.get("army").get("id"), armyId)
+                ));
+        Subquery<Military> brigadeSubquery = criteriaQuery.subquery(Military.class);
+        Root<Military> brigadeMilitaryRoot = brigadeSubquery.from(Military.class);
+        Join<Military, MilitarySpecialty> brigadeMilitarySpecialty = brigadeMilitaryRoot.join("specialties");
+        Join<MilitarySpecialty, Specialty> brigadeSpecialty = brigadeMilitarySpecialty.join("specialty");
+        Join<Military, Unit> brigadeUnitJoin = brigadeMilitaryRoot.join("unit");
+        Join<Unit, BrigadeUnit> brigadeUnitJoin2 = brigadeUnitJoin.join("brigadeUnits");
+        Join<BrigadeUnit, Brigade> brigadeJoin = brigadeUnitJoin2.join("brigade");
+        Join<Brigade, ArmyBrigade> armyBrigadeJoin = brigadeJoin.join("armyBrigades");
+        brigadeSubquery.select(brigadeMilitaryRoot)
+                .where(criteriaBuilder.and(
+                        criteriaBuilder.equal(brigadeSpecialty.get("title"), titleSpecialty),
+                        criteriaBuilder.equal(armyBrigadeJoin.get("army").get("id"), armyId)
+                ));
+        Subquery<Military> corpsSubquery = criteriaQuery.subquery(Military.class);
+        Root<Military> corpsMilitaryRoot = corpsSubquery.from(Military.class);
+        Join<Military, MilitarySpecialty> corpsMilitarySpecialty = corpsMilitaryRoot.join("specialties");
+        Join<MilitarySpecialty, Specialty> corpsSpecialty = corpsMilitarySpecialty.join("specialty");
+        Join<Military, Unit> corpsUnitJoin = corpsMilitaryRoot.join("unit");
+        Join<Unit, CorpsUnit> corpsUnitJoin2 = corpsUnitJoin.join("corpsUnits");
+        Join<CorpsUnit, Corps> corpsJoin = corpsUnitJoin2.join("corps");
+        Join<Corps, ArmyCorps> armyCorpsJoin = corpsJoin.join("armyCorps");
+        corpsSubquery.select(corpsMilitaryRoot)
+                .where(criteriaBuilder.and(
+                        criteriaBuilder.equal(corpsSpecialty.get("title"), titleSpecialty),
                         criteriaBuilder.equal(armyCorpsJoin.get("army").get("id"), armyId)
                 ));
         criteriaQuery.select(militaryRoot)
