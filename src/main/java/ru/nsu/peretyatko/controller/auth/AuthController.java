@@ -1,5 +1,6 @@
 package ru.nsu.peretyatko.controller.auth;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.BindingResult;
@@ -13,6 +14,7 @@ import ru.nsu.peretyatko.dto.auth.jwt.RefreshRequest;
 import ru.nsu.peretyatko.service.auth.AuthService;
 import ru.nsu.peretyatko.validator.auth.*;
 
+@Tag(name = "Auth API")
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor

@@ -1,5 +1,6 @@
 package ru.nsu.peretyatko.controller.equipments;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.BindingResult;
@@ -11,6 +12,7 @@ import ru.nsu.peretyatko.validator.equipments.EquipmentTypeValidator;
 
 import java.util.List;
 
+@Tag(name = "Equipment API")
 @RestController
 @RequestMapping("/equipments/types")
 @RequiredArgsConstructor

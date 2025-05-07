@@ -1,5 +1,6 @@
 package ru.nsu.peretyatko.controller.auth;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +12,7 @@ import ru.nsu.peretyatko.validator.auth.UserValidator;
 
 import jakarta.validation.Valid;
 
+@Tag(name = "Auth API", description = "ds")
 @RestController
 @RequestMapping("/users")
 @RequiredArgsConstructor

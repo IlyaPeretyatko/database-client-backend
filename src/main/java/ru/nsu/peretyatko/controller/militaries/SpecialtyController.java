@@ -1,5 +1,6 @@
 package ru.nsu.peretyatko.controller.militaries;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import ru.nsu.peretyatko.dto.militaries.SpecialtyResponse;
@@ -7,6 +8,7 @@ import ru.nsu.peretyatko.service.militaries.SpecialtyService;
 
 import java.util.List;
 
+@Tag(name = "Specialty API")
 @RestController
 @RequestMapping("/specialties")
 @RequiredArgsConstructor

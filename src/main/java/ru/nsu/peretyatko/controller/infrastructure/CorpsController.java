@@ -1,5 +1,6 @@
 package ru.nsu.peretyatko.controller.infrastructure;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.BindingResult;
@@ -13,6 +14,7 @@ import ru.nsu.peretyatko.validator.infrastructure.CorpsValidator;
 
 import java.util.List;
 
+@Tag(name = "Corps API")
 @RestController
 @RequestMapping("/corps")
 @RequiredArgsConstructor

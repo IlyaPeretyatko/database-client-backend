@@ -1,5 +1,6 @@
 package ru.nsu.peretyatko.controller.infrastructure;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.BindingResult;
@@ -12,6 +13,7 @@ import ru.nsu.peretyatko.validator.infrastructure.DivisionValidator;
 
 import java.util.List;
 
+@Tag(name = "Division API")
 @RestController
 @RequestMapping("/divisions")
 @RequiredArgsConstructor

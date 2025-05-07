@@ -1,8 +1,8 @@
 package ru.nsu.peretyatko.controller.weapons;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.nsu.peretyatko.dto.weapons.WeaponPatchRequest;
@@ -13,6 +13,7 @@ import ru.nsu.peretyatko.validator.weapons.WeaponValidator;
 
 import java.util.List;
 
+@Tag(name = "Weapon API")
 @RestController
 @RequestMapping("/weapons")
 @RequiredArgsConstructor
