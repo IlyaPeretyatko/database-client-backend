@@ -17,6 +17,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class MilitaryService {
+
     private final MilitaryCustomRepository militaryCustomRepository;
 
     private final MilitaryRepository militaryRepository;
@@ -48,7 +49,9 @@ public class MilitaryService {
 
     @Transactional
     public void deleteMilitary(int id) {
-        if (!militaryRepository.existsById(id)) { throw new ServiceException(404, "Military was not found."); }
+        if (!militaryRepository.existsById(id)) {
+            throw new ServiceException(404, "Military was not found.");
+        }
         militaryRepository.deleteById(id);
     }
 
@@ -157,6 +160,29 @@ public class MilitaryService {
         return militaryCustomRepository.findMilitariesByRankCategoryAndRankArmy("Рядовой состав", rankTitle, armyId).stream().map(militaryMapper::toMilitaryResponse).toList();
     }
 
+    @Transactional(readOnly = true)
+    public List<MilitaryResponse> getMilitariesBySpecialtyUnit(String titleSpecialty, int unitId) {
+        return militaryCustomRepository.findMilitariesBySpecialtyUnit(titleSpecialty, unitId).stream().map(militaryMapper::toMilitaryResponse).toList();
+    }
 
+    @Transactional(readOnly = true)
+    public List<MilitaryResponse> getMilitariesBySpecialtyDivision(String titleSpecialty, int divisionId) {
+        return militaryCustomRepository.findMilitariesBySpecialtyDivision(titleSpecialty, divisionId).stream().map(militaryMapper::toMilitaryResponse).toList();
+    }
+
+    @Transactional(readOnly = true)
+    public List<MilitaryResponse> getMilitariesBySpecialtyBrigade(String titleSpecialty, int brigadeId) {
+        return militaryCustomRepository.findMilitariesBySpecialtyBrigade(titleSpecialty, brigadeId).stream().map(militaryMapper::toMilitaryResponse).toList();
+    }
+
+    @Transactional(readOnly = true)
+    public List<MilitaryResponse> getMilitariesBySpecialtyCorps(String titleSpecialty, int corpsId) {
+        return militaryCustomRepository.findMilitariesBySpecialtyCorps(titleSpecialty, corpsId).stream().map(militaryMapper::toMilitaryResponse).toList();
+    }
+
+    @Transactional(readOnly = true)
+    public List<MilitaryResponse> getMilitariesBySpecialtyArmy(String titleSpecialty, int armyId) {
+        return militaryCustomRepository.findMilitariesBySpecialtyArmy(titleSpecialty, armyId).stream().map(militaryMapper::toMilitaryResponse).toList();
+    }
 
 }

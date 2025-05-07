@@ -74,4 +74,24 @@ public class UnitService {
     public List<UnitResponse> getUnitsByArmy(int id) {
         return unitCustomRepository.findUnitsByArmyId(id).stream().map(unitMapper::toUnitResponse).toList();
     }
+
+    @Transactional(readOnly = true)
+    public List<UnitResponse> getUnitsWithEquipmentTypeCount(String titleType, int minCount) {
+        return unitCustomRepository.findUnitsWithEquipmentTypeCount(titleType, minCount).stream().map(unitMapper::toUnitResponse).toList();
+    }
+
+    @Transactional(readOnly = true)
+    public List<UnitResponse> getUnitsWithoutEquipmentType(String titleType, int minCount)  {
+        return unitCustomRepository.findUnitsWithoutEquipmentType(titleType).stream().map(unitMapper::toUnitResponse).toList();
+    }
+
+    @Transactional(readOnly = true)
+    public List<UnitResponse> getUnitsWithWeaponTypeCount(String titleType, int minCount) {
+        return unitCustomRepository.findUnitsWithWeaponTypeCount(titleType, minCount).stream().map(unitMapper::toUnitResponse).toList();
+    }
+
+    @Transactional(readOnly = true)
+    public List<UnitResponse> getUnitsWithoutWeaponType(String titleType, int minCount) {
+        return unitCustomRepository.findUnitsWithoutWeaponType(titleType).stream().map(unitMapper::toUnitResponse).toList();
+    }
 }

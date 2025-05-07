@@ -6,9 +6,11 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.nsu.peretyatko.dto.infrastructure.CorpsPatchRequest;
 import ru.nsu.peretyatko.dto.infrastructure.CorpsPostRequest;
 import ru.nsu.peretyatko.dto.infrastructure.CorpsResponse;
+import ru.nsu.peretyatko.dto.infrastructure.DivisionResponse;
 import ru.nsu.peretyatko.error.exception.ServiceException;
 import ru.nsu.peretyatko.mapper.infrastructure.CorpsMapper;
 import ru.nsu.peretyatko.model.infrastructure.Corps;
+import ru.nsu.peretyatko.repository.infrastructure.CorpsCustomRepository;
 import ru.nsu.peretyatko.repository.infrastructure.CorpsRepository;
 
 import java.util.List;
@@ -16,6 +18,9 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class CorpsService {
+
+    private final CorpsCustomRepository corpsCustomRepository;
+
     private final CorpsRepository corpsRepository;
 
     private final CorpsMapper corpsMapper;
@@ -49,5 +54,15 @@ public class CorpsService {
             throw new ServiceException(404, "Corps was not found.");
         }
         corpsRepository.deleteById(id);
+    }
+
+    @Transactional(readOnly = true)
+    public CorpsResponse getCorpsWithMostUnits() {
+        return corpsMapper.toCorpsResponse(corpsCustomRepository.findCorpsWithMostUnits());
+    }
+
+    @Transactional(readOnly = true)
+    public CorpsResponse getCorpsWithFewestUnits() {
+        return corpsMapper.toCorpsResponse(corpsCustomRepository.findCorpsWithFewestUnits());
     }
 }

@@ -74,6 +74,8 @@ public class SecurityConfig {
                                 .permitAll()
                                 .requestMatchers("/auth/**")
                                 .permitAll()
+                                .requestMatchers("/swagger-ui/**")
+                                .permitAll()
                                 .anyRequest().authenticated())
                 .anonymous(AbstractHttpConfigurer::disable)
                 .addFilterBefore(new JwtTokenFilter(jwtTokenProvider),

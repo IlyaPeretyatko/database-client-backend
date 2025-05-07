@@ -52,7 +52,7 @@ public class SpecialtyCustomRepository {
         return entityManager.createQuery(cq).getResultList();
     }
 
-    public List<Specialty> findSpecialtiesInDivision(int divisionId) {
+    public List<Specialty> findSpecialtiesInDivision(int divisionId, int minCount) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Specialty> cq = cb.createQuery(Specialty.class);
         Root<Specialty> specialty = cq.from(Specialty.class);
@@ -64,7 +64,7 @@ public class SpecialtyCustomRepository {
         Predicate divisionCondition = cb.equal(division.get("id"), divisionId);
         cq.groupBy(specialty.get("id"));
         Expression<Long> militaryCount = cb.count(military.get("id"));
-        Predicate havingCondition = cb.gt(militaryCount, 5L);
+        Predicate havingCondition = cb.gt(militaryCount, minCount);
         cq.select(specialty)
                 .where(divisionCondition)
                 .having(havingCondition);
@@ -91,7 +91,7 @@ public class SpecialtyCustomRepository {
         return entityManager.createQuery(cq).getResultList();
     }
 
-    public List<Specialty> findSpecialtiesInBrigade(int brigadeId) {
+    public List<Specialty> findSpecialtiesInBrigade(int brigadeId, int minCount) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Specialty> cq = cb.createQuery(Specialty.class);
         Root<Specialty> specialty = cq.from(Specialty.class);
@@ -103,7 +103,7 @@ public class SpecialtyCustomRepository {
         Predicate brigadeCondition = cb.equal(brigade.get("id"), brigadeId);
         cq.groupBy(specialty.get("id"));
         Expression<Long> militaryCount = cb.count(military.get("id"));
-        Predicate havingCondition = cb.gt(militaryCount, 5L);
+        Predicate havingCondition = cb.gt(militaryCount, minCount);
         cq.select(specialty)
                 .where(brigadeCondition)
                 .having(havingCondition);
@@ -130,7 +130,7 @@ public class SpecialtyCustomRepository {
         return entityManager.createQuery(cq).getResultList();
     }
 
-    public List<Specialty> findSpecialtiesInCorps(int corpsId) {
+    public List<Specialty> findSpecialtiesInCorps(int corpsId, int minCount) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Specialty> cq = cb.createQuery(Specialty.class);
         Root<Specialty> specialty = cq.from(Specialty.class);
@@ -142,7 +142,7 @@ public class SpecialtyCustomRepository {
         Predicate corpsCondition = cb.equal(corps.get("id"), corpsId);
         cq.groupBy(specialty.get("id"));
         Expression<Long> militaryCount = cb.count(military.get("id"));
-        Predicate havingCondition = cb.gt(militaryCount, 5L);
+        Predicate havingCondition = cb.gt(militaryCount, minCount);
         cq.select(specialty)
                 .where(corpsCondition)
                 .having(havingCondition);

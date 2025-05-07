@@ -18,6 +18,9 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class DivisionService {
+
+    private final DivisionCustomRepository divisionCustomRepository;
+
     private final DivisionRepository divisionRepository;
 
     private final DivisionMapper divisionMapper;
@@ -51,6 +54,16 @@ public class DivisionService {
             throw new ServiceException(404, "Division was not found.");
         }
         divisionRepository.deleteById(id);
+    }
+
+    @Transactional(readOnly = true)
+    public DivisionResponse getDivisionWithMostUnits() {
+        return divisionMapper.toDivisionResponse(divisionCustomRepository.findDivisionWithMostUnits());
+    }
+
+    @Transactional(readOnly = true)
+    public DivisionResponse getDivisionWithFewestUnits() {
+        return divisionMapper.toDivisionResponse(divisionCustomRepository.findDivisionWithFewestUnits());
     }
 
 

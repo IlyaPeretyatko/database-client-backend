@@ -6,9 +6,11 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.nsu.peretyatko.dto.infrastructure.ArmyPatchRequest;
 import ru.nsu.peretyatko.dto.infrastructure.ArmyPostRequest;
 import ru.nsu.peretyatko.dto.infrastructure.ArmyResponse;
+import ru.nsu.peretyatko.dto.infrastructure.DivisionResponse;
 import ru.nsu.peretyatko.error.exception.ServiceException;
 import ru.nsu.peretyatko.mapper.infrastructure.ArmyMapper;
 import ru.nsu.peretyatko.model.infrastructure.Army;
+import ru.nsu.peretyatko.repository.infrastructure.ArmyCustomRepository;
 import ru.nsu.peretyatko.repository.infrastructure.ArmyRepository;
 
 import java.util.List;
@@ -16,6 +18,9 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class ArmyService {
+
+    private final ArmyCustomRepository armyCustomRepository;
+
     private final ArmyRepository armyRepository;
 
     private final ArmyMapper armyMapper;
@@ -50,4 +55,15 @@ public class ArmyService {
         }
         armyRepository.deleteById(id);
     }
+
+    @Transactional(readOnly = true)
+    public ArmyResponse getArmyWithMostUnits() {
+        return armyMapper.toArmyResponse(armyCustomRepository.findArmyWithMostUnits());
+    }
+
+    @Transactional(readOnly = true)
+    public ArmyResponse getArmyWithFewestUnits() {
+        return armyMapper.toArmyResponse(armyCustomRepository.findArmyWithFewestUnits());
+    }
+
 }

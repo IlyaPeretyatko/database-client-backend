@@ -9,6 +9,7 @@ import ru.nsu.peretyatko.dto.buildings.BuildingResponse;
 import ru.nsu.peretyatko.error.exception.ServiceException;
 import ru.nsu.peretyatko.mapper.buildings.BuildingMapper;
 import ru.nsu.peretyatko.model.buildings.Building;
+import ru.nsu.peretyatko.repository.buildings.BuildingCustomRepository;
 import ru.nsu.peretyatko.repository.buildings.BuildingRepository;
 
 import java.util.List;
@@ -16,6 +17,9 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class BuildingService {
+
+    private final BuildingCustomRepository buildingCustomRepository;
+
     private final BuildingRepository buildingRepository;
 
     private final BuildingMapper buildingMapper;
@@ -50,4 +54,20 @@ public class BuildingService {
         }
         buildingRepository.deleteById(id);
     }
+
+    @Transactional(readOnly = true)
+    public List<BuildingResponse> getBuildingsUnit(int unitId) {
+        return buildingCustomRepository.findBuildingsUnit(unitId).stream().map(buildingMapper::toBuildingResponse).toList();
+    }
+
+    @Transactional(readOnly = true)
+    public List<BuildingResponse> getBuildingsOfSeparation() {
+        return buildingCustomRepository.findBuildingsOfSeparation().stream().map(buildingMapper::toBuildingResponse).toList();
+    }
+
+    @Transactional(readOnly = true)
+    public List<BuildingResponse> getBuildingsOfNoSeparation() {
+        return buildingCustomRepository.findBuildingsOfNoSeparation().stream().map(buildingMapper::toBuildingResponse).toList();
+    }
+
 }

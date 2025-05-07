@@ -115,7 +115,7 @@ public class UnitCustomRepository {
         return entityManager.createQuery(cq).getResultList();
     }
 
-    public List<Unit> findUnitsWithWeaponsTypeCount(String titleType, int minCount) {
+    public List<Unit> findUnitsWithWeaponTypeCount(String titleType, int minCount) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Unit> cq = cb.createQuery(Unit.class);
         Root<Unit> unit = cq.from(Unit.class);
