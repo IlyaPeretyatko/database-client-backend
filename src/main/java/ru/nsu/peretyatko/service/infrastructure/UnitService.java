@@ -81,7 +81,7 @@ public class UnitService {
     }
 
     @Transactional(readOnly = true)
-    public List<UnitResponse> getUnitsWithoutEquipmentType(String titleType, int minCount)  {
+    public List<UnitResponse> getUnitsWithoutEquipmentType(String titleType)  {
         return unitCustomRepository.findUnitsWithoutEquipmentType(titleType).stream().map(unitMapper::toUnitResponse).toList();
     }
 
@@ -91,7 +91,7 @@ public class UnitService {
     }
 
     @Transactional(readOnly = true)
-    public List<UnitResponse> getUnitsWithoutWeaponType(String titleType, int minCount) {
+    public List<UnitResponse> getUnitsWithoutWeaponType(String titleType) {
         return unitCustomRepository.findUnitsWithoutWeaponType(titleType).stream().map(unitMapper::toUnitResponse).toList();
     }
 }

@@ -50,4 +50,74 @@ public class EquipmentController {
     public void deleteEquipment(@PathVariable int id) {
         equipmentService.deleteEquipment(id);
     }
+
+    @GetMapping("/by/type")
+    public List<EquipmentResponse> getEquipmentsByType(@RequestParam String title) {
+        return equipmentService.getEquipmentsByType(title);
+    }
+
+    @GetMapping("/by/category")
+    public List<EquipmentResponse> getEquipmentsByCategory(@RequestParam String title) {
+        return equipmentService.getEquipmentsByCategory(title);
+    }
+
+    @GetMapping("/unit/{id}/by/type")
+    public List<EquipmentResponse> getEquipmentsByTypeUnit(@PathVariable int id,
+                                                     @RequestParam String title) {
+        return equipmentService.getEquipmentsByTypeUnit(title,id);
+    }
+
+    @GetMapping("/unit/{id}/by/category")
+    public List<EquipmentResponse> getEquipmentsByCategoryUnit(@PathVariable int id,
+                                                         @RequestParam String title) {
+        return equipmentService.getEquipmentsByCategoryUnit(title,id);
+    }
+
+    @GetMapping("/division/{id}/by/type")
+    public List<EquipmentResponse> getEquipmentsByTypeDivision(@PathVariable int id,
+                                                         @RequestParam String title) {
+        return equipmentService.getEquipmentsByTypeDivision(title,id);
+    }
+
+    @GetMapping("/division/{id}/by/category")
+    public List<EquipmentResponse> getEquipmentsByCategoryDivision(@PathVariable int id,
+                                                             @RequestParam String title) {
+        return equipmentService.getEquipmentsByCategoryDivision(title,id);
+    }
+
+    @GetMapping("/brigade/{id}/by/type")
+    public List<EquipmentResponse> getEquipmentsByTypeBrigade(@PathVariable int id,
+                                                        @RequestParam String title) {
+        return equipmentService.getEquipmentsByTypeBrigade(title,id);
+    }
+
+    @GetMapping("/brigade/{id}/by/category")
+    public List<EquipmentResponse> getEquipmentsByCategoryBrigade(@PathVariable int id,
+                                                            @RequestParam String title) {
+        return equipmentService.getEquipmentsByCategoryBrigade(title,id);
+    }
+
+    @GetMapping("/corps/{id}/by/type")
+    public List<EquipmentResponse> getEquipmentsByTypeCorps(@PathVariable int id,
+                                                      @RequestParam String title) {
+        return equipmentService.getEquipmentsByTypeCorps(title, id);
+    }
+
+    @GetMapping("/corps/{id}/by/category")
+    public List<EquipmentResponse> getEquipmentsByCategoryCorps(@PathVariable int id,
+                                                          @RequestParam String title) {
+        return equipmentService.getEquipmentsByCategoryCorps(title, id);
+    }
+
+    @GetMapping("/army/{id}/by/type")
+    public List<EquipmentResponse> getEquipmentsByTypeArmy(@PathVariable int id,
+                                                     @RequestParam String title) {
+        return equipmentService.getEquipmentsByTypeArmy(title, id);
+    }
+
+    @GetMapping("/army/{id}/by/category")
+    public List<EquipmentResponse> getEquipmentsByCategoryArmy(@PathVariable int id,
+                                                         @RequestParam String title) {
+        return equipmentService.getEquipmentsByCategoryArmy(title, id);
+    }
 }

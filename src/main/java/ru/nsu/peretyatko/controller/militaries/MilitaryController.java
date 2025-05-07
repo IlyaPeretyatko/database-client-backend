@@ -67,78 +67,78 @@ public class MilitaryController {
     }
 
     @GetMapping("/officers/by/rank")
-    public List<MilitaryResponse> getOfficersByRank(@RequestParam String rankTitle) {
-        return militaryService.getOfficersByRank(rankTitle);
+    public List<MilitaryResponse> getOfficersByRank(@RequestParam String title) {
+        return militaryService.getOfficersByRank(title);
     }
 
     @GetMapping("/sergeants/by/rank")
-    public List<MilitaryResponse> getSergeantsByRank(@RequestParam String rankTitle) {
-        return militaryService.getSergeantsByRank(rankTitle);
+    public List<MilitaryResponse> getSergeantsByRank(@RequestParam String title) {
+        return militaryService.getSergeantsByRank(title);
     }
 
     @GetMapping("/soldiers/by/rank")
-    public List<MilitaryResponse> getSoldiersByRank(@RequestParam String rankTitle) {
-        return militaryService.getSoldiersByRank(rankTitle);
+    public List<MilitaryResponse> getSoldiersByRank(@RequestParam String title) {
+        return militaryService.getSoldiersByRank(title);
     }
 
     @GetMapping("/officers/unit/{id}/by/rank")
     public List<MilitaryResponse> getOfficersUnitByRank(@PathVariable int id,
-                                                        @RequestParam String rankTitle) {
-        return militaryService.getOfficersUnitByRank(id, rankTitle);
+                                                        @RequestParam String title) {
+        return militaryService.getOfficersUnitByRank(id, title);
     }
 
     @GetMapping("/sergeants/unit/{id}/by/rank")
     public List<MilitaryResponse> getSergeantsUnitByRank(@PathVariable int id,
-                                                        @RequestParam String rankTitle) {
-        return militaryService.getSergeantsUnitByRank(id, rankTitle);
+                                                        @RequestParam String title) {
+        return militaryService.getSergeantsUnitByRank(id, title);
     }
 
     @GetMapping("/soldiers/unit/{id}/by/rank")
     public List<MilitaryResponse> getSoldiersUnitByRank(@PathVariable int id,
-                                                        @RequestParam String rankTitle) {
-        return militaryService.getSoldiersUnitByRank(id, rankTitle);
+                                                        @RequestParam String title) {
+        return militaryService.getSoldiersUnitByRank(id, title);
     }
 
     @GetMapping("/officers/division/{id}/by/rank")
     public List<MilitaryResponse> getOfficersDivisionByRank(@PathVariable int id,
-                                                        @RequestParam String rankTitle) {
-        return militaryService.getOfficersDivisionByRank(id, rankTitle);
+                                                        @RequestParam String title) {
+        return militaryService.getOfficersDivisionByRank(id, title);
     }
 
     @GetMapping("/sergeants/division/{id}/by/rank")
     public List<MilitaryResponse> getSergeantsDivisionByRank(@PathVariable int id,
-                                                         @RequestParam String rankTitle) {
-        return militaryService.getSergeantsDivisionByRank(id, rankTitle);
+                                                         @RequestParam String title) {
+        return militaryService.getSergeantsDivisionByRank(id, title);
     }
 
     @GetMapping("/soldiers/division/{id}/by/rank")
     public List<MilitaryResponse> getSoldiersDivisionByRank(@PathVariable int id,
-                                                        @RequestParam String rankTitle) {
-        return militaryService.getSoldiersDivisionByRank(id, rankTitle);
+                                                        @RequestParam String title) {
+        return militaryService.getSoldiersDivisionByRank(id, title);
     }
 
     @GetMapping("/officers/brigade/{id}/by/rank")
     public List<MilitaryResponse> getOfficersBrigadeByRank(@PathVariable int id,
-                                                        @RequestParam String rankTitle) {
-        return militaryService.getOfficersBrigadeByRank(id, rankTitle);
+                                                        @RequestParam String title) {
+        return militaryService.getOfficersBrigadeByRank(id, title);
     }
 
     @GetMapping("/sergeants/brigade/{id}/by/rank")
     public List<MilitaryResponse> getSergeantsBrigadeByRank(@PathVariable int id,
-                                                         @RequestParam String rankTitle) {
-        return militaryService.getSergeantsBrigadeByRank(id, rankTitle);
+                                                         @RequestParam String title) {
+        return militaryService.getSergeantsBrigadeByRank(id, title);
     }
 
     @GetMapping("/soldiers/brigade/{id}/by/rank")
     public List<MilitaryResponse> getSoldiersBrigadeByRank(@PathVariable int id,
-                                                        @RequestParam String rankTitle) {
-        return militaryService.getSoldiersBrigadeByRank(id, rankTitle);
+                                                        @RequestParam String title) {
+        return militaryService.getSoldiersBrigadeByRank(id, title);
     }
 
     @GetMapping("/officers/corps/{id}/by/rank")
     public List<MilitaryResponse> getOfficersCorpsByRank(@PathVariable int id,
-                                                           @RequestParam String rankTitle) {
-        return militaryService.getOfficersCorpsByRank(id, rankTitle);
+                                                           @RequestParam String title) {
+        return militaryService.getOfficersCorpsByRank(id, title);
     }
 
     @GetMapping("/sergeants/corps/{id}/by/rank")
@@ -149,25 +149,56 @@ public class MilitaryController {
 
     @GetMapping("/soldiers/corps/{id}/by/rank")
     public List<MilitaryResponse> getSoldiersCorpsByRank(@PathVariable int id,
-                                                           @RequestParam String rankTitle) {
-        return militaryService.getSoldiersCorpsByRank(id, rankTitle);
+                                                           @RequestParam String title) {
+        return militaryService.getSoldiersCorpsByRank(id, title);
     }
 
     @GetMapping("/officers/army/{id}/by/rank")
     public List<MilitaryResponse> getOfficersArmyByRank(@PathVariable int id,
-                                                           @RequestParam String rankTitle) {
-        return militaryService.getOfficersArmyByRank(id, rankTitle);
+                                                           @RequestParam String title) {
+        return militaryService.getOfficersArmyByRank(id, title);
     }
 
     @GetMapping("/sergeants/army/{id}/by/rank")
     public List<MilitaryResponse> getSergeantsArmyByRank(@PathVariable int id,
-                                                            @RequestParam String rankTitle) {
-        return militaryService.getSergeantsArmyByRank(id, rankTitle);
+                                                            @RequestParam String title) {
+        return militaryService.getSergeantsArmyByRank(id, title);
     }
 
     @GetMapping("/soldiers/army/{id}/by/rank")
     public List<MilitaryResponse> getSoldiersArmyByRank(@PathVariable int id,
-                                                           @RequestParam String rankTitle) {
-        return militaryService.getSoldiersArmyByRank(id, rankTitle);
+                                                           @RequestParam String title) {
+        return militaryService.getSoldiersArmyByRank(id, title);
     }
+
+    @GetMapping("/unit/{id}/by/specialty")
+    public List<MilitaryResponse> getMilitariesBySpecialtyUnit(@PathVariable int id,
+                                                               @RequestParam String title) {
+        return militaryService.getMilitariesBySpecialtyUnit(title, id);
+    }
+
+    @GetMapping("/division/{id}/by/specialty")
+    public List<MilitaryResponse> getMilitariesBySpecialtyDivision(@PathVariable int id,
+                                                                   @RequestParam String title) {
+        return militaryService.getMilitariesBySpecialtyDivision(title, id);
+    }
+
+    @GetMapping("/brigade/{id}/by/specialty")
+    public List<MilitaryResponse> getMilitariesBySpecialtyBrigade(@PathVariable int id,
+                                                                  @RequestParam String title) {
+        return militaryService.getMilitariesBySpecialtyBrigade(title, id);
+    }
+
+    @GetMapping("/corps/{id}/by/specialty")
+    public List<MilitaryResponse> getMilitariesBySpecialtyCorps(@PathVariable int id,
+                                                                @RequestParam String title) {
+        return militaryService.getMilitariesBySpecialtyCorps(title, id);
+    }
+
+    @GetMapping("/army/{id}/by/specialty")
+    public List<MilitaryResponse> getMilitariesBySpecialtyArmy(@PathVariable int id,
+                                                               @RequestParam String title) {
+        return militaryService.getMilitariesBySpecialtyArmy(title, id);
+    }
+
 }

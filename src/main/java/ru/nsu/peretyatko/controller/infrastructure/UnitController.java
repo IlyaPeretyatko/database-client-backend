@@ -70,4 +70,26 @@ public class UnitController {
     public List<UnitResponse> getUnitsByArmy(@PathVariable int id) {
         return unitService.getUnitsByArmy(id);
     }
+
+    @GetMapping("/with/equipment")
+    public List<UnitResponse> getUnitsWithEquipmentTypeCount(@RequestParam String type,
+                                                             @RequestParam(required = false, defaultValue = "0") int minCount) {
+        return unitService.getUnitsWithEquipmentTypeCount(type, minCount);
+    }
+
+    @GetMapping("/without/equipment")
+    public List<UnitResponse> getUnitsWithoutEquipmentType(@RequestParam String type)  {
+        return unitService.getUnitsWithoutEquipmentType(type);
+    }
+
+    @GetMapping("/with/weapon")
+    public List<UnitResponse> getUnitsWithWeaponTypeCount(@RequestParam String type,
+                                                          @RequestParam(required = false, defaultValue = "0") int minCount) {
+        return unitService.getUnitsWithWeaponTypeCount(type, minCount);
+    }
+
+    @GetMapping("/without/weapon")
+    public List<UnitResponse> getUnitsWithoutWeaponType(@RequestParam String type) {
+        return unitService.getUnitsWithoutWeaponType(type);
+    }
 }

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.nsu.peretyatko.dto.infrastructure.CorpsPatchRequest;
 import ru.nsu.peretyatko.dto.infrastructure.CorpsPostRequest;
 import ru.nsu.peretyatko.dto.infrastructure.CorpsResponse;
+import ru.nsu.peretyatko.dto.infrastructure.DivisionResponse;
 import ru.nsu.peretyatko.service.infrastructure.CorpsService;
 import ru.nsu.peretyatko.validator.infrastructure.CorpsValidator;
 
@@ -50,4 +51,15 @@ public class CorpsController {
     public void deleteCorps(@PathVariable int id) {
         corpsService.deleteCorps(id);
     }
+
+    @GetMapping("/with/most/units")
+    public CorpsResponse getCorpsWithMostUnits() {
+        return corpsService.getCorpsWithMostUnits();
+    }
+
+    @GetMapping("/with/fewest/units")
+    public CorpsResponse getCorpsWithFewestUnits() {
+        return corpsService.getCorpsWithFewestUnits();
+    }
+
 }

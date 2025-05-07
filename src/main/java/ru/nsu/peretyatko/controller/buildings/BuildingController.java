@@ -2,6 +2,7 @@ package ru.nsu.peretyatko.controller.buildings;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.nsu.peretyatko.dto.buildings.BuildingPatchRequest;
@@ -49,5 +50,20 @@ public class BuildingController {
     @DeleteMapping("/{id}")
     public void deleteBuilding(@PathVariable int id) {
         buildingService.deleteBuilding(id);
+    }
+
+    @GetMapping("/by/unit/{id}")
+    public List<BuildingResponse> getBuildingsUnit(@PathVariable int id) {
+        return buildingService.getBuildingsUnit(id);
+    }
+
+    @GetMapping("/of/separations")
+    public List<BuildingResponse> getBuildingsOfSeparation() {
+        return buildingService.getBuildingsOfSeparation();
+    }
+
+    @GetMapping("/of/no-separations")
+    public List<BuildingResponse> getBuildingsOfNoSeparation() {
+        return buildingService.getBuildingsOfNoSeparation();
     }
 }

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.nsu.peretyatko.dto.infrastructure.BrigadePatchRequest;
 import ru.nsu.peretyatko.dto.infrastructure.BrigadePostRequest;
 import ru.nsu.peretyatko.dto.infrastructure.BrigadeResponse;
+import ru.nsu.peretyatko.dto.infrastructure.DivisionResponse;
 import ru.nsu.peretyatko.service.infrastructure.BrigadeService;
 import ru.nsu.peretyatko.validator.infrastructure.BrigadeValidator;
 
@@ -49,5 +50,15 @@ public class BrigadeController {
     @DeleteMapping("/{id}")
     public void deleteBrigade(@PathVariable int id) {
         brigadeService.deleteBrigade(id);
+    }
+
+    @GetMapping("/with/most/units")
+    public BrigadeResponse getBrigadeWithMostUnits() {
+        return brigadeService.getBrigadeWithMostUnits();
+    }
+
+    @GetMapping("/with/fewest/units")
+    public BrigadeResponse getBrigadeWithFewestUnits() {
+        return brigadeService.getBrigadeWithFewestUnits();
     }
 }

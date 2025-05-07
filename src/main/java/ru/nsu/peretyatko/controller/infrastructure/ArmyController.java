@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.nsu.peretyatko.dto.infrastructure.ArmyPatchRequest;
 import ru.nsu.peretyatko.dto.infrastructure.ArmyPostRequest;
 import ru.nsu.peretyatko.dto.infrastructure.ArmyResponse;
+import ru.nsu.peretyatko.dto.infrastructure.DivisionResponse;
 import ru.nsu.peretyatko.service.infrastructure.ArmyService;
 import ru.nsu.peretyatko.validator.infrastructure.ArmyValidator;
 
@@ -49,5 +50,15 @@ public class ArmyController {
     @DeleteMapping("/{id}")
     public void deleteArmy(@PathVariable int id) {
         armyService.deleteArmy(id);
+    }
+
+    @GetMapping("/with/most/units")
+    public ArmyResponse getArmyWithMostUnits() {
+        return armyService.getArmyWithMostUnits();
+    }
+
+    @GetMapping("/with/fewest/units")
+    public ArmyResponse getArmyWithFewestUnits() {
+        return armyService.getArmyWithFewestUnits();
     }
 }

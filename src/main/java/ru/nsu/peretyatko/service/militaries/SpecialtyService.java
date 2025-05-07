@@ -28,33 +28,33 @@ public class SpecialtyService {
     }
 
     @Transactional(readOnly = true)
-    public List<SpecialtyResponse> getSpecialtiesInDivision(int unitId, int minCount) {
-        return specialtyCustomRepository.findSpecialtiesInDivision(unitId, minCount).stream().map(specialtyMapper::toSpecialtyResponse).toList();
+    public List<SpecialtyResponse> getSpecialtiesInDivision(int divisionId, int minCount) {
+        return specialtyCustomRepository.findSpecialtiesInDivision(divisionId, minCount).stream().map(specialtyMapper::toSpecialtyResponse).toList();
     }
 
     @Transactional(readOnly = true)
-    public List<SpecialtyResponse> getNoSpecialtiesInDivision(int unitId) {
-        return specialtyCustomRepository.findNoSpecialtiesInDivision(unitId).stream().map(specialtyMapper::toSpecialtyResponse).toList();
+    public List<SpecialtyResponse> getNoSpecialtiesInDivision(int divisionId) {
+        return specialtyCustomRepository.findNoSpecialtiesInDivision(divisionId).stream().map(specialtyMapper::toSpecialtyResponse).toList();
     }
 
     @Transactional(readOnly = true)
-    public List<SpecialtyResponse> getSpecialtiesInBrigade(int unitId, int minCount) {
-        return specialtyCustomRepository.findSpecialtiesInBrigade(unitId, minCount).stream().map(specialtyMapper::toSpecialtyResponse).toList();
+    public List<SpecialtyResponse> getSpecialtiesInBrigade(int brigadeId, int minCount) {
+        return specialtyCustomRepository.findSpecialtiesInBrigade(brigadeId, minCount).stream().map(specialtyMapper::toSpecialtyResponse).toList();
     }
 
     @Transactional(readOnly = true)
-    public List<SpecialtyResponse> getNoSpecialtiesInBrigade(int unitId) {
-        return specialtyCustomRepository.findNoSpecialtiesInBrigade(unitId).stream().map(specialtyMapper::toSpecialtyResponse).toList();
+    public List<SpecialtyResponse> getNoSpecialtiesInBrigade(int brigadeId) {
+        return specialtyCustomRepository.findNoSpecialtiesInBrigade(brigadeId).stream().map(specialtyMapper::toSpecialtyResponse).toList();
     }
 
     @Transactional(readOnly = true)
-    public List<SpecialtyResponse> getSpecialtiesInCorps(int unitId, int minCount) {
-        return specialtyCustomRepository.findSpecialtiesInCorps(unitId, minCount).stream().map(specialtyMapper::toSpecialtyResponse).toList();
+    public List<SpecialtyResponse> getSpecialtiesInCorps(int corpsId, int minCount) {
+        return specialtyCustomRepository.findSpecialtiesInCorps(corpsId, minCount).stream().map(specialtyMapper::toSpecialtyResponse).toList();
     }
 
     @Transactional(readOnly = true)
-    public List<SpecialtyResponse> getNoSpecialtiesInCorps(int unitId) {
-        return specialtyCustomRepository.findNoSpecialtiesInCorps(unitId).stream().map(specialtyMapper::toSpecialtyResponse).toList();
+    public List<SpecialtyResponse> getNoSpecialtiesInCorps(int corpsId) {
+        return specialtyCustomRepository.findNoSpecialtiesInCorps(corpsId).stream().map(specialtyMapper::toSpecialtyResponse).toList();
     }
 
 

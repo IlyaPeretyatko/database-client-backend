@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.*;
 import ru.nsu.peretyatko.dto.infrastructure.DivisionPatchRequest;
 import ru.nsu.peretyatko.dto.infrastructure.DivisionPostRequest;
 import ru.nsu.peretyatko.dto.infrastructure.DivisionResponse;
-import ru.nsu.peretyatko.dto.infrastructure.UnitResponse;
 import ru.nsu.peretyatko.service.infrastructure.DivisionService;
 import ru.nsu.peretyatko.validator.infrastructure.DivisionValidator;
 
@@ -52,4 +51,13 @@ public class DivisionController {
         divisionService.deleteDivision(id);
     }
 
+    @GetMapping("/with/most/units")
+    public DivisionResponse getDivisionWithMostUnits() {
+        return divisionService.getDivisionWithMostUnits();
+    }
+
+    @GetMapping("/with/fewest/units")
+    public DivisionResponse getDivisionWithFewestUnits() {
+        return divisionService.getDivisionWithFewestUnits();
+    }
 }
