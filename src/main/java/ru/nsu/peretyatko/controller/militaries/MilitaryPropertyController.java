@@ -1,5 +1,6 @@
 package ru.nsu.peretyatko.controller.militaries;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -23,16 +24,19 @@ public class MilitaryPropertyController {
 
     private final MilitaryPropertyValidator militaryPropertyValidator;
 
+    @Operation(summary = "Получить перечень атрибутов военнослужащих")
     @GetMapping
     public List<MilitaryPropertyResponse> getMilitaryProperties() {
         return militaryPropertyService.getMilitaryProperties();
     }
 
+    @Operation(summary = "Получить атрибут военнослужащего по ID")
     @GetMapping("/{id}")
     public MilitaryPropertyResponse getMilitaryPropertyById(@PathVariable int id) {
         return militaryPropertyService.getMilitaryProperty(id);
     }
 
+    @Operation(summary = "Добавить атрибут военнослужащего")
     @PostMapping
     public void createMilitaryProperty(@Valid @RequestBody MilitaryPropertyPostRequest militaryPropertyPostRequest,
                                        BindingResult bindingResult) {
@@ -40,6 +44,7 @@ public class MilitaryPropertyController {
         militaryPropertyService.createMilitaryProperty(militaryPropertyPostRequest);
     }
 
+    @Operation(summary = "Изменить данные атрибута военнослужащего по ID")
     @PatchMapping("/{id}")
     public void updateMilitaryProperty(@PathVariable int id,
                                @Valid @RequestBody MilitaryPropertyPatchRequest militaryPropertyPatchRequest,
@@ -48,6 +53,7 @@ public class MilitaryPropertyController {
         militaryPropertyService.updateMilitaryProperty(id, militaryPropertyPatchRequest);
     }
 
+    @Operation(summary = "Удалить атрибут военнослужащего по ID")
     @DeleteMapping("/{id}")
     public void deleteMilitaryProperty(@PathVariable int id) {
         militaryPropertyService.deleteMilitaryProperty(id);

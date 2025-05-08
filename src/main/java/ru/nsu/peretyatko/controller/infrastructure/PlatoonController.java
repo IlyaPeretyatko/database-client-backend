@@ -1,5 +1,6 @@
 package ru.nsu.peretyatko.controller.infrastructure;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -23,16 +24,19 @@ public class PlatoonController {
 
     private final PlatoonValidator platoonValidator;
 
+    @Operation(summary = "Получить перечень взводов")
     @GetMapping
     public List<PlatoonResponse> getPlatoons() {
         return platoonService.getPlatoons();
     }
 
+    @Operation(summary = "Получить взвод по ID")
     @GetMapping("/{id}")
     public PlatoonResponse getPlatoonById(@PathVariable int id) {
         return platoonService.getPlatoon(id);
     }
 
+    @Operation(summary = "Добавить взвод")
     @PostMapping
     public void createPlatoon(@Valid @RequestBody PlatoonPostRequest platoonPostRequest,
                               BindingResult bindingResult) {
@@ -40,6 +44,7 @@ public class PlatoonController {
         platoonService.createPlatoon(platoonPostRequest);
     }
 
+    @Operation(summary = "Изменить данные взвода по ID")
     @PatchMapping("/{id}")
     public void updatePlatoon(@PathVariable int id,
                               @Valid @RequestBody PlatoonPatchRequest platoonPatchRequest,
@@ -48,6 +53,7 @@ public class PlatoonController {
         platoonService.updatePlatoon(id, platoonPatchRequest);
     }
 
+    @Operation(summary = "Удалить взвод по ID")
     @DeleteMapping("/{id}")
     public void deletePlatoon(@PathVariable int id) {
         platoonService.deletePlatoon(id);

@@ -1,5 +1,6 @@
 package ru.nsu.peretyatko.controller.equipments;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -22,16 +23,19 @@ public class EquipmentCategoryController {
 
     private final EquipmentCategoryValidator equipmentCategoryValidator;
 
+    @Operation(summary = "Получить перечень категорий военной техники")
     @GetMapping
     public List<EquipmentCategoryResponse> getEquipmentCategories() {
         return equipmentCategoryService.getEquipmentCategories();
     }
 
+    @Operation(summary = "Получить категорию военной техники по ID")
     @GetMapping("/{id}")
     public EquipmentCategoryResponse getEquipmentCategoryById(@PathVariable int id) {
         return equipmentCategoryService.getEquipmentCategory(id);
     }
 
+    @Operation(summary = "Добавить категорию военной техники")
     @PostMapping
     public void createEquipmentCategory(@Valid @RequestBody EquipmentCategoryRequest equipmentCategoryRequest,
                                    BindingResult bindingResult) {
@@ -39,6 +43,7 @@ public class EquipmentCategoryController {
         equipmentCategoryService.createEquipmentCategory(equipmentCategoryRequest);
     }
 
+    @Operation(summary = "Удалить категорию военной техники по ID")
     @DeleteMapping("/{id}")
     public void deleteEquipmentCategory(@PathVariable int id) {
         equipmentCategoryService.deleteEquipmentCategory(id);

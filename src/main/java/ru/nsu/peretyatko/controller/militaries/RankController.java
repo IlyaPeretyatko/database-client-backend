@@ -1,5 +1,6 @@
 package ru.nsu.peretyatko.controller.militaries;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -22,16 +23,19 @@ public class RankController {
 
     private final RankValidator rankValidator;
 
+    @Operation(summary = "Получить перечень званий")
     @GetMapping
     public List<RankResponse> getRanks() {
         return rankService.getRanks();
     }
 
+    @Operation(summary = "Получить звание по ID")
     @GetMapping("/{id}")
     public RankResponse getRankById(@PathVariable int id) {
         return rankService.getRank(id);
     }
 
+    @Operation(summary = "Добавить звание")
     @PostMapping
     public void createRank(@Valid @RequestBody RankRequest rankRequest,
                            BindingResult bindingResult) {
@@ -39,6 +43,7 @@ public class RankController {
         rankService.createRank(rankRequest);
     }
 
+    @Operation(summary = "Удалить звание по ID")
     @DeleteMapping("/{id}")
     public void deleteRank(@PathVariable int id) {
         rankService.deleteRank(id);

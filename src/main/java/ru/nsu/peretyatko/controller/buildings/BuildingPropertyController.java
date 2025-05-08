@@ -1,5 +1,6 @@
 package ru.nsu.peretyatko.controller.buildings;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -23,16 +24,19 @@ public class BuildingPropertyController {
 
     private final BuildingPropertyValidator buildingPropertyValidator;
 
+    @Operation(summary = "Получить перечень атрибутов сооружений")
     @GetMapping
     public List<BuildingPropertyResponse> getBuildingProperties() {
         return buildingPropertyService.getBuildingProperties();
     }
 
+    @Operation(summary = "Получить атрибут сооружения по ID")
     @GetMapping("/{id}")
     public BuildingPropertyResponse getBuildingPropertyById(@PathVariable int id) {
         return buildingPropertyService.getBuildingProperty(id);
     }
 
+    @Operation(summary = "Создать атрибут сооружения")
     @PostMapping
     public void createBuildingProperty(@Valid @RequestBody BuildingPropertyPostRequest buildingPropertyPostRequest,
                                BindingResult bindingResult) {
@@ -40,6 +44,7 @@ public class BuildingPropertyController {
         buildingPropertyService.createBuildingProperty(buildingPropertyPostRequest);
     }
 
+    @Operation(summary = "Изменить данные атрибута сооружения по ID")
     @PatchMapping("/{id}")
     public void updateBuildingProperty(@PathVariable int id,
                                @Valid @RequestBody BuildingPropertyPatchRequest buildingPropertyPatchRequest,
@@ -48,6 +53,7 @@ public class BuildingPropertyController {
         buildingPropertyService.updateBuildingProperty(id, buildingPropertyPatchRequest);
     }
 
+    @Operation(summary = "Удалить атрибут сооружения по ID")
     @DeleteMapping("/{id}")
     public void deleteBuildingProperty(@PathVariable int id) {
         buildingPropertyService.deleteBuildingProperty(id);

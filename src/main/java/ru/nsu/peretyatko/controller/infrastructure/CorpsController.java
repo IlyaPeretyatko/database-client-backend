@@ -1,5 +1,6 @@
 package ru.nsu.peretyatko.controller.infrastructure;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -24,16 +25,19 @@ public class CorpsController {
 
     private final CorpsValidator corpsValidator;
 
+    @Operation(summary = "Получить перечень корпусов")
     @GetMapping
     public List<CorpsResponse> getCorps() {
         return corpsService.getCorps();
     }
 
+    @Operation(summary = "Получить корпус по ID")
     @GetMapping("/{id}")
     public CorpsResponse getCorpsById(@PathVariable int id) {
         return corpsService.getCorps(id);
     }
 
+    @Operation(summary = "Добавить корпус")
     @PostMapping
     public void createCorps(@Valid @RequestBody CorpsPostRequest corpsPostRequest,
                               BindingResult bindingResult) {
@@ -41,6 +45,7 @@ public class CorpsController {
         corpsService.createCorps(corpsPostRequest);
     }
 
+    @Operation(summary = "Изменить данные корпуса по ID")
     @PatchMapping("/{id}")
     public void updateCorps(@PathVariable int id,
                               @Valid @RequestBody CorpsPatchRequest corpsPatchRequest,
@@ -49,16 +54,19 @@ public class CorpsController {
         corpsService.updateCorps(id, corpsPatchRequest);
     }
 
+    @Operation(summary = "Удалить корпус по ID")
     @DeleteMapping("/{id}")
     public void deleteCorps(@PathVariable int id) {
         corpsService.deleteCorps(id);
     }
 
+    @Operation(summary = "Получить корпус у которого больше всего военных частей")
     @GetMapping("/with/most/units")
     public CorpsResponse getCorpsWithMostUnits() {
         return corpsService.getCorpsWithMostUnits();
     }
 
+    @Operation(summary = "Получить корпус у которого меньше всего военных частей")
     @GetMapping("/with/fewest/units")
     public CorpsResponse getCorpsWithFewestUnits() {
         return corpsService.getCorpsWithFewestUnits();

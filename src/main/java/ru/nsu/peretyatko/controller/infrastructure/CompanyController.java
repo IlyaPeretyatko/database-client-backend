@@ -1,5 +1,6 @@
 package ru.nsu.peretyatko.controller.infrastructure;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -23,16 +24,19 @@ public class CompanyController {
 
     private final CompanyValidator companyValidator;
 
+    @Operation(summary = "Получить перечень рот")
     @GetMapping
     public List<CompanyResponse> getCompanies() {
         return companyService.getCompanies();
     }
 
+    @Operation(summary = "Получить роту по ID")
     @GetMapping("/{id}")
     public CompanyResponse getCompanyById(@PathVariable int id) {
         return companyService.getCompany(id);
     }
 
+    @Operation(summary = "Добавить роту")
     @PostMapping
     public void createCompany(@Valid @RequestBody CompanyPostRequest companyPostRequest,
                            BindingResult bindingResult) {
@@ -40,6 +44,7 @@ public class CompanyController {
         companyService.createCompany(companyPostRequest);
     }
 
+    @Operation(summary = "Изменить данные роты по ID")
     @PatchMapping("/{id}")
     public void updateCompany(@PathVariable int id,
                            @Valid @RequestBody CompanyPatchRequest companyPatchRequest,
@@ -48,6 +53,7 @@ public class CompanyController {
         companyService.updateCompany(id, companyPatchRequest);
     }
 
+    @Operation(summary = "Удалить роту по ID")
     @DeleteMapping("/{id}")
     public void deleteCompany(@PathVariable int id) {
         companyService.deleteCompany(id);

@@ -1,5 +1,6 @@
 package ru.nsu.peretyatko.controller.infrastructure;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -23,16 +24,19 @@ public class SquadController {
 
     private final SquadValidator squadValidator;
 
+    @Operation(summary = "Получить перечень отрядов")
     @GetMapping
     public List<SquadResponse> getSquads() {
         return squadService.getSquads();
     }
 
+    @Operation(summary = "Получить отряд по ID")
     @GetMapping("/{id}")
     public SquadResponse getSquadById(@PathVariable int id) {
         return squadService.getSquad(id);
     }
 
+    @Operation(summary = "Добавить отряд")
     @PostMapping
     public void createSquad(@Valid @RequestBody SquadPostRequest squadPostRequest,
                               BindingResult bindingResult) {
@@ -40,6 +44,7 @@ public class SquadController {
         squadService.createSquad(squadPostRequest);
     }
 
+    @Operation(summary = "Изменить данные отряда по ID")
     @PatchMapping("/{id}")
     public void updateSquad(@PathVariable int id,
                               @Valid @RequestBody SquadPatchRequest squadPatchRequest,
@@ -48,6 +53,7 @@ public class SquadController {
         squadService.updateSquad(id, squadPatchRequest);
     }
 
+    @Operation(summary = "Удалить отряд по ID")
     @DeleteMapping("/{id}")
     public void deleteSquad(@PathVariable int id) {
         squadService.deleteSquad(id);
