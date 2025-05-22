@@ -1,5 +1,6 @@
 package ru.nsu.peretyatko.service.auth;
 
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -13,6 +14,7 @@ import ru.nsu.peretyatko.error.exception.ServiceException;
 import ru.nsu.peretyatko.mapper.auth.UserMapper;
 import ru.nsu.peretyatko.model.auth.Role;
 import ru.nsu.peretyatko.model.auth.User;
+import ru.nsu.peretyatko.model.militaries.RankCategory;
 import ru.nsu.peretyatko.repository.auth.UserRepository;
 
 import java.util.Set;

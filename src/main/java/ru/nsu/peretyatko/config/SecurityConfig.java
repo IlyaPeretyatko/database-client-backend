@@ -81,6 +81,7 @@ public class SecurityConfig {
                                 .requestMatchers("/v3/**")
                                 .permitAll()
                                 .requestMatchers("/sql/**").hasRole("ADMIN")
+                                .requestMatchers("/roles/**").hasRole("ADMIN")
                                 .anyRequest().authenticated())
                 .anonymous(AbstractHttpConfigurer::disable)
                 .addFilterBefore(new JwtTokenFilter(jwtTokenProvider),
