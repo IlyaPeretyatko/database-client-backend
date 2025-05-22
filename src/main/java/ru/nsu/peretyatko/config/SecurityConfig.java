@@ -67,7 +67,7 @@ public class SecurityConfig {
                                                             .value()
                                             );
                                             response.getWriter()
-                                                    .write("Unauthorized.");
+                                                    .write("Unauthorized. Access denied.");
                                         }))
                 .authorizeHttpRequests(configurer ->
                         configurer.requestMatchers("/users/**")
@@ -80,6 +80,7 @@ public class SecurityConfig {
                                 .permitAll()
                                 .requestMatchers("/v3/**")
                                 .permitAll()
+                                .requestMatchers("/sql/**").hasRole("ADMIN")
                                 .anyRequest().authenticated())
                 .anonymous(AbstractHttpConfigurer::disable)
                 .addFilterBefore(new JwtTokenFilter(jwtTokenProvider),

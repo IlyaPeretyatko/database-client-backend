@@ -23,7 +23,7 @@ spring:
                     starttls:
                         enable: true
     datasource:
-        url: jdbc:postgresql://localhost:5430/bank
+        url: jdbc:postgresql://localhost:5430/district
         username: bank
         password: bank
     jpa:

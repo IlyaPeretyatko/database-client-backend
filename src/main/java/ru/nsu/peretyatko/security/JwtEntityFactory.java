@@ -23,7 +23,7 @@ public class JwtEntityFactory {
 
     private static List<GrantedAuthority> mapToGrantedAuthorities(List<Role> roles) {
         return roles.stream()
-                .map(Enum::name)
+                .map(Role::getTitle)
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
     }

@@ -35,7 +35,7 @@
         <p>Hello, ${name}!</p>
         <p>This is registration mail. You can confirm email.</p>
         <p>With best regards, <br> Ilya Peretyatko.</p>
-        <a id="a" href="http://${domain}/api/users/verify?token=${token}">Verification Email</a>
+        <a id="a" href="http://${domain}/users/verify?token=${token}">Verification Email</a>
     </div>
 </div>
 </body>

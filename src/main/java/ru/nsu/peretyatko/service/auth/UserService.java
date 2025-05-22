@@ -42,7 +42,7 @@ public class UserService {
     @Transactional
     public UserPostResponse createUser(UserPostRequest userPostRequest) {
         User user = userMapper.toUser(userPostRequest);
-        Set<Role> roles = Set.of(Role.ROLE_USER);
+        Set<Role> roles = Set.of(new Role("ROLE_USER"));
         user.setRoles(roles);
         User createdUser = userRepository.save(user);
         mailService.sendEmail(user, MailType.REGISTER);
