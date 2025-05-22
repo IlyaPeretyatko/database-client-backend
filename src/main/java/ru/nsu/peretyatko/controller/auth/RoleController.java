@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.nsu.peretyatko.dto.auth.role.RoleRequest;
 import ru.nsu.peretyatko.dto.auth.role.RoleResponse;
 import ru.nsu.peretyatko.service.auth.RoleService;
+import ru.nsu.peretyatko.service.auth.UserService;
 
 import java.util.List;
 
@@ -17,6 +18,8 @@ import java.util.List;
 public class RoleController {
 
     private final RoleService roleService;
+
+    private final UserService userService;
 
     @Operation(summary = "Получить все роли")
     @GetMapping
@@ -47,6 +50,18 @@ public class RoleController {
     @DeleteMapping("/{id}")
     public void deleteRole(@PathVariable int id) {
         roleService.deleteRole(id);
+    }
+
+    @Operation(summary = "Добавить роль пользователю")
+    @PatchMapping("/user/{id}")
+    public void addRoleForUser(@PathVariable long id, @RequestParam String title) {
+        userService.addRoleForUser(id, title);
+    }
+
+    @Operation(summary = "Удалить роль пользователю")
+    @DeleteMapping("/user/{id}")
+    public void deleteRoleForUser(@PathVariable long id, @RequestParam String title) {
+        userService.deleteRoleForUser(id, title);
     }
 
 }

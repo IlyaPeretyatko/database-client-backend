@@ -54,6 +54,9 @@ public class RoleService {
     @Transactional
     public void updateRole(int id, RoleRequest roleRequest) {
         Role role = roleRepository.findById(id).orElseThrow(() -> new ServiceException(404, "Role wasn't found."));
+        if (role.getTitle().equals("ROLE_ADMIN") || role.getTitle().equals("ROLE_USER")) {
+            throw new ServiceException(409, "Default role cannot be updated.");
+        }
         role.setTitle(roleRequest.getTitle());
         if (roleRepository.existsByTitle(roleRequest.getTitle())) {
             throw new ServiceException(404, "Role already exists.");
@@ -63,6 +66,10 @@ public class RoleService {
 
     @Transactional
     public void deleteRole(int id) {
+        Role role = roleRepository.findById(id).orElseThrow(() -> new ServiceException(404, "Role wasn't found."));
+        if (role.getTitle().equals("ROLE_ADMIN") || role.getTitle().equals("ROLE_USER")) {
+            throw new ServiceException(409, "Default role cannot be updated.");
+        }
         roleRepository.deleteById(id);
     }
 }

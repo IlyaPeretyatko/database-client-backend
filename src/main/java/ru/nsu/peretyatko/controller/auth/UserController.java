@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.nsu.peretyatko.dto.auth.user.UserPatchRequest;
@@ -57,6 +58,5 @@ public class UserController {
         userService.resetPassword(token, userPatchRequest);
     }
 
-    
 
 }
