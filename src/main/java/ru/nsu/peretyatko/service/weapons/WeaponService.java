@@ -1,6 +1,8 @@
 package ru.nsu.peretyatko.service.weapons;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.nsu.peretyatko.dto.weapons.WeaponPatchRequest;
@@ -11,6 +13,7 @@ import ru.nsu.peretyatko.mapper.weapons.WeaponMapper;
 import ru.nsu.peretyatko.model.weapons.Weapon;
 import ru.nsu.peretyatko.repository.weapons.WeaponCustomRepository;
 import ru.nsu.peretyatko.repository.weapons.WeaponRepository;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -25,8 +28,9 @@ public class WeaponService {
     private final WeaponMapper weaponMapper;
 
     @Transactional(readOnly = true)
-    public List<WeaponResponse> getWeapons() {
-        return weaponRepository.findAll().stream().map(weaponMapper::toWeaponResponse).toList();
+    public Page<WeaponResponse> getWeapons(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return weaponRepository.findAll(pageable).map(weaponMapper::toWeaponResponse);
     }
 
     @Transactional(readOnly = true)

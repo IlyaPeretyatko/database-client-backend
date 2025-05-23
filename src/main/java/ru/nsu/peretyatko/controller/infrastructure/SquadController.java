@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.nsu.peretyatko.dto.infrastructure.SquadPatchRequest;
@@ -26,8 +27,9 @@ public class SquadController {
 
     @Operation(summary = "Получить перечень отрядов")
     @GetMapping
-    public List<SquadResponse> getSquads() {
-        return squadService.getSquads();
+    public Page<SquadResponse> getSquads(@RequestParam(defaultValue = "0") int page,
+                                         @RequestParam(defaultValue = "10") int size) {
+        return squadService.getSquads(page, size);
     }
 
     @Operation(summary = "Получить отряд по ID")

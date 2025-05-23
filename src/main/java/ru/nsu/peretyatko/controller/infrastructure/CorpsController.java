@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.nsu.peretyatko.dto.infrastructure.CorpsPatchRequest;
@@ -27,8 +28,9 @@ public class CorpsController {
 
     @Operation(summary = "Получить перечень корпусов")
     @GetMapping
-    public List<CorpsResponse> getCorps() {
-        return corpsService.getCorps();
+    public Page<CorpsResponse> getCorps(@RequestParam(defaultValue = "0") int page,
+                                        @RequestParam(defaultValue = "10") int size) {
+        return corpsService.getCorps(page, size);
     }
 
     @Operation(summary = "Получить корпус по ID")

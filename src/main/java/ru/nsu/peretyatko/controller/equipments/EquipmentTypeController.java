@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.nsu.peretyatko.dto.equipments.EquipmentTypeRequest;
@@ -25,8 +26,9 @@ public class EquipmentTypeController {
 
     @Operation(summary = "Получить перечень видов военной техники")
     @GetMapping
-    public List<EquipmentTypeResponse> getEquipmentTypes() {
-        return equipmentTypeService.getEquipmentTypes();
+    public Page<EquipmentTypeResponse> getEquipmentTypes(@RequestParam(defaultValue = "0") int page,
+                                                         @RequestParam(defaultValue = "10") int size) {
+        return equipmentTypeService.getEquipmentTypes(page, size);
     }
 
     @Operation(summary = "Получить вид военной техники по ID")

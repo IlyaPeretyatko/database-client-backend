@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.nsu.peretyatko.dto.militaries.RankRequest;
@@ -25,8 +26,9 @@ public class RankController {
 
     @Operation(summary = "Получить перечень званий")
     @GetMapping
-    public List<RankResponse> getRanks() {
-        return rankService.getRanks();
+    public Page<RankResponse> getRanks(@RequestParam(defaultValue = "0") int page,
+                                       @RequestParam(defaultValue = "10") int size) {
+        return rankService.getRanks(page, size);
     }
 
     @Operation(summary = "Получить звание по ID")

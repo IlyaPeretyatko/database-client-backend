@@ -1,6 +1,9 @@
 package ru.nsu.peretyatko.service.infrastructure;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.nsu.peretyatko.dto.infrastructure.UnitPatchRequest;
@@ -25,8 +28,9 @@ public class UnitService {
     private final UnitMapper unitMapper;
 
     @Transactional(readOnly = true)
-    public List<UnitResponse> getUnits() {
-        return unitRepository.findAll().stream().map(unitMapper::toUnitResponse).toList();
+    public Page<UnitResponse> getUnits(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return unitRepository.findAll(pageable).map(unitMapper::toUnitResponse);
     }
 
     @Transactional(readOnly = true)

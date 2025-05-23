@@ -1,6 +1,9 @@
 package ru.nsu.peretyatko.service.infrastructure;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.nsu.peretyatko.dto.infrastructure.BrigadePatchRequest;
@@ -26,8 +29,9 @@ public class BrigadeService {
     private final BrigadeMapper brigadeMapper;
 
     @Transactional(readOnly = true)
-    public List<BrigadeResponse> getBrigades() {
-        return brigadeRepository.findAll().stream().map(brigadeMapper::toBrigadeResponse).toList();
+    public Page<BrigadeResponse> getBrigades(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return brigadeRepository.findAll(pageable).map(brigadeMapper::toBrigadeResponse);
     }
 
     @Transactional(readOnly = true)

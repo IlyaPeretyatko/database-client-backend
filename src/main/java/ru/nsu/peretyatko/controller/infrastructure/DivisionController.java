@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.nsu.peretyatko.dto.infrastructure.DivisionPatchRequest;
@@ -26,8 +27,9 @@ public class DivisionController {
 
     @Operation(summary = "Получить перечень дивизий")
     @GetMapping
-    public List<DivisionResponse> getDivisions() {
-        return divisionService.getDivisions();
+    public Page<DivisionResponse> getDivisions(@RequestParam(defaultValue = "0") int page,
+                                               @RequestParam(defaultValue = "10") int size) {
+        return divisionService.getDivisions(page, size);
     }
 
     @Operation(summary = "Получить дивизию по ID")

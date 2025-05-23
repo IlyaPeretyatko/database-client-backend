@@ -1,6 +1,9 @@
 package ru.nsu.peretyatko.service.buildings;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.nsu.peretyatko.dto.buildings.BuildingPropertyPatchRequest;
@@ -21,8 +24,9 @@ public class BuildingPropertyService {
     private final BuildingPropertyMapper buildingPropertyMapper;
 
     @Transactional(readOnly = true)
-    public List<BuildingPropertyResponse> getBuildingProperties() {
-        return buildingPropertyRepository.findAll().stream().map(buildingPropertyMapper::toBuildingPropertyResponse).toList();
+    public Page<BuildingPropertyResponse> getBuildingProperties(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return buildingPropertyRepository.findAll(pageable).map(buildingPropertyMapper::toBuildingPropertyResponse);
     }
 
     @Transactional(readOnly = true)

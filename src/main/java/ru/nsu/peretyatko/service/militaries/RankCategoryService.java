@@ -2,6 +2,9 @@ package ru.nsu.peretyatko.service.militaries;
 
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.nsu.peretyatko.dto.militaries.RankCategoryRequest;
@@ -32,8 +35,9 @@ public class RankCategoryService {
     }
 
     @Transactional(readOnly = true)
-    public List<RankCategoryResponse> getRankCategories() {
-        return rankCategoryRepository.findAll().stream().map(rankCategoryMapper::toRankCategoryResponse).collect(Collectors.toList());
+    public Page<RankCategoryResponse> getRankCategories(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return rankCategoryRepository.findAll(pageable).map(rankCategoryMapper::toRankCategoryResponse);
     }
 
     @Transactional(readOnly = true)

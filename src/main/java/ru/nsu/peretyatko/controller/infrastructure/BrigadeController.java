@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.nsu.peretyatko.dto.infrastructure.BrigadePatchRequest;
@@ -27,8 +28,9 @@ public class BrigadeController {
 
     @Operation(summary = "Получить перечень бригад")
     @GetMapping
-    public List<BrigadeResponse> getBrigades() {
-        return brigadeService.getBrigades();
+    public Page<BrigadeResponse> getBrigades(@RequestParam(defaultValue = "0") int page,
+                                             @RequestParam(defaultValue = "10") int size) {
+        return brigadeService.getBrigades(page, size);
     }
 
     @Operation(summary = "Получить бригаду по ID")

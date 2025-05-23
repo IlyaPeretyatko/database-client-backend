@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.nsu.peretyatko.dto.buildings.BuildingPropertyPatchRequest;
@@ -26,8 +27,9 @@ public class BuildingPropertyController {
 
     @Operation(summary = "Получить перечень атрибутов сооружений")
     @GetMapping
-    public List<BuildingPropertyResponse> getBuildingProperties() {
-        return buildingPropertyService.getBuildingProperties();
+    public Page<BuildingPropertyResponse> getBuildingProperties(@RequestParam(defaultValue = "0") int page,
+                                                                @RequestParam(defaultValue = "10") int size) {
+        return buildingPropertyService.getBuildingProperties(page, size);
     }
 
     @Operation(summary = "Получить атрибут сооружения по ID")

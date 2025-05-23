@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.nsu.peretyatko.dto.militaries.MilitaryPropertyPatchRequest;
@@ -26,8 +27,9 @@ public class MilitaryPropertyController {
 
     @Operation(summary = "Получить перечень атрибутов военнослужащих")
     @GetMapping
-    public List<MilitaryPropertyResponse> getMilitaryProperties() {
-        return militaryPropertyService.getMilitaryProperties();
+    public Page<MilitaryPropertyResponse> getMilitaryProperties(@RequestParam(defaultValue = "0") int page,
+                                                                @RequestParam(defaultValue = "10") int size) {
+        return militaryPropertyService.getMilitaryProperties(page, size);
     }
 
     @Operation(summary = "Получить атрибут военнослужащего по ID")

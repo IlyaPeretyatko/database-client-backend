@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.nsu.peretyatko.dto.militaries.RankCategoryRequest;
@@ -25,8 +26,9 @@ public class RankCategoryController {
 
     @Operation(summary = "Получить перечень категорий званий")
     @GetMapping
-    public List<RankCategoryResponse> getRankCategories() {
-        return rankCategoryService.getRankCategories();
+    public Page<RankCategoryResponse> getRankCategories(@RequestParam(defaultValue = "0") int page,
+                                                        @RequestParam(defaultValue = "10") int size) {
+        return rankCategoryService.getRankCategories(page, size);
     }
 
     @Operation(summary = "Получить категорию званий по ID")

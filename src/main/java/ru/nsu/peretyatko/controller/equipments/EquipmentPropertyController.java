@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.nsu.peretyatko.dto.equipments.EquipmentPropertyPatchRequest;
@@ -26,8 +27,9 @@ public class EquipmentPropertyController {
 
     @Operation(summary = "Получить перечень атрибутов военной техники")
     @GetMapping
-    public List<EquipmentPropertyResponse> getEquipmentProperties() {
-        return equipmentPropertyService.getEquipmentProperties();
+    public Page<EquipmentPropertyResponse> getEquipmentProperties(@RequestParam(defaultValue = "0") int page,
+                                                                  @RequestParam(defaultValue = "10") int size) {
+        return equipmentPropertyService.getEquipmentProperties(page, size);
     }
 
     @Operation(summary = "Получить атрибут военной техники по ID")

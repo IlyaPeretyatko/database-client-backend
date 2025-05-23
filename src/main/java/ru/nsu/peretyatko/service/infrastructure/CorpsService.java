@@ -1,6 +1,9 @@
 package ru.nsu.peretyatko.service.infrastructure;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.nsu.peretyatko.dto.infrastructure.CorpsPatchRequest;
@@ -26,8 +29,9 @@ public class CorpsService {
     private final CorpsMapper corpsMapper;
 
     @Transactional(readOnly = true)
-    public List<CorpsResponse> getCorps() {
-        return corpsRepository.findAll().stream().map(corpsMapper::toCorpsResponse).toList();
+    public Page<CorpsResponse> getCorps(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return corpsRepository.findAll(pageable).map(corpsMapper::toCorpsResponse);
     }
 
     @Transactional(readOnly = true)

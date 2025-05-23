@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.nsu.peretyatko.dto.infrastructure.UnitPatchRequest;
@@ -26,8 +27,9 @@ public class UnitController {
 
     @Operation(summary = "Получить перечень военных частей")
     @GetMapping
-    public List<UnitResponse> getUnits() {
-        return unitService.getUnits();
+    public Page<UnitResponse> getUnits(@RequestParam(defaultValue = "0") int page,
+                                       @RequestParam(defaultValue = "10") int size) {
+        return unitService.getUnits(page, size);
     }
 
     @Operation(summary = "Получить военную часть по ID")

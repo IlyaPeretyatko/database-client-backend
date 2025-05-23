@@ -1,6 +1,9 @@
 package ru.nsu.peretyatko.service.equipments;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.nsu.peretyatko.dto.equipments.EquipmentPatchRequest;
@@ -25,8 +28,9 @@ public class EquipmentService {
     private final EquipmentMapper equipmentMapper;
 
     @Transactional(readOnly = true)
-    public List<EquipmentResponse> getEquipments() {
-        return equipmentRepository.findAll().stream().map(equipmentMapper::toEquipmentResponse).toList();
+    public Page<EquipmentResponse> getEquipments(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return equipmentRepository.findAll(pageable).map(equipmentMapper::toEquipmentResponse);
     }
 
     @Transactional(readOnly = true)

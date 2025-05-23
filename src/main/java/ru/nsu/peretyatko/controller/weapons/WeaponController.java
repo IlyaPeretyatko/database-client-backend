@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.nsu.peretyatko.dto.weapons.WeaponPatchRequest;
@@ -26,8 +27,9 @@ public class WeaponController {
 
     @Operation(summary = "Получить перечень оружия")
     @GetMapping
-    public List<WeaponResponse> getWeapons() {
-        return weaponService.getWeapons();
+    public Page<WeaponResponse> getWeapons(@RequestParam(defaultValue = "0") int page,
+                                           @RequestParam(defaultValue = "10") int size) {
+        return weaponService.getWeapons(page, size);
     }
 
     @Operation(summary = "Получить оружие по ID")

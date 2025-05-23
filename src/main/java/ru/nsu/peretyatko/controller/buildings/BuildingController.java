@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -27,8 +28,9 @@ public class BuildingController {
 
     @Operation(summary = "Получить перечень сооружений")
     @GetMapping
-    public List<BuildingResponse> getBuildings() {
-        return buildingService.getBuildings();
+    public Page<BuildingResponse> getBuildings(@RequestParam(defaultValue = "0") int page,
+                                               @RequestParam(defaultValue = "10") int size) {
+        return buildingService.getBuildings(page, size);
     }
 
     @Operation(summary = "Получить сооружение по ID")

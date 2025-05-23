@@ -1,6 +1,9 @@
 package ru.nsu.peretyatko.service.infrastructure;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.nsu.peretyatko.dto.infrastructure.DivisionPatchRequest;
@@ -26,8 +29,9 @@ public class DivisionService {
     private final DivisionMapper divisionMapper;
 
     @Transactional(readOnly = true)
-    public List<DivisionResponse> getDivisions() {
-        return divisionRepository.findAll().stream().map(divisionMapper::toDivisionResponse).toList();
+    public Page<DivisionResponse> getDivisions(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return divisionRepository.findAll(pageable).map(divisionMapper::toDivisionResponse);
     }
 
     @Transactional(readOnly = true)

@@ -1,6 +1,9 @@
 package ru.nsu.peretyatko.service.infrastructure;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.nsu.peretyatko.dto.infrastructure.ArmyPatchRequest;
@@ -26,8 +29,9 @@ public class ArmyService {
     private final ArmyMapper armyMapper;
 
     @Transactional(readOnly = true)
-    public List<ArmyResponse> getArmies() {
-        return armyRepository.findAll().stream().map(armyMapper::toArmyResponse).toList();
+    public Page<ArmyResponse> getArmies(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return armyRepository.findAll(pageable).map(armyMapper::toArmyResponse);
     }
 
     @Transactional(readOnly = true)
