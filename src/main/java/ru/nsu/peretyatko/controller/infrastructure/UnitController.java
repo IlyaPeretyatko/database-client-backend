@@ -13,7 +13,6 @@ import ru.nsu.peretyatko.dto.infrastructure.UnitResponse;
 import ru.nsu.peretyatko.service.infrastructure.UnitService;
 import ru.nsu.peretyatko.validator.infrastructure.UnitValidator;
 
-import java.util.List;
 
 @Tag(name = "Unit API")
 @RestController
@@ -63,51 +62,67 @@ public class UnitController {
 
     @Operation(summary = "Получить перечень военных частей дивизии")
     @GetMapping("/by/division/{id}")
-    public List<UnitResponse> getUnitsByDivision(@PathVariable int id) {
-        return unitService.getUnitsByDivision(id);
+    public Page<UnitResponse> getUnitsByDivision(@PathVariable int id,
+                                                 @RequestParam(defaultValue = "0") int page,
+                                                 @RequestParam(defaultValue = "10") int size) {
+        return unitService.getUnitsByDivision(id, page, size);
     }
 
     @Operation(summary = "Получить перечень военных частей бригады")
     @GetMapping("/by/brigade/{id}")
-    public List<UnitResponse> getUnitsByBrigade(@PathVariable int id) {
-        return unitService.getUnitsByBrigade(id);
+    public Page<UnitResponse> getUnitsByBrigade(@PathVariable int id,
+                                                @RequestParam(defaultValue = "0") int page,
+                                                @RequestParam(defaultValue = "10") int size) {
+        return unitService.getUnitsByBrigade(id, page, size);
     }
 
     @Operation(summary = "Получить перечень военных частей корпусов")
     @GetMapping("/by/corps/{id}")
-    public List<UnitResponse> getUnitsByCorps(@PathVariable int id) {
-        return unitService.getUnitsByCorps(id);
+    public Page<UnitResponse> getUnitsByCorps(@PathVariable int id,
+                                              @RequestParam(defaultValue = "0") int page,
+                                              @RequestParam(defaultValue = "10") int size) {
+        return unitService.getUnitsByCorps(id, page, size);
     }
 
     @Operation(summary = "Получить перечень военных частей армии")
     @GetMapping("/by/army/{id}")
-    public List<UnitResponse> getUnitsByArmy(@PathVariable int id) {
-        return unitService.getUnitsByArmy(id);
+    public Page<UnitResponse> getUnitsByArmy(@PathVariable int id,
+                                             @RequestParam(defaultValue = "0") int page,
+                                             @RequestParam(defaultValue = "10") int size) {
+        return unitService.getUnitsByArmy(id, page, size);
     }
 
     @Operation(summary = "Получить перечень военных частей c наличием конкретного вида военной техники")
     @GetMapping("/with/equipment")
-    public List<UnitResponse> getUnitsWithEquipmentTypeCount(@RequestParam String type,
-                                                             @RequestParam(required = false, defaultValue = "0") int minCount) {
-        return unitService.getUnitsWithEquipmentTypeCount(type, minCount);
+    public Page<UnitResponse> getUnitsWithEquipmentTypeCount(@RequestParam String type,
+                                                             @RequestParam(required = false, defaultValue = "0") int minCount,
+                                                             @RequestParam(defaultValue = "0") int page,
+                                                             @RequestParam(defaultValue = "10") int size) {
+        return unitService.getUnitsWithEquipmentTypeCount(type, minCount, page, size);
     }
 
     @Operation(summary = "Получить перечень военных частей у которых нету в наличии конкретного вида военной техники")
     @GetMapping("/without/equipment")
-    public List<UnitResponse> getUnitsWithoutEquipmentType(@RequestParam String type)  {
-        return unitService.getUnitsWithoutEquipmentType(type);
+    public Page<UnitResponse> getUnitsWithoutEquipmentType(@RequestParam String type,
+                                                           @RequestParam(defaultValue = "0") int page,
+                                                           @RequestParam(defaultValue = "10") int size)  {
+        return unitService.getUnitsWithoutEquipmentType(type, page, size);
     }
 
     @Operation(summary = "Получить перечень военных частей c наличием конкретного вида оружия")
     @GetMapping("/with/weapon")
-    public List<UnitResponse> getUnitsWithWeaponTypeCount(@RequestParam String type,
-                                                          @RequestParam(required = false, defaultValue = "0") int minCount) {
-        return unitService.getUnitsWithWeaponTypeCount(type, minCount);
+    public Page<UnitResponse> getUnitsWithWeaponTypeCount(@RequestParam String type,
+                                                          @RequestParam(required = false, defaultValue = "0") int minCount,
+                                                          @RequestParam(defaultValue = "0") int page,
+                                                          @RequestParam(defaultValue = "10") int size) {
+        return unitService.getUnitsWithWeaponTypeCount(type, minCount, page, size);
     }
 
     @Operation(summary = "Получить перечень военных частей у которых нету в наличии конкретного вида оружия")
     @GetMapping("/without/weapon")
-    public List<UnitResponse> getUnitsWithoutWeaponType(@RequestParam String type) {
-        return unitService.getUnitsWithoutWeaponType(type);
+    public Page<UnitResponse> getUnitsWithoutWeaponType(@RequestParam String type,
+                                                        @RequestParam(defaultValue = "0") int page,
+                                                        @RequestParam(defaultValue = "10") int size) {
+        return unitService.getUnitsWithoutWeaponType(type, page, size);
     }
 }

@@ -3,13 +3,18 @@ package ru.nsu.peretyatko.repository.equipments;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.criteria.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import ru.nsu.peretyatko.model.equipments.Equipment;
 import ru.nsu.peretyatko.model.equipments.EquipmentCategory;
 import ru.nsu.peretyatko.model.equipments.EquipmentType;
 import ru.nsu.peretyatko.model.infrastructure.*;
+import ru.nsu.peretyatko.model.weapons.Weapon;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
 @RequiredArgsConstructor
@@ -17,28 +22,46 @@ public class EquipmentCustomRepository {
 
     private final EntityManager entityManager;
 
-    public List<Equipment> findEquipmentsByType(String titleType) {
-        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-        CriteriaQuery<Equipment> criteriaQuery = criteriaBuilder.createQuery(Equipment.class);
-        Root<Equipment> militaryEquipmentRoot = criteriaQuery.from(Equipment.class);
+    public Page<Equipment> findEquipmentsByType(String titleType, Pageable pageable) {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Equipment> cq = cb.createQuery(Equipment.class);
+        Root<Equipment> militaryEquipmentRoot = cq.from(Equipment.class);
         Join<Equipment, EquipmentType> equipmentTypeJoin = militaryEquipmentRoot.join("type");
-        criteriaQuery.select(militaryEquipmentRoot)
-                .where(criteriaBuilder.equal(equipmentTypeJoin.get("title"), titleType));
-        return entityManager.createQuery(criteriaQuery).getResultList();
+        cq.select(militaryEquipmentRoot)
+                .where(cb.equal(equipmentTypeJoin.get("title"), titleType));
+        List<Equipment> resultList = entityManager.createQuery(cq).getResultList();
+        List<Equipment> paginatedList = resultList.stream()
+                .skip(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .collect(Collectors.toList());
+        return new PageImpl<>(
+                paginatedList,
+                pageable,
+                resultList.size()
+        );
     }
 
-    public List<Equipment> findEquipmentsByCategory(String titleCategory) {
-        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-        CriteriaQuery<Equipment> criteriaQuery = criteriaBuilder.createQuery(Equipment.class);
-        Root<Equipment> equipmentRoot = criteriaQuery.from(Equipment.class);
+    public Page<Equipment> findEquipmentsByCategory(String titleCategory, Pageable pageable) {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Equipment> cq = cb.createQuery(Equipment.class);
+        Root<Equipment> equipmentRoot = cq.from(Equipment.class);
         Join<Equipment, EquipmentType> equipmentTypeJoin = equipmentRoot.join("type");
         Join<EquipmentType, EquipmentCategory> equipmentCategoryJoin = equipmentTypeJoin.join("category");
-        criteriaQuery.select(equipmentRoot)
-                .where(criteriaBuilder.equal(equipmentCategoryJoin.get("title"), titleCategory));
-        return entityManager.createQuery(criteriaQuery).getResultList();
+        cq.select(equipmentRoot)
+                .where(cb.equal(equipmentCategoryJoin.get("title"), titleCategory));
+        List<Equipment> resultList = entityManager.createQuery(cq).getResultList();
+        List<Equipment> paginatedList = resultList.stream()
+                .skip(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .collect(Collectors.toList());
+        return new PageImpl<>(
+                paginatedList,
+                pageable,
+                resultList.size()
+        );
     }
 
-    public List<Equipment> findEquipmentsByTypeUnit(String titleType, int unitId) {
+    public Page<Equipment> findEquipmentsByTypeUnit(String titleType, int unitId, Pageable pageable) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Equipment> cq = cb.createQuery(Equipment.class);
         Root<Equipment> equipment = cq.from(Equipment.class);
@@ -49,10 +72,19 @@ public class EquipmentCustomRepository {
                         cb.equal(unitJoin.get("id"), unitId),
                         cb.equal(typeJoin.get("title"), titleType)
                 ));
-        return entityManager.createQuery(cq).getResultList();
+        List<Equipment> resultList = entityManager.createQuery(cq).getResultList();
+        List<Equipment> paginatedList = resultList.stream()
+                .skip(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .collect(Collectors.toList());
+        return new PageImpl<>(
+                paginatedList,
+                pageable,
+                resultList.size()
+        );
     }
 
-    public List<Equipment> findEquipmentsByCategoryUnit(String titleCategory, int unitId) {
+    public Page<Equipment> findEquipmentsByCategoryUnit(String titleCategory, int unitId, Pageable pageable) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Equipment> cq = cb.createQuery(Equipment.class);
         Root<Equipment> equipment = cq.from(Equipment.class);
@@ -64,10 +96,19 @@ public class EquipmentCustomRepository {
                         cb.equal(unitJoin.get("id"), unitId),
                         cb.equal(categoryJoin.get("title"), titleCategory)
                 ));
-        return entityManager.createQuery(cq).getResultList();
+        List<Equipment> resultList = entityManager.createQuery(cq).getResultList();
+        List<Equipment> paginatedList = resultList.stream()
+                .skip(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .collect(Collectors.toList());
+        return new PageImpl<>(
+                paginatedList,
+                pageable,
+                resultList.size()
+        );
     }
 
-    public List<Equipment> findEquipmentsByTypeDivision(String titleType, int divisionId) {
+    public Page<Equipment> findEquipmentsByTypeDivision(String titleType, int divisionId, Pageable pageable) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Equipment> cq = cb.createQuery(Equipment.class);
         Root<Equipment> equipment = cq.from(Equipment.class);
@@ -80,10 +121,19 @@ public class EquipmentCustomRepository {
                         cb.equal(type.get("title"), titleType),
                         cb.equal(division.get("id"), divisionId)
                 ));
-        return entityManager.createQuery(cq).getResultList();
+        List<Equipment> resultList = entityManager.createQuery(cq).getResultList();
+        List<Equipment> paginatedList = resultList.stream()
+                .skip(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .collect(Collectors.toList());
+        return new PageImpl<>(
+                paginatedList,
+                pageable,
+                resultList.size()
+        );
     }
 
-    public List<Equipment> findEquipmentsByCategoryDivision(String titleCategory, int divisionId) {
+    public Page<Equipment> findEquipmentsByCategoryDivision(String titleCategory, int divisionId, Pageable pageable) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Equipment> cq = cb.createQuery(Equipment.class);
         Root<Equipment> equipment = cq.from(Equipment.class);
@@ -97,10 +147,19 @@ public class EquipmentCustomRepository {
                         cb.equal(category.get("title"), titleCategory),
                         cb.equal(division.get("id"), divisionId)
                 ));
-        return entityManager.createQuery(cq).getResultList();
+        List<Equipment> resultList = entityManager.createQuery(cq).getResultList();
+        List<Equipment> paginatedList = resultList.stream()
+                .skip(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .collect(Collectors.toList());
+        return new PageImpl<>(
+                paginatedList,
+                pageable,
+                resultList.size()
+        );
     }
 
-    public List<Equipment> findEquipmentsByTypeBrigade(String titleType, int brigadeId) {
+    public Page<Equipment> findEquipmentsByTypeBrigade(String titleType, int brigadeId, Pageable pageable) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Equipment> cq = cb.createQuery(Equipment.class);
         Root<Equipment> equipment = cq.from(Equipment.class);
@@ -113,10 +172,19 @@ public class EquipmentCustomRepository {
                         cb.equal(type.get("title"), titleType),
                         cb.equal(brigade.get("id"), brigadeId)
                 ));
-        return entityManager.createQuery(cq).getResultList();
+        List<Equipment> resultList = entityManager.createQuery(cq).getResultList();
+        List<Equipment> paginatedList = resultList.stream()
+                .skip(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .collect(Collectors.toList());
+        return new PageImpl<>(
+                paginatedList,
+                pageable,
+                resultList.size()
+        );
     }
 
-    public List<Equipment> findEquipmentsByCategoryBrigade(String titleCategory, int brigadeId) {
+    public Page<Equipment> findEquipmentsByCategoryBrigade(String titleCategory, int brigadeId, Pageable pageable) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Equipment> cq = cb.createQuery(Equipment.class);
         Root<Equipment> equipment = cq.from(Equipment.class);
@@ -130,10 +198,19 @@ public class EquipmentCustomRepository {
                         cb.equal(category.get("title"), titleCategory),
                         cb.equal(brigade.get("id"), brigadeId)
                 ));
-        return entityManager.createQuery(cq).getResultList();
+        List<Equipment> resultList = entityManager.createQuery(cq).getResultList();
+        List<Equipment> paginatedList = resultList.stream()
+                .skip(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .collect(Collectors.toList());
+        return new PageImpl<>(
+                paginatedList,
+                pageable,
+                resultList.size()
+        );
     }
 
-    public List<Equipment> findEquipmentsByTypeCorps(String titleType, int corpsId) {
+    public Page<Equipment> findEquipmentsByTypeCorps(String titleType, int corpsId, Pageable pageable) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Equipment> cq = cb.createQuery(Equipment.class);
         Root<Equipment> equipment = cq.from(Equipment.class);
@@ -146,10 +223,19 @@ public class EquipmentCustomRepository {
                         cb.equal(type.get("title"), titleType),
                         cb.equal(corps.get("id"), corpsId)
                 ));
-        return entityManager.createQuery(cq).getResultList();
+        List<Equipment> resultList = entityManager.createQuery(cq).getResultList();
+        List<Equipment> paginatedList = resultList.stream()
+                .skip(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .collect(Collectors.toList());
+        return new PageImpl<>(
+                paginatedList,
+                pageable,
+                resultList.size()
+        );
     }
 
-    public List<Equipment> findEquipmentsByCategoryCorps(String titleCategory, int corpsId) {
+    public Page<Equipment> findEquipmentsByCategoryCorps(String titleCategory, int corpsId, Pageable pageable) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Equipment> cq = cb.createQuery(Equipment.class);
         Root<Equipment> equipment = cq.from(Equipment.class);
@@ -163,10 +249,19 @@ public class EquipmentCustomRepository {
                         cb.equal(category.get("title"), titleCategory),
                         cb.equal(corps.get("id"), corpsId)
                 ));
-        return entityManager.createQuery(cq).getResultList();
+        List<Equipment> resultList = entityManager.createQuery(cq).getResultList();
+        List<Equipment> paginatedList = resultList.stream()
+                .skip(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .collect(Collectors.toList());
+        return new PageImpl<>(
+                paginatedList,
+                pageable,
+                resultList.size()
+        );
     }
 
-    public List<Equipment> findEquipmentsByTypeArmy(String titleType, int armyId) {
+    public Page<Equipment> findEquipmentsByTypeArmy(String titleType, int armyId, Pageable pageable) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Equipment> cq = cb.createQuery(Equipment.class);
         Subquery<Equipment> divisionSubquery = cq.subquery(Equipment.class);
@@ -211,10 +306,19 @@ public class EquipmentCustomRepository {
                         cb.in(cq.from(Equipment.class)).value(brigadeSubquery),
                         cb.in(cq.from(Equipment.class)).value(corpsSubquery)
                 ));
-        return entityManager.createQuery(cq).getResultList();
+        List<Equipment> resultList = entityManager.createQuery(cq).getResultList();
+        List<Equipment> paginatedList = resultList.stream()
+                .skip(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .collect(Collectors.toList());
+        return new PageImpl<>(
+                paginatedList,
+                pageable,
+                resultList.size()
+        );
     }
 
-    public List<Equipment> findEquipmentsByCategoryArmy(String titleCategory, int armyId) {
+    public Page<Equipment> findEquipmentsByCategoryArmy(String titleCategory, int armyId, Pageable pageable) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Equipment> cq = cb.createQuery(Equipment.class);
         Subquery<Equipment> divisionSubquery = cq.subquery(Equipment.class);
@@ -262,6 +366,15 @@ public class EquipmentCustomRepository {
                         cb.in(cq.from(Equipment.class)).value(brigadeSubquery),
                         cb.in(cq.from(Equipment.class)).value(corpsSubquery)
                 ));
-        return entityManager.createQuery(cq).getResultList();
+        List<Equipment> resultList = entityManager.createQuery(cq).getResultList();
+        List<Equipment> paginatedList = resultList.stream()
+                .skip(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .collect(Collectors.toList());
+        return new PageImpl<>(
+                paginatedList,
+                pageable,
+                resultList.size()
+        );
     }
 }

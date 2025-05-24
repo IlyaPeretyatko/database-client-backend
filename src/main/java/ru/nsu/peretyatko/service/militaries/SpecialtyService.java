@@ -1,13 +1,15 @@
 package ru.nsu.peretyatko.service.militaries;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.nsu.peretyatko.dto.militaries.SpecialtyResponse;
 import ru.nsu.peretyatko.mapper.militaries.SpecialtyMapper;
 import ru.nsu.peretyatko.repository.militaries.SpecialtyCustomRepository;
 
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -18,43 +20,51 @@ public class SpecialtyService {
     private final SpecialtyMapper specialtyMapper;
 
     @Transactional(readOnly = true)
-    public List<SpecialtyResponse> getSpecialtiesInUnit(int unitId, int minCount) {
-        return specialtyCustomRepository.findSpecialtiesInUnit(unitId, minCount).stream().map(specialtyMapper::toSpecialtyResponse).toList();
+    public Page<SpecialtyResponse> getSpecialtiesInUnit(int unitId, int minCount, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return specialtyCustomRepository.findSpecialtiesInUnit(unitId, minCount, pageable).map(specialtyMapper::toSpecialtyResponse);
     }
 
     @Transactional(readOnly = true)
-    public List<SpecialtyResponse> getNoSpecialtiesInUnit(int unitId) {
-        return specialtyCustomRepository.findNoSpecialtiesInUnit(unitId).stream().map(specialtyMapper::toSpecialtyResponse).toList();
+    public Page<SpecialtyResponse> getNoSpecialtiesInUnit(int unitId, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return specialtyCustomRepository.findNoSpecialtiesInUnit(unitId, pageable).map(specialtyMapper::toSpecialtyResponse);
     }
 
     @Transactional(readOnly = true)
-    public List<SpecialtyResponse> getSpecialtiesInDivision(int divisionId, int minCount) {
-        return specialtyCustomRepository.findSpecialtiesInDivision(divisionId, minCount).stream().map(specialtyMapper::toSpecialtyResponse).toList();
+    public Page<SpecialtyResponse> getSpecialtiesInDivision(int divisionId, int minCount, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return specialtyCustomRepository.findSpecialtiesInDivision(divisionId, minCount, pageable).map(specialtyMapper::toSpecialtyResponse);
     }
 
     @Transactional(readOnly = true)
-    public List<SpecialtyResponse> getNoSpecialtiesInDivision(int divisionId) {
-        return specialtyCustomRepository.findNoSpecialtiesInDivision(divisionId).stream().map(specialtyMapper::toSpecialtyResponse).toList();
+    public Page<SpecialtyResponse> getNoSpecialtiesInDivision(int divisionId, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return specialtyCustomRepository.findNoSpecialtiesInDivision(divisionId, pageable).map(specialtyMapper::toSpecialtyResponse);
     }
 
     @Transactional(readOnly = true)
-    public List<SpecialtyResponse> getSpecialtiesInBrigade(int brigadeId, int minCount) {
-        return specialtyCustomRepository.findSpecialtiesInBrigade(brigadeId, minCount).stream().map(specialtyMapper::toSpecialtyResponse).toList();
+    public Page<SpecialtyResponse> getSpecialtiesInBrigade(int brigadeId, int minCount, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return specialtyCustomRepository.findSpecialtiesInBrigade(brigadeId, minCount, pageable).map(specialtyMapper::toSpecialtyResponse);
     }
 
     @Transactional(readOnly = true)
-    public List<SpecialtyResponse> getNoSpecialtiesInBrigade(int brigadeId) {
-        return specialtyCustomRepository.findNoSpecialtiesInBrigade(brigadeId).stream().map(specialtyMapper::toSpecialtyResponse).toList();
+    public Page<SpecialtyResponse> getNoSpecialtiesInBrigade(int brigadeId, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return specialtyCustomRepository.findNoSpecialtiesInBrigade(brigadeId, pageable).map(specialtyMapper::toSpecialtyResponse);
     }
 
     @Transactional(readOnly = true)
-    public List<SpecialtyResponse> getSpecialtiesInCorps(int corpsId, int minCount) {
-        return specialtyCustomRepository.findSpecialtiesInCorps(corpsId, minCount).stream().map(specialtyMapper::toSpecialtyResponse).toList();
+    public Page<SpecialtyResponse> getSpecialtiesInCorps(int corpsId, int minCount, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return specialtyCustomRepository.findSpecialtiesInCorps(corpsId, minCount, pageable).map(specialtyMapper::toSpecialtyResponse);
     }
 
     @Transactional(readOnly = true)
-    public List<SpecialtyResponse> getNoSpecialtiesInCorps(int corpsId) {
-        return specialtyCustomRepository.findNoSpecialtiesInCorps(corpsId).stream().map(specialtyMapper::toSpecialtyResponse).toList();
+    public Page<SpecialtyResponse> getNoSpecialtiesInCorps(int corpsId, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return specialtyCustomRepository.findNoSpecialtiesInCorps(corpsId, pageable).map(specialtyMapper::toSpecialtyResponse);
     }
 
 

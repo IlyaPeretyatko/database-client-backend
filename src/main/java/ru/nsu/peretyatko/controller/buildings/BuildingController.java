@@ -5,7 +5,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.nsu.peretyatko.dto.buildings.BuildingPatchRequest;
@@ -13,8 +12,6 @@ import ru.nsu.peretyatko.dto.buildings.BuildingPostRequest;
 import ru.nsu.peretyatko.dto.buildings.BuildingResponse;
 import ru.nsu.peretyatko.service.buildings.BuildingService;
 import ru.nsu.peretyatko.validator.buildings.BuildingValidator;
-
-import java.util.List;
 
 @Tag(name = "Building API")
 @RestController
@@ -42,7 +39,7 @@ public class BuildingController {
     @Operation(summary = "Добавить сооружение")
     @PostMapping
     public void createBuilding(@Valid @RequestBody BuildingPostRequest buildingPostRequest,
-                           BindingResult bindingResult) {
+                               BindingResult bindingResult) {
         buildingValidator.validate(buildingPostRequest, bindingResult);
         buildingService.createBuilding(buildingPostRequest);
     }
@@ -50,8 +47,8 @@ public class BuildingController {
     @Operation(summary = "Изменить данные сооружения по ID")
     @PatchMapping("/{id}")
     public void updateBuilding(@PathVariable int id,
-                           @Valid @RequestBody BuildingPatchRequest buildingPatchRequest,
-                           BindingResult bindingResult) {
+                               @Valid @RequestBody BuildingPatchRequest buildingPatchRequest,
+                               BindingResult bindingResult) {
         buildingValidator.validate(buildingPatchRequest, bindingResult);
         buildingService.updateBuilding(id, buildingPatchRequest);
     }
@@ -64,19 +61,23 @@ public class BuildingController {
 
     @Operation(summary = "Получить все сооружения военной части")
     @GetMapping("/by/unit/{id}")
-    public List<BuildingResponse> getBuildingsUnit(@PathVariable int id) {
-        return buildingService.getBuildingsUnit(id);
+    public Page<BuildingResponse> getBuildingsUnit(@PathVariable int id,
+                                                   @RequestParam(defaultValue = "0") int page,
+                                                   @RequestParam(defaultValue = "10") int size) {
+        return buildingService.getBuildingsUnit(id, page, size);
     }
 
     @Operation(summary = "Получить все сооружения военных частей у который есть подразделения")
     @GetMapping("/of/separations")
-    public List<BuildingResponse> getBuildingsOfSeparation() {
-        return buildingService.getBuildingsOfSeparation();
+    public Page<BuildingResponse> getBuildingsOfSeparation(@RequestParam(defaultValue = "0") int page,
+                                                           @RequestParam(defaultValue = "10") int size) {
+        return buildingService.getBuildingsOfSeparation(page, size);
     }
 
     @Operation(summary = "Получить все сооружения военных частей у который нету подразделений")
     @GetMapping("/of/no-separations")
-    public List<BuildingResponse> getBuildingsOfNoSeparation() {
-        return buildingService.getBuildingsOfNoSeparation();
+    public Page<BuildingResponse> getBuildingsOfNoSeparation(@RequestParam(defaultValue = "0") int page,
+                                                             @RequestParam(defaultValue = "10") int size) {
+        return buildingService.getBuildingsOfNoSeparation(page, size);
     }
 }

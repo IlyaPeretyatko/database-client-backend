@@ -13,7 +13,6 @@ import ru.nsu.peretyatko.dto.equipments.EquipmentResponse;
 import ru.nsu.peretyatko.service.equipments.EquipmentService;
 import ru.nsu.peretyatko.validator.equipments.EquipmentValidator;
 
-import java.util.List;
 
 @Tag(name = "Equipment API")
 @RestController
@@ -41,7 +40,7 @@ public class EquipmentController {
     @Operation(summary = "Добавить военную технику")
     @PostMapping
     public void createEquipment(@Valid @RequestBody EquipmentPostRequest equipmentPostRequest,
-                               BindingResult bindingResult) {
+                                BindingResult bindingResult) {
         equipmentValidator.validate(equipmentPostRequest, bindingResult);
         equipmentService.createEquipment(equipmentPostRequest);
     }
@@ -49,8 +48,8 @@ public class EquipmentController {
     @Operation(summary = "Изменить данные военной техники по ID")
     @PatchMapping("/{id}")
     public void updateEquipment(@PathVariable int id,
-                               @Valid @RequestBody EquipmentPatchRequest equipmentPatchRequest,
-                               BindingResult bindingResult) {
+                                @Valid @RequestBody EquipmentPatchRequest equipmentPatchRequest,
+                                BindingResult bindingResult) {
         equipmentValidator.validate(equipmentPatchRequest, bindingResult);
         equipmentService.updateEquipment(id, equipmentPatchRequest);
     }
@@ -63,83 +62,107 @@ public class EquipmentController {
 
     @Operation(summary = "Получить перечень военной техники по виду")
     @GetMapping("/by/type")
-    public List<EquipmentResponse> getEquipmentsByType(@RequestParam String title) {
-        return equipmentService.getEquipmentsByType(title);
+    public Page<EquipmentResponse> getEquipmentsByType(@RequestParam String title,
+                                                       @RequestParam(defaultValue = "0") int page,
+                                                       @RequestParam(defaultValue = "10") int size) {
+        return equipmentService.getEquipmentsByType(title, page, size);
     }
 
     @Operation(summary = "Получить перечень военной техники по категории")
     @GetMapping("/by/category")
-    public List<EquipmentResponse> getEquipmentsByCategory(@RequestParam String title) {
-        return equipmentService.getEquipmentsByCategory(title);
+    public Page<EquipmentResponse> getEquipmentsByCategory(@RequestParam String title,
+                                                           @RequestParam(defaultValue = "0") int page,
+                                                           @RequestParam(defaultValue = "10") int size) {
+        return equipmentService.getEquipmentsByCategory(title, page, size);
     }
 
     @Operation(summary = "Получить перечень военной техники военной части по виду")
     @GetMapping("/by/type/unit/{id}")
-    public List<EquipmentResponse> getEquipmentsByTypeUnit(@PathVariable int id,
-                                                     @RequestParam String title) {
-        return equipmentService.getEquipmentsByTypeUnit(title,id);
+    public Page<EquipmentResponse> getEquipmentsByTypeUnit(@PathVariable int id,
+                                                           @RequestParam String title,
+                                                           @RequestParam(defaultValue = "0") int page,
+                                                           @RequestParam(defaultValue = "10") int size) {
+        return equipmentService.getEquipmentsByTypeUnit(title, id, page, size);
     }
 
     @Operation(summary = "Получить перечень военной техники военной части по категории")
     @GetMapping("/by/category/unit/{id}")
-    public List<EquipmentResponse> getEquipmentsByCategoryUnit(@PathVariable int id,
-                                                         @RequestParam String title) {
-        return equipmentService.getEquipmentsByCategoryUnit(title,id);
+    public Page<EquipmentResponse> getEquipmentsByCategoryUnit(@PathVariable int id,
+                                                               @RequestParam String title,
+                                                               @RequestParam(defaultValue = "0") int page,
+                                                               @RequestParam(defaultValue = "10") int size) {
+        return equipmentService.getEquipmentsByCategoryUnit(title, id, page, size);
     }
 
     @Operation(summary = "Получить перечень военной техники дивизии по виду")
     @GetMapping("/by/type/division/{id}")
-    public List<EquipmentResponse> getEquipmentsByTypeDivision(@PathVariable int id,
-                                                         @RequestParam String title) {
-        return equipmentService.getEquipmentsByTypeDivision(title,id);
+    public Page<EquipmentResponse> getEquipmentsByTypeDivision(@PathVariable int id,
+                                                               @RequestParam String title,
+                                                               @RequestParam(defaultValue = "0") int page,
+                                                               @RequestParam(defaultValue = "10") int size) {
+        return equipmentService.getEquipmentsByTypeDivision(title, id, page, size);
     }
 
     @Operation(summary = "Получить перечень военной техники дивизии по категории")
     @GetMapping("/by/category/division/{id}")
-    public List<EquipmentResponse> getEquipmentsByCategoryDivision(@PathVariable int id,
-                                                             @RequestParam String title) {
-        return equipmentService.getEquipmentsByCategoryDivision(title,id);
+    public Page<EquipmentResponse> getEquipmentsByCategoryDivision(@PathVariable int id,
+                                                                   @RequestParam String title,
+                                                                   @RequestParam(defaultValue = "0") int page,
+                                                                   @RequestParam(defaultValue = "10") int size) {
+        return equipmentService.getEquipmentsByCategoryDivision(title, id, page, size);
     }
 
     @Operation(summary = "Получить перечень военной техники бригады по виду")
     @GetMapping("/by/type/brigade/{id}")
-    public List<EquipmentResponse> getEquipmentsByTypeBrigade(@PathVariable int id,
-                                                        @RequestParam String title) {
-        return equipmentService.getEquipmentsByTypeBrigade(title,id);
+    public Page<EquipmentResponse> getEquipmentsByTypeBrigade(@PathVariable int id,
+                                                              @RequestParam String title,
+                                                              @RequestParam(defaultValue = "0") int page,
+                                                              @RequestParam(defaultValue = "10") int size) {
+        return equipmentService.getEquipmentsByTypeBrigade(title, id, page, size);
     }
 
     @Operation(summary = "Получить перечень военной техники бригады по категории")
     @GetMapping("/by/category/brigade/{id}")
-    public List<EquipmentResponse> getEquipmentsByCategoryBrigade(@PathVariable int id,
-                                                            @RequestParam String title) {
-        return equipmentService.getEquipmentsByCategoryBrigade(title,id);
+    public Page<EquipmentResponse> getEquipmentsByCategoryBrigade(@PathVariable int id,
+                                                                  @RequestParam String title,
+                                                                  @RequestParam(defaultValue = "0") int page,
+                                                                  @RequestParam(defaultValue = "10") int size) {
+        return equipmentService.getEquipmentsByCategoryBrigade(title, id, page, size);
     }
 
     @Operation(summary = "Получить перечень военной техники корпуса по виду")
     @GetMapping("/by/type/corps/{id}")
-    public List<EquipmentResponse> getEquipmentsByTypeCorps(@PathVariable int id,
-                                                      @RequestParam String title) {
-        return equipmentService.getEquipmentsByTypeCorps(title, id);
+    public Page<EquipmentResponse> getEquipmentsByTypeCorps(@PathVariable int id,
+                                                            @RequestParam String title,
+                                                            @RequestParam(defaultValue = "0") int page,
+                                                            @RequestParam(defaultValue = "10") int size) {
+        return equipmentService.getEquipmentsByTypeCorps(title, id, page, size);
     }
 
     @Operation(summary = "Получить перечень военной техники корпуса по категории")
     @GetMapping("/by/category/corps/{id}")
-    public List<EquipmentResponse> getEquipmentsByCategoryCorps(@PathVariable int id,
-                                                          @RequestParam String title) {
-        return equipmentService.getEquipmentsByCategoryCorps(title, id);
+    public Page<EquipmentResponse> getEquipmentsByCategoryCorps(@PathVariable int id,
+                                                                @RequestParam String title,
+                                                                @RequestParam(defaultValue = "0") int page,
+                                                                @RequestParam(defaultValue = "10") int size) {
+        return equipmentService.getEquipmentsByCategoryCorps(title, id, page, size);
     }
 
     @Operation(summary = "Получить перечень военной техники армии по виду")
     @GetMapping("/by/type/army/{id}")
-    public List<EquipmentResponse> getEquipmentsByTypeArmy(@PathVariable int id,
-                                                     @RequestParam String title) {
-        return equipmentService.getEquipmentsByTypeArmy(title, id);
+    public Page<EquipmentResponse> getEquipmentsByTypeArmy(@PathVariable int id,
+                                                           @RequestParam String title,
+                                                           @RequestParam(defaultValue = "0") int page,
+                                                           @RequestParam(defaultValue = "10") int size) {
+        return equipmentService.getEquipmentsByTypeArmy(title, id, page, size);
     }
 
     @Operation(summary = "Получить перечень военной техники по категории")
     @GetMapping("/by/category/army/{id}")
-    public List<EquipmentResponse> getEquipmentsByCategoryArmy(@PathVariable int id,
-                                                         @RequestParam String title) {
-        return equipmentService.getEquipmentsByCategoryArmy(title, id);
+    public Page<EquipmentResponse> getEquipmentsByCategoryArmy(@PathVariable int id,
+                                                               @RequestParam String title,
+                                                               @RequestParam(defaultValue = "0") int page,
+                                                               @RequestParam(defaultValue = "10") int size) {
+        return equipmentService.getEquipmentsByCategoryArmy(title, id, page, size);
     }
 }

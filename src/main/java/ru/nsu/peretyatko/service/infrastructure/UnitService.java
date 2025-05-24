@@ -60,42 +60,50 @@ public class UnitService {
     }
 
     @Transactional(readOnly = true)
-    public List<UnitResponse> getUnitsByDivision(int id) {
-        return unitCustomRepository.findUnitsByDivisionId(id).stream().map(unitMapper::toUnitResponse).toList();
+    public Page<UnitResponse> getUnitsByDivision(int id, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return unitCustomRepository.findUnitsByDivisionId(id, pageable).map(unitMapper::toUnitResponse);
     }
 
     @Transactional(readOnly = true)
-    public List<UnitResponse> getUnitsByBrigade(int id) {
-        return unitCustomRepository.findUnitsByBrigadeId(id).stream().map(unitMapper::toUnitResponse).toList();
+    public Page<UnitResponse> getUnitsByBrigade(int id, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return unitCustomRepository.findUnitsByBrigadeId(id, pageable).map(unitMapper::toUnitResponse);
     }
 
     @Transactional(readOnly = true)
-    public List<UnitResponse> getUnitsByCorps(int id) {
-        return unitCustomRepository.findUnitsByCorpsId(id).stream().map(unitMapper::toUnitResponse).toList();
+    public Page<UnitResponse> getUnitsByCorps(int id, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return unitCustomRepository.findUnitsByCorpsId(id, pageable).map(unitMapper::toUnitResponse);
     }
 
     @Transactional(readOnly = true)
-    public List<UnitResponse> getUnitsByArmy(int id) {
-        return unitCustomRepository.findUnitsByArmyId(id).stream().map(unitMapper::toUnitResponse).toList();
+    public Page<UnitResponse> getUnitsByArmy(int id, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return unitCustomRepository.findUnitsByArmyId(id, pageable).map(unitMapper::toUnitResponse);
     }
 
     @Transactional(readOnly = true)
-    public List<UnitResponse> getUnitsWithEquipmentTypeCount(String titleType, int minCount) {
-        return unitCustomRepository.findUnitsWithEquipmentTypeCount(titleType, minCount).stream().map(unitMapper::toUnitResponse).toList();
+    public Page<UnitResponse> getUnitsWithEquipmentTypeCount(String titleType, int minCount, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return unitCustomRepository.findUnitsWithEquipmentTypeCount(titleType, minCount, pageable).map(unitMapper::toUnitResponse);
     }
 
     @Transactional(readOnly = true)
-    public List<UnitResponse> getUnitsWithoutEquipmentType(String titleType)  {
-        return unitCustomRepository.findUnitsWithoutEquipmentType(titleType).stream().map(unitMapper::toUnitResponse).toList();
+    public Page<UnitResponse> getUnitsWithoutEquipmentType(String titleType, int page, int size)  {
+        Pageable pageable = PageRequest.of(page, size);
+        return unitCustomRepository.findUnitsWithoutEquipmentType(titleType, pageable).map(unitMapper::toUnitResponse);
     }
 
     @Transactional(readOnly = true)
-    public List<UnitResponse> getUnitsWithWeaponTypeCount(String titleType, int minCount) {
-        return unitCustomRepository.findUnitsWithWeaponTypeCount(titleType, minCount).stream().map(unitMapper::toUnitResponse).toList();
+    public Page<UnitResponse> getUnitsWithWeaponTypeCount(String titleType, int minCount, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return unitCustomRepository.findUnitsWithWeaponTypeCount(titleType, minCount, pageable).map(unitMapper::toUnitResponse);
     }
 
     @Transactional(readOnly = true)
-    public List<UnitResponse> getUnitsWithoutWeaponType(String titleType) {
-        return unitCustomRepository.findUnitsWithoutWeaponType(titleType).stream().map(unitMapper::toUnitResponse).toList();
+    public Page<UnitResponse> getUnitsWithoutWeaponType(String titleType, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return unitCustomRepository.findUnitsWithoutWeaponType(titleType, pageable).map(unitMapper::toUnitResponse);
     }
 }

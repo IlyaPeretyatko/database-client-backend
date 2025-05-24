@@ -13,7 +13,6 @@ import ru.nsu.peretyatko.dto.militaries.MilitaryResponse;
 import ru.nsu.peretyatko.service.militaries.MilitaryService;
 import ru.nsu.peretyatko.validator.militaries.MilitaryValidator;
 
-import java.util.List;
 
 @Tag(name = "Military API")
 @RestController
@@ -63,178 +62,227 @@ public class MilitaryController {
 
     @Operation(summary = "Получить офицерский состав")
     @GetMapping("/officers")
-    public List<MilitaryResponse> getOfficers() {
-        return militaryService.getOfficers();
+    public Page<MilitaryResponse> getOfficers(@RequestParam(defaultValue = "0") int page,
+                                              @RequestParam(defaultValue = "10") int size) {
+        return militaryService.getOfficers(page, size);
     }
 
     @Operation(summary = "Получить сержантский состав")
     @GetMapping("/sergeants")
-    public List<MilitaryResponse> getSergeants() {
-        return militaryService.getSergeants();
+    public Page<MilitaryResponse> getSergeants(@RequestParam(defaultValue = "0") int page,
+                                               @RequestParam(defaultValue = "10") int size) {
+        return militaryService.getSergeants(page, size);
     }
 
     @Operation(summary = "Получить рядовой состав")
     @GetMapping("/soldiers")
-    public List<MilitaryResponse> getSoldiers() {
-        return militaryService.getSoldiers();
+    public Page<MilitaryResponse> getSoldiers(@RequestParam(defaultValue = "0") int page,
+                                              @RequestParam(defaultValue = "10") int size) {
+        return militaryService.getSoldiers(page, size);
     }
 
     @Operation(summary = "Получить офицерский состав по званию")
     @GetMapping("/officers/by/rank")
-    public List<MilitaryResponse> getOfficersByRank(@RequestParam String title) {
-        return militaryService.getOfficersByRank(title);
+    public Page<MilitaryResponse> getOfficersByRank(@RequestParam String title,
+                                                    @RequestParam(defaultValue = "0") int page,
+                                                    @RequestParam(defaultValue = "10") int size) {
+        return militaryService.getOfficersByRank(title, page, size);
     }
 
     @Operation(summary = "Получить сержантский состав по званию")
     @GetMapping("/sergeants/by/rank")
-    public List<MilitaryResponse> getSergeantsByRank(@RequestParam String title) {
-        return militaryService.getSergeantsByRank(title);
+    public Page<MilitaryResponse> getSergeantsByRank(@RequestParam String title,
+                                                     @RequestParam(defaultValue = "0") int page,
+                                                     @RequestParam(defaultValue = "10") int size) {
+        return militaryService.getSergeantsByRank(title, page, size);
     }
 
     @Operation(summary = "Получить рядовой состав по званию")
     @GetMapping("/soldiers/by/rank")
-    public List<MilitaryResponse> getSoldiersByRank(@RequestParam String title) {
-        return militaryService.getSoldiersByRank(title);
+    public Page<MilitaryResponse> getSoldiersByRank(@RequestParam String title,
+                                                    @RequestParam(defaultValue = "0") int page,
+                                                    @RequestParam(defaultValue = "10") int size) {
+        return militaryService.getSoldiersByRank(title, page, size);
     }
 
     @Operation(summary = "Получить офицерский состав военной части по званию")
     @GetMapping("/officers/by/rank/unit/{id}")
-    public List<MilitaryResponse> getOfficersUnitByRank(@PathVariable int id,
-                                                        @RequestParam String title) {
-        return militaryService.getOfficersUnitByRank(id, title);
+    public Page<MilitaryResponse> getOfficersUnitByRank(@PathVariable int id,
+                                                        @RequestParam String title,
+                                                        @RequestParam(defaultValue = "0") int page,
+                                                        @RequestParam(defaultValue = "10") int size) {
+        return militaryService.getOfficersUnitByRank(id, title, page, size);
     }
 
     @Operation(summary = "Получить сержантский состав военной части по званию")
     @GetMapping("/sergeants/by/rank/unit/{id}")
-    public List<MilitaryResponse> getSergeantsUnitByRank(@PathVariable int id,
-                                                        @RequestParam String title) {
-        return militaryService.getSergeantsUnitByRank(id, title);
+    public Page<MilitaryResponse> getSergeantsUnitByRank(@PathVariable int id,
+                                                         @RequestParam String title,
+                                                         @RequestParam(defaultValue = "0") int page,
+                                                         @RequestParam(defaultValue = "10") int size) {
+        return militaryService.getSergeantsUnitByRank(id, title, page, size);
     }
 
     @Operation(summary = "Получить рядовой состав военной части по званию")
     @GetMapping("/soldiers/by/rank/unit/{id}")
-    public List<MilitaryResponse> getSoldiersUnitByRank(@PathVariable int id,
-                                                        @RequestParam String title) {
-        return militaryService.getSoldiersUnitByRank(id, title);
+    public Page<MilitaryResponse> getSoldiersUnitByRank(@PathVariable int id,
+                                                        @RequestParam String title,
+                                                        @RequestParam(defaultValue = "0") int page,
+                                                        @RequestParam(defaultValue = "10") int size) {
+        return militaryService.getSoldiersUnitByRank(id, title, page, size);
     }
 
     @Operation(summary = "Получить офицерский состав дивизии по званию")
     @GetMapping("/officers/by/rank/division/{id}")
-    public List<MilitaryResponse> getOfficersDivisionByRank(@PathVariable int id,
-                                                        @RequestParam String title) {
-        return militaryService.getOfficersDivisionByRank(id, title);
+    public Page<MilitaryResponse> getOfficersDivisionByRank(@PathVariable int id,
+                                                            @RequestParam String title,
+                                                            @RequestParam(defaultValue = "0") int page,
+                                                            @RequestParam(defaultValue = "10") int size) {
+        return militaryService.getOfficersDivisionByRank(id, title, page, size);
     }
 
     @Operation(summary = "Получить сержантский состав дивизии по званию")
     @GetMapping("/sergeants/by/rank/division/{id}")
-    public List<MilitaryResponse> getSergeantsDivisionByRank(@PathVariable int id,
-                                                         @RequestParam String title) {
-        return militaryService.getSergeantsDivisionByRank(id, title);
+    public Page<MilitaryResponse> getSergeantsDivisionByRank(@PathVariable int id,
+                                                             @RequestParam String title,
+                                                             @RequestParam(defaultValue = "0") int page,
+                                                             @RequestParam(defaultValue = "10") int size) {
+        return militaryService.getSergeantsDivisionByRank(id, title, page, size);
     }
 
     @Operation(summary = "Получить рядовой состав дивизии по званию")
     @GetMapping("/soldiers/by/rank/division/{id}")
-    public List<MilitaryResponse> getSoldiersDivisionByRank(@PathVariable int id,
-                                                        @RequestParam String title) {
-        return militaryService.getSoldiersDivisionByRank(id, title);
+    public Page<MilitaryResponse> getSoldiersDivisionByRank(@PathVariable int id,
+                                                            @RequestParam String title,
+                                                            @RequestParam(defaultValue = "0") int page,
+                                                            @RequestParam(defaultValue = "10") int size) {
+        return militaryService.getSoldiersDivisionByRank(id, title, page, size);
     }
 
     @Operation(summary = "Получить офицерский состав бригады по званию")
     @GetMapping("/officers/by/rank/brigade/{id}")
-    public List<MilitaryResponse> getOfficersBrigadeByRank(@PathVariable int id,
-                                                        @RequestParam String title) {
-        return militaryService.getOfficersBrigadeByRank(id, title);
+    public Page<MilitaryResponse> getOfficersBrigadeByRank(@PathVariable int id,
+                                                           @RequestParam String title,
+                                                           @RequestParam(defaultValue = "0") int page,
+                                                           @RequestParam(defaultValue = "10") int size) {
+        return militaryService.getOfficersBrigadeByRank(id, title, page, size);
     }
 
     @Operation(summary = "Получить сержантский состав бригады по званию")
     @GetMapping("/sergeants/by/rank/brigade/{id}")
-    public List<MilitaryResponse> getSergeantsBrigadeByRank(@PathVariable int id,
-                                                         @RequestParam String title) {
-        return militaryService.getSergeantsBrigadeByRank(id, title);
+    public Page<MilitaryResponse> getSergeantsBrigadeByRank(@PathVariable int id,
+                                                            @RequestParam String title,
+                                                            @RequestParam(defaultValue = "0") int page,
+                                                            @RequestParam(defaultValue = "10") int size) {
+        return militaryService.getSergeantsBrigadeByRank(id, title, page, size);
     }
 
     @Operation(summary = "Получить рядовой состав бригады по званию")
     @GetMapping("/soldiers/by/rank/brigade/{id}")
-    public List<MilitaryResponse> getSoldiersBrigadeByRank(@PathVariable int id,
-                                                        @RequestParam String title) {
-        return militaryService.getSoldiersBrigadeByRank(id, title);
+    public Page<MilitaryResponse> getSoldiersBrigadeByRank(@PathVariable int id,
+                                                           @RequestParam String title,
+                                                           @RequestParam(defaultValue = "0") int page,
+                                                           @RequestParam(defaultValue = "10") int size) {
+        return militaryService.getSoldiersBrigadeByRank(id, title, page, size);
     }
 
     @Operation(summary = "Получить офицерский состав корпуса по званию")
     @GetMapping("/officers/by/rank/corps/{id}")
-    public List<MilitaryResponse> getOfficersCorpsByRank(@PathVariable int id,
-                                                           @RequestParam String title) {
-        return militaryService.getOfficersCorpsByRank(id, title);
+    public Page<MilitaryResponse> getOfficersCorpsByRank(@PathVariable int id,
+                                                         @RequestParam String title,
+                                                         @RequestParam(defaultValue = "0") int page,
+                                                         @RequestParam(defaultValue = "10") int size) {
+        return militaryService.getOfficersCorpsByRank(id, title, page, size);
     }
 
     @Operation(summary = "Получить сержантский состав корпуса по званию")
     @GetMapping("/sergeants/by/rank/corps/{id}")
-    public List<MilitaryResponse> getSergeantsCorpsByRank(@PathVariable int id,
-                                                            @RequestParam String rankTitle) {
-        return militaryService.getSergeantsCorpsByRank(id, rankTitle);
+    public Page<MilitaryResponse> getSergeantsCorpsByRank(@PathVariable int id,
+                                                          @RequestParam String rankTitle,
+                                                          @RequestParam(defaultValue = "0") int page,
+                                                          @RequestParam(defaultValue = "10") int size) {
+        return militaryService.getSergeantsCorpsByRank(id, rankTitle, page, size);
     }
 
     @Operation(summary = "Получить рядовой состав корпуса по званию")
     @GetMapping("/soldiers/by/rank/corps/{id}")
-    public List<MilitaryResponse> getSoldiersCorpsByRank(@PathVariable int id,
-                                                           @RequestParam String title) {
-        return militaryService.getSoldiersCorpsByRank(id, title);
+    public Page<MilitaryResponse> getSoldiersCorpsByRank(@PathVariable int id,
+                                                         @RequestParam String title,
+                                                         @RequestParam(defaultValue = "0") int page,
+                                                         @RequestParam(defaultValue = "10") int size) {
+        return militaryService.getSoldiersCorpsByRank(id, title, page, size);
     }
 
     @Operation(summary = "Получить офицерский состав армии по званию")
     @GetMapping("/officers/by/rank/army/{id}")
-    public List<MilitaryResponse> getOfficersArmyByRank(@PathVariable int id,
-                                                           @RequestParam String title) {
-        return militaryService.getOfficersArmyByRank(id, title);
+    public Page<MilitaryResponse> getOfficersArmyByRank(@PathVariable int id,
+                                                        @RequestParam String title,
+                                                        @RequestParam(defaultValue = "0") int page,
+                                                        @RequestParam(defaultValue = "10") int size) {
+        return militaryService.getOfficersArmyByRank(id, title, page, size);
     }
 
     @Operation(summary = "Получить сержантский состав армии по званию")
     @GetMapping("/sergeants/by/rank/army/{id}")
-    public List<MilitaryResponse> getSergeantsArmyByRank(@PathVariable int id,
-                                                            @RequestParam String title) {
-        return militaryService.getSergeantsArmyByRank(id, title);
+    public Page<MilitaryResponse> getSergeantsArmyByRank(@PathVariable int id,
+                                                         @RequestParam String title,
+                                                         @RequestParam(defaultValue = "0") int page,
+                                                         @RequestParam(defaultValue = "10") int size) {
+        return militaryService.getSergeantsArmyByRank(id, title, page, size);
     }
 
     @Operation(summary = "Получить рядовой состав армии по званию")
     @GetMapping("/soldiers/by/rank/army/{id}")
-    public List<MilitaryResponse> getSoldiersArmyByRank(@PathVariable int id,
-                                                           @RequestParam String title) {
-        return militaryService.getSoldiersArmyByRank(id, title);
+    public Page<MilitaryResponse> getSoldiersArmyByRank(@PathVariable int id,
+                                                        @RequestParam String title,
+                                                        @RequestParam(defaultValue = "0") int page,
+                                                        @RequestParam(defaultValue = "10") int size) {
+        return militaryService.getSoldiersArmyByRank(id, title, page, size);
     }
 
     @Operation(summary = "Получить военнослужащих военной части по специальности")
     @GetMapping("/by/specialty/unit/{id}")
-    public List<MilitaryResponse> getMilitariesBySpecialtyUnit(@PathVariable int id,
-                                                               @RequestParam String title) {
-        return militaryService.getMilitariesBySpecialtyUnit(title, id);
+    public Page<MilitaryResponse> getMilitariesBySpecialtyUnit(@PathVariable int id,
+                                                               @RequestParam String title,
+                                                               @RequestParam(defaultValue = "0") int page,
+                                                               @RequestParam(defaultValue = "10") int size) {
+        return militaryService.getMilitariesBySpecialtyUnit(title, id, page, size);
     }
 
     @Operation(summary = "Получить военнослужащих дивизии по специальности")
     @GetMapping("/by/specialty/division/{id}")
-    public List<MilitaryResponse> getMilitariesBySpecialtyDivision(@PathVariable int id,
-                                                                   @RequestParam String title) {
-        return militaryService.getMilitariesBySpecialtyDivision(title, id);
+    public Page<MilitaryResponse> getMilitariesBySpecialtyDivision(@PathVariable int id,
+                                                                   @RequestParam String title,
+                                                                   @RequestParam(defaultValue = "0") int page,
+                                                                   @RequestParam(defaultValue = "10") int size) {
+        return militaryService.getMilitariesBySpecialtyDivision(title, id, page, size);
     }
 
     @Operation(summary = "Получить военнослужащих бригады по специальности")
     @GetMapping("/by/specialty/brigade/{id}")
-    public List<MilitaryResponse> getMilitariesBySpecialtyBrigade(@PathVariable int id,
-                                                                  @RequestParam String title) {
-        return militaryService.getMilitariesBySpecialtyBrigade(title, id);
+    public Page<MilitaryResponse> getMilitariesBySpecialtyBrigade(@PathVariable int id,
+                                                                  @RequestParam String title,
+                                                                  @RequestParam(defaultValue = "0") int page,
+                                                                  @RequestParam(defaultValue = "10") int size) {
+        return militaryService.getMilitariesBySpecialtyBrigade(title, id, page, size);
     }
 
     @Operation(summary = "Получить военнослужащих корпуса по специальности")
     @GetMapping("/by/specialty/corps/{id}")
-    public List<MilitaryResponse> getMilitariesBySpecialtyCorps(@PathVariable int id,
-                                                                @RequestParam String title) {
-        return militaryService.getMilitariesBySpecialtyCorps(title, id);
+    public Page<MilitaryResponse> getMilitariesBySpecialtyCorps(@PathVariable int id,
+                                                                @RequestParam String title,
+                                                                @RequestParam(defaultValue = "0") int page,
+                                                                @RequestParam(defaultValue = "10") int size) {
+        return militaryService.getMilitariesBySpecialtyCorps(title, id, page, size);
     }
 
     @Operation(summary = "Получить военнослужащих армии по специальности")
     @GetMapping("/by/specialty/army/{id}")
-    public List<MilitaryResponse> getMilitariesBySpecialtyArmy(@PathVariable int id,
-                                                               @RequestParam String title) {
-        return militaryService.getMilitariesBySpecialtyArmy(title, id);
+    public Page<MilitaryResponse> getMilitariesBySpecialtyArmy(@PathVariable int id,
+                                                               @RequestParam String title,
+                                                               @RequestParam(defaultValue = "0") int page,
+                                                               @RequestParam(defaultValue = "10") int size) {
+        return militaryService.getMilitariesBySpecialtyArmy(title, id, page, size);
     }
 
 }

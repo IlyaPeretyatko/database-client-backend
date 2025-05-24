@@ -60,18 +60,21 @@ public class BuildingService {
     }
 
     @Transactional(readOnly = true)
-    public List<BuildingResponse> getBuildingsUnit(int unitId) {
-        return buildingCustomRepository.findBuildingsUnit(unitId).stream().map(buildingMapper::toBuildingResponse).toList();
+    public Page<BuildingResponse> getBuildingsUnit(int unitId, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return buildingCustomRepository.findBuildingsUnit(unitId, pageable).map(buildingMapper::toBuildingResponse);
     }
 
     @Transactional(readOnly = true)
-    public List<BuildingResponse> getBuildingsOfSeparation() {
-        return buildingCustomRepository.findBuildingsOfSeparation().stream().map(buildingMapper::toBuildingResponse).toList();
+    public Page<BuildingResponse> getBuildingsOfSeparation(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return buildingCustomRepository.findBuildingsOfSeparation(pageable).map(buildingMapper::toBuildingResponse);
     }
 
     @Transactional(readOnly = true)
-    public List<BuildingResponse> getBuildingsOfNoSeparation() {
-        return buildingCustomRepository.findBuildingsOfNoSeparation().stream().map(buildingMapper::toBuildingResponse).toList();
+    public Page<BuildingResponse> getBuildingsOfNoSeparation(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return buildingCustomRepository.findBuildingsOfNoSeparation(pageable).map(buildingMapper::toBuildingResponse);
     }
 
 }

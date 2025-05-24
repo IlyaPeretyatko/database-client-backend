@@ -3,13 +3,18 @@ package ru.nsu.peretyatko.repository.militaries;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.criteria.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import ru.nsu.peretyatko.model.infrastructure.*;
 import ru.nsu.peretyatko.model.militaries.Military;
 import ru.nsu.peretyatko.model.militaries.MilitarySpecialty;
 import ru.nsu.peretyatko.model.militaries.Specialty;
+import ru.nsu.peretyatko.model.weapons.Weapon;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
 @RequiredArgsConstructor
@@ -17,7 +22,7 @@ public class SpecialtyCustomRepository {
 
     private final EntityManager entityManager;
 
-    public List<Specialty> findSpecialtiesInUnit(int unitId, int minCount) {
+    public Page<Specialty> findSpecialtiesInUnit(int unitId, int minCount, Pageable pageable) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Specialty> cq = cb.createQuery(Specialty.class);
         Root<Specialty> specialty = cq.from(Specialty.class);
@@ -31,10 +36,19 @@ public class SpecialtyCustomRepository {
         cq.select(specialty)
                 .where(whereCondition)
                 .having(havingCondition);
-        return entityManager.createQuery(cq).getResultList();
+        List<Specialty> resultList = entityManager.createQuery(cq).getResultList();
+        List<Specialty> paginatedList = resultList.stream()
+                .skip(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .collect(Collectors.toList());
+        return new PageImpl<>(
+                paginatedList,
+                pageable,
+                resultList.size()
+        );
     }
 
-    public List<Specialty> findNoSpecialtiesInUnit(int unitId) {
+    public Page<Specialty> findNoSpecialtiesInUnit(int unitId, Pageable pageable) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Specialty> cq = cb.createQuery(Specialty.class);
         Root<Specialty> specialty = cq.from(Specialty.class);
@@ -49,10 +63,19 @@ public class SpecialtyCustomRepository {
                 .having(cb.notEqual(cb.count(subMilitary.get("id")), 0L));
         cq.select(specialty)
                 .where(cb.not(cb.in(specialty.get("id")).value(subquery)));
-        return entityManager.createQuery(cq).getResultList();
+        List<Specialty> resultList = entityManager.createQuery(cq).getResultList();
+        List<Specialty> paginatedList = resultList.stream()
+                .skip(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .collect(Collectors.toList());
+        return new PageImpl<>(
+                paginatedList,
+                pageable,
+                resultList.size()
+        );
     }
 
-    public List<Specialty> findSpecialtiesInDivision(int divisionId, int minCount) {
+    public Page<Specialty> findSpecialtiesInDivision(int divisionId, int minCount, Pageable pageable) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Specialty> cq = cb.createQuery(Specialty.class);
         Root<Specialty> specialty = cq.from(Specialty.class);
@@ -68,10 +91,19 @@ public class SpecialtyCustomRepository {
         cq.select(specialty)
                 .where(divisionCondition)
                 .having(havingCondition);
-        return entityManager.createQuery(cq).getResultList();
+        List<Specialty> resultList = entityManager.createQuery(cq).getResultList();
+        List<Specialty> paginatedList = resultList.stream()
+                .skip(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .collect(Collectors.toList());
+        return new PageImpl<>(
+                paginatedList,
+                pageable,
+                resultList.size()
+        );
     }
 
-    public List<Specialty> findNoSpecialtiesInDivision(int divisionId) {
+    public Page<Specialty> findNoSpecialtiesInDivision(int divisionId, Pageable pageable) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Specialty> cq = cb.createQuery(Specialty.class);
         Root<Specialty> specialty = cq.from(Specialty.class);
@@ -88,10 +120,19 @@ public class SpecialtyCustomRepository {
                 .having(cb.notEqual(cb.count(subMilitary.get("id")), 0L));
         cq.select(specialty)
                 .where(cb.not(cb.in(specialty.get("id")).value(subquery)));
-        return entityManager.createQuery(cq).getResultList();
+        List<Specialty> resultList = entityManager.createQuery(cq).getResultList();
+        List<Specialty> paginatedList = resultList.stream()
+                .skip(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .collect(Collectors.toList());
+        return new PageImpl<>(
+                paginatedList,
+                pageable,
+                resultList.size()
+        );
     }
 
-    public List<Specialty> findSpecialtiesInBrigade(int brigadeId, int minCount) {
+    public Page<Specialty> findSpecialtiesInBrigade(int brigadeId, int minCount, Pageable pageable) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Specialty> cq = cb.createQuery(Specialty.class);
         Root<Specialty> specialty = cq.from(Specialty.class);
@@ -107,10 +148,19 @@ public class SpecialtyCustomRepository {
         cq.select(specialty)
                 .where(brigadeCondition)
                 .having(havingCondition);
-        return entityManager.createQuery(cq).getResultList();
+        List<Specialty> resultList = entityManager.createQuery(cq).getResultList();
+        List<Specialty> paginatedList = resultList.stream()
+                .skip(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .collect(Collectors.toList());
+        return new PageImpl<>(
+                paginatedList,
+                pageable,
+                resultList.size()
+        );
     }
 
-    public List<Specialty> findNoSpecialtiesInBrigade(int brigadeId) {
+    public Page<Specialty> findNoSpecialtiesInBrigade(int brigadeId, Pageable pageable) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Specialty> cq = cb.createQuery(Specialty.class);
         Root<Specialty> specialty = cq.from(Specialty.class);
@@ -127,10 +177,19 @@ public class SpecialtyCustomRepository {
                 .having(cb.notEqual(cb.count(subMilitary.get("id")), 0L));
         cq.select(specialty)
                 .where(cb.not(cb.in(specialty.get("id")).value(subquery)));
-        return entityManager.createQuery(cq).getResultList();
+        List<Specialty> resultList = entityManager.createQuery(cq).getResultList();
+        List<Specialty> paginatedList = resultList.stream()
+                .skip(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .collect(Collectors.toList());
+        return new PageImpl<>(
+                paginatedList,
+                pageable,
+                resultList.size()
+        );
     }
 
-    public List<Specialty> findSpecialtiesInCorps(int corpsId, int minCount) {
+    public Page<Specialty> findSpecialtiesInCorps(int corpsId, int minCount, Pageable pageable) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Specialty> cq = cb.createQuery(Specialty.class);
         Root<Specialty> specialty = cq.from(Specialty.class);
@@ -146,10 +205,19 @@ public class SpecialtyCustomRepository {
         cq.select(specialty)
                 .where(corpsCondition)
                 .having(havingCondition);
-        return entityManager.createQuery(cq).getResultList();
+        List<Specialty> resultList = entityManager.createQuery(cq).getResultList();
+        List<Specialty> paginatedList = resultList.stream()
+                .skip(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .collect(Collectors.toList());
+        return new PageImpl<>(
+                paginatedList,
+                pageable,
+                resultList.size()
+        );
     }
 
-    public List<Specialty> findNoSpecialtiesInCorps(int corpsId) {
+    public Page<Specialty> findNoSpecialtiesInCorps(int corpsId, Pageable pageable) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Specialty> cq = cb.createQuery(Specialty.class);
         Root<Specialty> specialty = cq.from(Specialty.class);
@@ -166,6 +234,15 @@ public class SpecialtyCustomRepository {
                 .having(cb.notEqual(cb.count(subMilitary.get("id")), 0L));
         cq.select(specialty)
                 .where(cb.not(cb.in(specialty.get("id")).value(subquery)));
-        return entityManager.createQuery(cq).getResultList();
+        List<Specialty> resultList = entityManager.createQuery(cq).getResultList();
+        List<Specialty> paginatedList = resultList.stream()
+                .skip(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .collect(Collectors.toList());
+        return new PageImpl<>(
+                paginatedList,
+                pageable,
+                resultList.size()
+        );
     }
 }

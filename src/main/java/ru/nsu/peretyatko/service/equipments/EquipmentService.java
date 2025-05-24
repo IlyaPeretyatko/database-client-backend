@@ -15,7 +15,6 @@ import ru.nsu.peretyatko.model.equipments.Equipment;
 import ru.nsu.peretyatko.repository.equipments.EquipmentCustomRepository;
 import ru.nsu.peretyatko.repository.equipments.EquipmentRepository;
 
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -60,62 +59,74 @@ public class EquipmentService {
     }
 
     @Transactional(readOnly = true)
-    public List<EquipmentResponse> getEquipmentsByType(String titleType) {
-        return equipmentCustomRepository.findEquipmentsByType(titleType).stream().map(equipmentMapper::toEquipmentResponse).toList();
+    public Page<EquipmentResponse> getEquipmentsByType(String titleType, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return equipmentCustomRepository.findEquipmentsByType(titleType, pageable).map(equipmentMapper::toEquipmentResponse);
     }
 
     @Transactional(readOnly = true)
-    public List<EquipmentResponse> getEquipmentsByCategory(String titleCategory) {
-        return equipmentCustomRepository.findEquipmentsByCategory(titleCategory).stream().map(equipmentMapper::toEquipmentResponse).toList();
+    public Page<EquipmentResponse> getEquipmentsByCategory(String titleCategory, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return equipmentCustomRepository.findEquipmentsByCategory(titleCategory, pageable).map(equipmentMapper::toEquipmentResponse);
     }
 
     @Transactional(readOnly = true)
-    public List<EquipmentResponse> getEquipmentsByTypeUnit(String titleType, int unitId) {
-        return equipmentCustomRepository.findEquipmentsByTypeUnit(titleType, unitId).stream().map(equipmentMapper::toEquipmentResponse).toList();
+    public Page<EquipmentResponse> getEquipmentsByTypeUnit(String titleType, int unitId, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return equipmentCustomRepository.findEquipmentsByTypeUnit(titleType, unitId, pageable).map(equipmentMapper::toEquipmentResponse);
     }
 
     @Transactional(readOnly = true)
-    public List<EquipmentResponse> getEquipmentsByCategoryUnit(String titleCategory, int unitId) {
-        return equipmentCustomRepository.findEquipmentsByCategoryUnit(titleCategory, unitId).stream().map(equipmentMapper::toEquipmentResponse).toList();
+    public Page<EquipmentResponse> getEquipmentsByCategoryUnit(String titleCategory, int unitId, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return equipmentCustomRepository.findEquipmentsByCategoryUnit(titleCategory, unitId, pageable).map(equipmentMapper::toEquipmentResponse);
     }
 
     @Transactional(readOnly = true)
-    public List<EquipmentResponse> getEquipmentsByTypeDivision(String titleType, int divisionId) {
-        return equipmentCustomRepository.findEquipmentsByTypeDivision(titleType, divisionId).stream().map(equipmentMapper::toEquipmentResponse).toList();
+    public Page<EquipmentResponse> getEquipmentsByTypeDivision(String titleType, int divisionId, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return equipmentCustomRepository.findEquipmentsByTypeDivision(titleType, divisionId, pageable).map(equipmentMapper::toEquipmentResponse);
     }
 
     @Transactional(readOnly = true)
-    public List<EquipmentResponse> getEquipmentsByCategoryDivision(String titleCategory, int divisionId) {
-        return equipmentCustomRepository.findEquipmentsByCategoryDivision(titleCategory, divisionId).stream().map(equipmentMapper::toEquipmentResponse).toList();
+    public Page<EquipmentResponse> getEquipmentsByCategoryDivision(String titleCategory, int divisionId, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return equipmentCustomRepository.findEquipmentsByCategoryDivision(titleCategory, divisionId, pageable).map(equipmentMapper::toEquipmentResponse);
     }
 
     @Transactional(readOnly = true)
-    public List<EquipmentResponse> getEquipmentsByTypeBrigade(String titleType, int brigadeId) {
-        return equipmentCustomRepository.findEquipmentsByTypeBrigade(titleType, brigadeId).stream().map(equipmentMapper::toEquipmentResponse).toList();
+    public Page<EquipmentResponse> getEquipmentsByTypeBrigade(String titleType, int brigadeId, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return equipmentCustomRepository.findEquipmentsByTypeBrigade(titleType, brigadeId, pageable).map(equipmentMapper::toEquipmentResponse);
     }
 
     @Transactional(readOnly = true)
-    public List<EquipmentResponse> getEquipmentsByCategoryBrigade(String titleCategory, int brigadeId) {
-        return equipmentCustomRepository.findEquipmentsByCategoryBrigade(titleCategory, brigadeId).stream().map(equipmentMapper::toEquipmentResponse).toList();
+    public Page<EquipmentResponse> getEquipmentsByCategoryBrigade(String titleCategory, int brigadeId, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return equipmentCustomRepository.findEquipmentsByCategoryBrigade(titleCategory, brigadeId, pageable).map(equipmentMapper::toEquipmentResponse);
     }
 
     @Transactional(readOnly = true)
-    public List<EquipmentResponse> getEquipmentsByTypeCorps(String titleType, int corpsId) {
-        return equipmentCustomRepository.findEquipmentsByTypeCorps(titleType, corpsId).stream().map(equipmentMapper::toEquipmentResponse).toList();
+    public Page<EquipmentResponse> getEquipmentsByTypeCorps(String titleType, int corpsId, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return equipmentCustomRepository.findEquipmentsByTypeCorps(titleType, corpsId, pageable).map(equipmentMapper::toEquipmentResponse);
     }
 
     @Transactional(readOnly = true)
-    public List<EquipmentResponse> getEquipmentsByCategoryCorps(String titleCategory, int corpsId) {
-        return equipmentCustomRepository.findEquipmentsByCategoryCorps(titleCategory, corpsId).stream().map(equipmentMapper::toEquipmentResponse).toList();
+    public Page<EquipmentResponse> getEquipmentsByCategoryCorps(String titleCategory, int corpsId, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return equipmentCustomRepository.findEquipmentsByCategoryCorps(titleCategory, corpsId, pageable).map(equipmentMapper::toEquipmentResponse);
     }
 
     @Transactional(readOnly = true)
-    public List<EquipmentResponse> getEquipmentsByTypeArmy(String titleType, int armyId) {
-        return equipmentCustomRepository.findEquipmentsByTypeArmy(titleType, armyId).stream().map(equipmentMapper::toEquipmentResponse).toList();
+    public Page<EquipmentResponse> getEquipmentsByTypeArmy(String titleType, int armyId, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return equipmentCustomRepository.findEquipmentsByTypeArmy(titleType, armyId, pageable).map(equipmentMapper::toEquipmentResponse);
     }
 
     @Transactional(readOnly = true)
-    public List<EquipmentResponse> getEquipmentsByCategoryArmy(String titleCategory, int armyId) {
-        return equipmentCustomRepository.findEquipmentsByCategoryArmy(titleCategory, armyId).stream().map(equipmentMapper::toEquipmentResponse).toList();
+    public Page<EquipmentResponse> getEquipmentsByCategoryArmy(String titleCategory, int armyId, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return equipmentCustomRepository.findEquipmentsByCategoryArmy(titleCategory, armyId, pageable).map(equipmentMapper::toEquipmentResponse);
     }
 }

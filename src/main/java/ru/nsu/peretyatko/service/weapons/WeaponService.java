@@ -15,7 +15,6 @@ import ru.nsu.peretyatko.repository.weapons.WeaponCustomRepository;
 import ru.nsu.peretyatko.repository.weapons.WeaponRepository;
 import org.springframework.data.domain.Pageable;
 
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -60,63 +59,75 @@ public class WeaponService {
     }
 
     @Transactional(readOnly = true)
-    public List<WeaponResponse> getWeaponsByType(String titleType) {
-        return weaponCustomRepository.findWeaponsByType(titleType).stream().map(weaponMapper::toWeaponResponse).toList();
+    public Page<WeaponResponse> getWeaponsByType(String titleType, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return weaponCustomRepository.findWeaponsByType(titleType, pageable).map(weaponMapper::toWeaponResponse);
     }
 
     @Transactional(readOnly = true)
-    public List<WeaponResponse> getWeaponsByCategory(String titleCategory) {
-        return weaponCustomRepository.findWeaponsByCategory(titleCategory).stream().map(weaponMapper::toWeaponResponse).toList();
+    public Page<WeaponResponse> getWeaponsByCategory(String titleCategory, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return weaponCustomRepository.findWeaponsByCategory(titleCategory, pageable).map(weaponMapper::toWeaponResponse);
     }
 
     @Transactional(readOnly = true)
-    public List<WeaponResponse> getWeaponsByTypeUnit(String titleType, int unitId) {
-        return weaponCustomRepository.findWeaponsByTypeUnit(titleType, unitId).stream().map(weaponMapper::toWeaponResponse).toList();
+    public Page<WeaponResponse> getWeaponsByTypeUnit(String titleType, int unitId, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return weaponCustomRepository.findWeaponsByTypeUnit(titleType, unitId, pageable).map(weaponMapper::toWeaponResponse);
     }
 
     @Transactional(readOnly = true)
-    public List<WeaponResponse> getWeaponsByCategoryUnit(String titleCategory, int unitId) {
-        return weaponCustomRepository.findWeaponsByCategoryUnit(titleCategory, unitId).stream().map(weaponMapper::toWeaponResponse).toList();
+    public Page<WeaponResponse> getWeaponsByCategoryUnit(String titleCategory, int unitId, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return weaponCustomRepository.findWeaponsByCategoryUnit(titleCategory, unitId, pageable).map(weaponMapper::toWeaponResponse);
     }
 
     @Transactional(readOnly = true)
-    public List<WeaponResponse> getWeaponsByTypeDivision(String titleType, int divisionId) {
-        return weaponCustomRepository.findWeaponsByTypeDivision(titleType, divisionId).stream().map(weaponMapper::toWeaponResponse).toList();
+    public Page<WeaponResponse> getWeaponsByTypeDivision(String titleType, int divisionId, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return weaponCustomRepository.findWeaponsByTypeDivision(titleType, divisionId, pageable).map(weaponMapper::toWeaponResponse);
     }
 
     @Transactional(readOnly = true)
-    public List<WeaponResponse> getWeaponsByCategoryDivision(String titleCategory, int divisionId) {
-        return weaponCustomRepository.findWeaponsByCategoryDivision(titleCategory, divisionId).stream().map(weaponMapper::toWeaponResponse).toList();
+    public Page<WeaponResponse> getWeaponsByCategoryDivision(String titleCategory, int divisionId, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return weaponCustomRepository.findWeaponsByCategoryDivision(titleCategory, divisionId, pageable).map(weaponMapper::toWeaponResponse);
     }
 
     @Transactional(readOnly = true)
-    public List<WeaponResponse> getWeaponsByTypeBrigade(String titleType, int brigadeId) {
-        return weaponCustomRepository.findWeaponsByTypeBrigade(titleType, brigadeId).stream().map(weaponMapper::toWeaponResponse).toList();
+    public Page<WeaponResponse> getWeaponsByTypeBrigade(String titleType, int brigadeId, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return weaponCustomRepository.findWeaponsByTypeBrigade(titleType, brigadeId, pageable).map(weaponMapper::toWeaponResponse);
     }
 
     @Transactional(readOnly = true)
-    public List<WeaponResponse> getWeaponsByCategoryBrigade(String titleCategory, int brigadeId) {
-        return weaponCustomRepository.findWeaponsByCategoryBrigade(titleCategory, brigadeId).stream().map(weaponMapper::toWeaponResponse).toList();
+    public Page<WeaponResponse> getWeaponsByCategoryBrigade(String titleCategory, int brigadeId, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return weaponCustomRepository.findWeaponsByCategoryBrigade(titleCategory, brigadeId, pageable).map(weaponMapper::toWeaponResponse);
     }
 
     @Transactional(readOnly = true)
-    public List<WeaponResponse> getWeaponsByTypeCorps(String titleType, int corpsId) {
-        return weaponCustomRepository.findWeaponsByTypeCorps(titleType, corpsId).stream().map(weaponMapper::toWeaponResponse).toList();
+    public Page<WeaponResponse> getWeaponsByTypeCorps(String titleType, int corpsId, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return weaponCustomRepository.findWeaponsByTypeCorps(titleType, corpsId, pageable).map(weaponMapper::toWeaponResponse);
     }
 
     @Transactional(readOnly = true)
-    public List<WeaponResponse> getWeaponsByCategoryCorps(String titleCategory, int corpsId) {
-        return weaponCustomRepository.findWeaponsByCategoryCorps(titleCategory, corpsId).stream().map(weaponMapper::toWeaponResponse).toList();
+    public Page<WeaponResponse> getWeaponsByCategoryCorps(String titleCategory, int corpsId, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return weaponCustomRepository.findWeaponsByCategoryCorps(titleCategory, corpsId, pageable).map(weaponMapper::toWeaponResponse);
     }
 
     @Transactional(readOnly = true)
-    public List<WeaponResponse> getWeaponsByTypeArmy(String titleType, int armyId) {
-        return weaponCustomRepository.findWeaponsByTypeArmy(titleType, armyId).stream().map(weaponMapper::toWeaponResponse).toList();
+    public Page<WeaponResponse> getWeaponsByTypeArmy(String titleType, int armyId, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return weaponCustomRepository.findWeaponsByTypeArmy(titleType, armyId, pageable).map(weaponMapper::toWeaponResponse);
     }
 
     @Transactional(readOnly = true)
-    public List<WeaponResponse> getWeaponsByCategoryArmy(String titleCategory, int armyId) {
-        return weaponCustomRepository.findWeaponsByCategoryArmy(titleCategory, armyId).stream().map(weaponMapper::toWeaponResponse).toList();
+    public Page<WeaponResponse> getWeaponsByCategoryArmy(String titleCategory, int armyId, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return weaponCustomRepository.findWeaponsByCategoryArmy(titleCategory, armyId, pageable).map(weaponMapper::toWeaponResponse);
     }
 
 }
