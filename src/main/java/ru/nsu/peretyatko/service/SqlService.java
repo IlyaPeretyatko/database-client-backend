@@ -1,11 +1,7 @@
-// SqlService.java
 package ru.nsu.peretyatko.service;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Map;
 
 @Service
 public class SqlService {
@@ -16,12 +12,13 @@ public class SqlService {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public String executeSelectQuery(String query) throws Exception {
-        List<Map<String, Object>> result = jdbcTemplate.queryForList(query);
-        return result.toString();
-    }
+    public Object executeQuery(String query) {
+        String upperQuery = query.toUpperCase().trim();
 
-    public int executeUpdateQuery(String query) throws Exception {
-        return jdbcTemplate.update(query);
+        if (upperQuery.startsWith("SELECT")) {
+            return jdbcTemplate.queryForList(query);
+        } else {
+            return jdbcTemplate.update(query);
+        }
     }
 }
