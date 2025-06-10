@@ -1,1 +1,1 @@
-GRANT ALL PRIVILEGES ON DATABASE bank to bank;
+GRANT ALL PRIVILEGES ON DATABASE district to district;

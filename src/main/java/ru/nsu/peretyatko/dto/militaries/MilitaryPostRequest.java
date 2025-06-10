@@ -32,5 +32,7 @@ public class MilitaryPostRequest {
     @NotNull(message = "Rank id cannot be null.")
     private Integer rankId;
 
+    private Integer unitId;
+
     private Set<SpecialtyRequest> specialties;
 }

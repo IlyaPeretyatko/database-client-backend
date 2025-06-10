@@ -16,8 +16,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import ru.nsu.peretyatko.security.JwtTokenProvider;
+import ru.nsu.peretyatko.repository.auth.UserRepository;
 import ru.nsu.peretyatko.security.JwtTokenFilter;
+import ru.nsu.peretyatko.security.JwtTokenProvider;
 
 @Configuration
 @EnableWebSecurity
@@ -26,6 +27,8 @@ import ru.nsu.peretyatko.security.JwtTokenFilter;
 public class SecurityConfig {
 
     private final JwtTokenProvider jwtTokenProvider;
+
+    private final UserRepository userRepository;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -67,14 +70,22 @@ public class SecurityConfig {
                                                             .value()
                                             );
                                             response.getWriter()
-                                                    .write("Unauthorized.");
+                                                    .write("Unauthorized. Access denied.");
                                         }))
                 .authorizeHttpRequests(configurer ->
                         configurer.requestMatchers("/users/**")
                                 .permitAll()
                                 .requestMatchers("/auth/**")
                                 .permitAll()
-                                .anyRequest().authenticated())
+                                .requestMatchers("/swagger-ui/**")
+                                .permitAll()
+                                .requestMatchers("/swagger-ui.html")
+                                .permitAll()
+                                .requestMatchers("/v3/**")
+                                .permitAll()
+                                .requestMatchers("/sql/**").hasRole("ADMIN")
+                                .requestMatchers("/roles/**").hasRole("ADMIN")
+                                .anyRequest().hasRole("USER"))
                 .anonymous(AbstractHttpConfigurer::disable)
                 .addFilterBefore(new JwtTokenFilter(jwtTokenProvider),
                         UsernamePasswordAuthenticationFilter.class);

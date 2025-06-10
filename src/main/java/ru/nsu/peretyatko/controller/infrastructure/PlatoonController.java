@@ -1,7 +1,10 @@
 package ru.nsu.peretyatko.controller.infrastructure;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.nsu.peretyatko.dto.infrastructure.PlatoonPatchRequest;
@@ -12,6 +15,7 @@ import ru.nsu.peretyatko.validator.infrastructure.PlatoonValidator;
 
 import java.util.List;
 
+@Tag(name = "Separations of units API")
 @RestController
 @RequestMapping("/platoons")
 @RequiredArgsConstructor
@@ -21,16 +25,20 @@ public class PlatoonController {
 
     private final PlatoonValidator platoonValidator;
 
+    @Operation(summary = "Получить перечень взводов")
     @GetMapping
-    public List<PlatoonResponse> getPlatoons() {
-        return platoonService.getPlatoons();
+    public Page<PlatoonResponse> getPlatoons(@RequestParam(defaultValue = "0") int page,
+                                             @RequestParam(defaultValue = "10") int size) {
+        return platoonService.getPlatoons(page, size);
     }
 
+    @Operation(summary = "Получить взвод по ID")
     @GetMapping("/{id}")
     public PlatoonResponse getPlatoonById(@PathVariable int id) {
         return platoonService.getPlatoon(id);
     }
 
+    @Operation(summary = "Добавить взвод")
     @PostMapping
     public void createPlatoon(@Valid @RequestBody PlatoonPostRequest platoonPostRequest,
                               BindingResult bindingResult) {
@@ -38,6 +46,7 @@ public class PlatoonController {
         platoonService.createPlatoon(platoonPostRequest);
     }
 
+    @Operation(summary = "Изменить данные взвода по ID")
     @PatchMapping("/{id}")
     public void updatePlatoon(@PathVariable int id,
                               @Valid @RequestBody PlatoonPatchRequest platoonPatchRequest,
@@ -46,6 +55,7 @@ public class PlatoonController {
         platoonService.updatePlatoon(id, platoonPatchRequest);
     }
 
+    @Operation(summary = "Удалить взвод по ID")
     @DeleteMapping("/{id}")
     public void deletePlatoon(@PathVariable int id) {
         platoonService.deletePlatoon(id);

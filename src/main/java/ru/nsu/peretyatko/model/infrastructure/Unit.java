@@ -39,4 +39,12 @@ public class Unit {
     @OneToMany(mappedBy = "unit", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH}, orphanRemoval = true)
     private Set<Weapon> weapons;
 
+    @OneToMany(mappedBy = "unit", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<DivisionUnit> divisionUnits;
+
+    @OneToMany(mappedBy = "unit", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<BrigadeUnit> brigadeUnits;
+
+    @OneToMany(mappedBy = "unit", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<CorpsUnit> corpsUnits;
 }

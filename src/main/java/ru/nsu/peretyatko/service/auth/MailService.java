@@ -48,7 +48,7 @@ public class MailService {
         model.put("name", user.getName());
         model.put("domain", "localhost:8080");
         model.put("token", user.getVerificationCode().toString());
-        configuration.getTemplate("register.ftlh").process(model, stringWriter);
+        configuration.getTemplate("mail/register.ftlh").process(model, stringWriter);
         return stringWriter.getBuffer().toString();
     }
 
@@ -70,7 +70,7 @@ public class MailService {
         model.put("name", user.getName());
         model.put("domain", "localhost:8080");
         model.put("token", user.getVerificationCode().toString());
-        configuration.getTemplate("reset.ftlh").process(model, stringWriter);
+        configuration.getTemplate("mail/reset.ftlh").process(model, stringWriter);
         return stringWriter.getBuffer().toString();
     }
 }

@@ -6,6 +6,7 @@ import lombok.*;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 @Table(name = "rank_categories")
 public class RankCategory {
     @Id
@@ -14,4 +15,9 @@ public class RankCategory {
 
     @Column(name = "title", nullable = false, unique = true)
     private String title;
+
+    public RankCategory(String title) {
+        this.title = title;
+    }
+
 }

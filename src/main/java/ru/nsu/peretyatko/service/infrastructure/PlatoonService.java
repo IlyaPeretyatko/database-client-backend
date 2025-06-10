@@ -1,6 +1,9 @@
 package ru.nsu.peretyatko.service.infrastructure;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.nsu.peretyatko.dto.infrastructure.PlatoonPatchRequest;
@@ -21,8 +24,9 @@ public class PlatoonService {
     private final PlatoonMapper platoonMapper;
 
     @Transactional(readOnly = true)
-    public List<PlatoonResponse> getPlatoons() {
-        return platoonRepository.findAll().stream().map(platoonMapper::toPlatoonResponse).toList();
+    public Page<PlatoonResponse> getPlatoons(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return platoonRepository.findAll(pageable).map(platoonMapper::toPlatoonResponse);
     }
 
     @Transactional(readOnly = true)

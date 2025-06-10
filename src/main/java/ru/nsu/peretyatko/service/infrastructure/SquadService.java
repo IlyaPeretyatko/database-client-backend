@@ -1,6 +1,9 @@
 package ru.nsu.peretyatko.service.infrastructure;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.nsu.peretyatko.dto.infrastructure.SquadPatchRequest;
@@ -21,8 +24,9 @@ public class SquadService {
     private final SquadMapper squadMapper;
 
     @Transactional(readOnly = true)
-    public List<SquadResponse> getSquads() {
-        return squadRepository.findAll().stream().map(squadMapper::toSquadResponse).toList();
+    public Page<SquadResponse> getSquads(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return squadRepository.findAll(pageable).map(squadMapper::toSquadResponse);
     }
 
     @Transactional(readOnly = true)

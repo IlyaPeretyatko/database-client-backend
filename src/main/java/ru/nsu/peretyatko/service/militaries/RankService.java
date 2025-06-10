@@ -1,6 +1,8 @@
 package ru.nsu.peretyatko.service.militaries;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.nsu.peretyatko.dto.militaries.RankRequest;
@@ -9,8 +11,7 @@ import ru.nsu.peretyatko.error.exception.ServiceException;
 import ru.nsu.peretyatko.mapper.militaries.RankMapper;
 import ru.nsu.peretyatko.model.militaries.Rank;
 import ru.nsu.peretyatko.repository.militaries.RankRepository;
-
-import java.util.List;
+import org.springframework.data.domain.Page;
 
 @Service
 @RequiredArgsConstructor
@@ -21,8 +22,9 @@ public class RankService {
     private final RankMapper rankMapper;
 
     @Transactional(readOnly = true)
-    public List<RankResponse> getRanks() {
-        return rankRepository.findAll().stream().map(rankMapper::toRankResponse).toList();
+    public Page<RankResponse> getRanks(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return rankRepository.findAll(pageable).map(rankMapper::toRankResponse);
     }
 
     @Transactional(readOnly = true)

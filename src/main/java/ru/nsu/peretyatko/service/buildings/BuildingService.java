@@ -1,6 +1,9 @@
 package ru.nsu.peretyatko.service.buildings;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.nsu.peretyatko.dto.buildings.BuildingPatchRequest;
@@ -9,6 +12,7 @@ import ru.nsu.peretyatko.dto.buildings.BuildingResponse;
 import ru.nsu.peretyatko.error.exception.ServiceException;
 import ru.nsu.peretyatko.mapper.buildings.BuildingMapper;
 import ru.nsu.peretyatko.model.buildings.Building;
+import ru.nsu.peretyatko.repository.buildings.BuildingCustomRepository;
 import ru.nsu.peretyatko.repository.buildings.BuildingRepository;
 
 import java.util.List;
@@ -16,13 +20,17 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class BuildingService {
+
+    private final BuildingCustomRepository buildingCustomRepository;
+
     private final BuildingRepository buildingRepository;
 
     private final BuildingMapper buildingMapper;
 
     @Transactional(readOnly = true)
-    public List<BuildingResponse> getBuildings() {
-        return buildingRepository.findAll().stream().map(buildingMapper::toBuildingResponse).toList();
+    public Page<BuildingResponse> getBuildings(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return buildingRepository.findAll(pageable).map(buildingMapper::toBuildingResponse);
     }
 
     @Transactional(readOnly = true)
@@ -50,4 +58,23 @@ public class BuildingService {
         }
         buildingRepository.deleteById(id);
     }
+
+    @Transactional(readOnly = true)
+    public Page<BuildingResponse> getBuildingsUnit(int unitId, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return buildingCustomRepository.findBuildingsUnit(unitId, pageable).map(buildingMapper::toBuildingResponse);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<BuildingResponse> getBuildingsOfSeparation(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return buildingCustomRepository.findBuildingsOfSeparation(pageable).map(buildingMapper::toBuildingResponse);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<BuildingResponse> getBuildingsOfNoSeparation(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return buildingCustomRepository.findBuildingsOfNoSeparation(pageable).map(buildingMapper::toBuildingResponse);
+    }
+
 }

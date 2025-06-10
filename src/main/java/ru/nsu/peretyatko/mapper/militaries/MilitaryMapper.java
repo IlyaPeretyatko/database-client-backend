@@ -4,9 +4,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import ru.nsu.peretyatko.dto.militaries.*;
 import ru.nsu.peretyatko.error.exception.ServiceException;
+import ru.nsu.peretyatko.model.infrastructure.Unit;
 import ru.nsu.peretyatko.model.militaries.Military;
 import ru.nsu.peretyatko.model.militaries.Rank;
 import ru.nsu.peretyatko.model.militaries.Specialty;
+import ru.nsu.peretyatko.repository.infrastructure.UnitRepository;
 import ru.nsu.peretyatko.repository.militaries.RankRepository;
 
 import java.util.Set;
@@ -17,6 +19,8 @@ import java.util.stream.Collectors;
 public class MilitaryMapper {
 
     private final RankRepository rankRepository;
+
+    private final UnitRepository unitRepository;
 
     private final MilitaryPropertyMapper militaryPropertyMapper;
 
@@ -30,6 +34,10 @@ public class MilitaryMapper {
         military.setBirthDate(militaryPostRequest.getBirthDate());
         Rank rank = rankRepository.findById(militaryPostRequest.getRankId()).orElseThrow(() -> new ServiceException(404, "Rank was not found."));
         military.setRank(rank);
+        if (militaryPostRequest.getUnitId() != null) {
+            Unit unit = unitRepository.findById(militaryPostRequest.getUnitId()).orElseThrow(() -> new ServiceException(404, "Unit was not found."));
+            military.setUnit(unit);
+        }
         Set<Specialty> specialties = militaryPostRequest.getSpecialties().stream().map(specialtyMapper::toSpecialty).collect(Collectors.toSet());
         military.setSpecialties(specialties);
         return military;
@@ -43,6 +51,7 @@ public class MilitaryMapper {
         militaryResponse.setMiddleName(military.getMiddleName());
         militaryResponse.setBirthDate(military.getBirthDate());
         militaryResponse.setRankId(military.getRank().getId());
+        militaryResponse.setUnitId(military.getUnit().getId());
         Set<MilitaryPropertyResponse> properties = military.getProperties().stream().map(militaryPropertyMapper::toMilitaryPropertyResponse).collect(Collectors.toSet());
         militaryResponse.setProperties(properties);
         Set<SpecialtyResponse> specialties = military.getSpecialties().stream().map(specialtyMapper::toSpecialtyResponse).collect(Collectors.toSet());
@@ -50,25 +59,29 @@ public class MilitaryMapper {
         return militaryResponse;
     }
 
-    public void updateMilitary(Military military, MilitaryPatchRequest militaryRequest) {
-        if (militaryRequest.getFirstName() != null) {
-            military.setFirstName(militaryRequest.getFirstName());
+    public void updateMilitary(Military military, MilitaryPatchRequest militaryPatchRequest) {
+        if (militaryPatchRequest.getFirstName() != null) {
+            military.setFirstName(militaryPatchRequest.getFirstName());
         }
-        if (militaryRequest.getLastName() != null) {
-            military.setLastName(militaryRequest.getLastName());
+        if (militaryPatchRequest.getLastName() != null) {
+            military.setLastName(militaryPatchRequest.getLastName());
         }
-        if (militaryRequest.getMiddleName() != null) {
-            military.setMiddleName(militaryRequest.getMiddleName());
+        if (militaryPatchRequest.getMiddleName() != null) {
+            military.setMiddleName(militaryPatchRequest.getMiddleName());
         }
-        if (militaryRequest.getBirthDate() != null) {
-            military.setBirthDate(militaryRequest.getBirthDate());
+        if (militaryPatchRequest.getBirthDate() != null) {
+            military.setBirthDate(militaryPatchRequest.getBirthDate());
         }
-        if (militaryRequest.getRankId() != null) {
-            Rank rank = rankRepository.findById(militaryRequest.getRankId()).orElseThrow(() -> new ServiceException(404, "Rank was not found."));
+        if (militaryPatchRequest.getRankId() != null) {
+            Rank rank = rankRepository.findById(militaryPatchRequest.getRankId()).orElseThrow(() -> new ServiceException(404, "Rank was not found."));
             military.setRank(rank);
         }
-        if (militaryRequest.getSpecialties() != null) {
-            Set<Specialty> specialties = militaryRequest.getSpecialties().stream().map(specialtyMapper::toSpecialty).collect(Collectors.toSet());
+        if (militaryPatchRequest.getUnitId() != null) {
+            Unit unit = unitRepository.findById(militaryPatchRequest.getUnitId()).orElseThrow(() -> new ServiceException(404, "Unit was not found."));
+            military.setUnit(unit);
+        }
+        if (militaryPatchRequest.getSpecialties() != null) {
+            Set<Specialty> specialties = militaryPatchRequest.getSpecialties().stream().map(specialtyMapper::toSpecialty).collect(Collectors.toSet());
             military.setSpecialties(specialties);
         }
     }

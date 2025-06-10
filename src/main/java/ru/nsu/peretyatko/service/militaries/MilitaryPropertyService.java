@@ -1,6 +1,9 @@
 package ru.nsu.peretyatko.service.militaries;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.nsu.peretyatko.dto.militaries.MilitaryPatchRequest;
@@ -24,8 +27,9 @@ public class MilitaryPropertyService {
     private final MilitaryPropertyMapper militaryPropertyMapper;
 
     @Transactional(readOnly = true)
-    public List<MilitaryPropertyResponse> getMilitaryProperties() {
-        return militaryPropertyRepository.findAll().stream().map(militaryPropertyMapper::toMilitaryPropertyResponse).toList();
+    public Page<MilitaryPropertyResponse> getMilitaryProperties(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return militaryPropertyRepository.findAll(pageable).map(militaryPropertyMapper::toMilitaryPropertyResponse);
     }
 
     @Transactional(readOnly = true)

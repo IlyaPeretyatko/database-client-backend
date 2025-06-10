@@ -2,6 +2,7 @@ package ru.nsu.peretyatko.model.militaries;
 
 import jakarta.persistence.*;
 import lombok.*;
+import ru.nsu.peretyatko.model.infrastructure.Unit;
 
 import java.util.Date;
 import java.util.Set;
@@ -34,6 +35,11 @@ public class Military {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "rank_id")
     private Rank rank;
+
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "unit_id")
+    private Unit unit;
 
     @OneToMany(mappedBy = "military", cascade = ALL)
     private Set<MilitaryProperty> properties;

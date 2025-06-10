@@ -1,7 +1,10 @@
 package ru.nsu.peretyatko.controller.auth;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,6 +16,7 @@ import ru.nsu.peretyatko.dto.auth.jwt.RefreshRequest;
 import ru.nsu.peretyatko.service.auth.AuthService;
 import ru.nsu.peretyatko.validator.auth.*;
 
+@Tag(name = "Auth API")
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
@@ -22,6 +26,7 @@ public class AuthController {
 
     private final AuthValidator authValidator;
 
+    @Operation(summary = "Авторизовать пользователя")
     @PostMapping("/login")
     public JwtResponse login(@Valid @RequestBody JwtRequest jwtRequest,
                              BindingResult bindingResult) {
@@ -29,6 +34,7 @@ public class AuthController {
         return authService.login(jwtRequest);
     }
 
+    @Operation(summary = "Обновить access токен")
     @PostMapping("/refresh")
     public JwtResponse refresh(@RequestBody RefreshRequest refreshRequest) {
         return authService.refresh(refreshRequest);
